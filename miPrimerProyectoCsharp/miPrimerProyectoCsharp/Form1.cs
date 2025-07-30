@@ -24,7 +24,29 @@ namespace miPrimerProyectoCsharp
 
         private void btnSaludar_Click(object sender, EventArgs e)
         {
-            lblSaludo.Text = " ¡Hola, " + txtNombre.Text + "!";
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            double num1, num2, respuesta;
+            num1 = double.Parse (txtnum1.Text);
+
+            num2 = double.Parse (txtnum2.Text);
+
+            respuesta = num1 + num2;
+
+            lblrespuesta.Text = "Respuesta: " + respuesta;
+        }
+
+        private void lblnum1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
