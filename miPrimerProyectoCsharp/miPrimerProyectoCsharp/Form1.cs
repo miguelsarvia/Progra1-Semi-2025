@@ -24,17 +24,54 @@ namespace miPrimerProyectoCsharp
 
         private void btnSaludar_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double num1, num2, respuesta;
-            num1 = double.Parse (txtnum1.Text);
+            double num1, num2, respuesta = 0;
+            num1 = Double.Parse(txtnum1.Text);
 
-            num2 = double.Parse (txtnum2.Text);
+            num2 = double.Parse(txtnum2.Text);
 
-            respuesta = num1 + num2;
+            if (optSuma.Checked)
+            {
+                respuesta = num1 + num2;
+            }
+
+            if (optResta.Checked)
+            {
+                respuesta = num1 - num2;
+            }
+
+            if (optMultiplicacion.Checked)
+            {
+                respuesta = num1 * num2;
+            }
+
+            if (optDivision.Checked)
+            {
+                respuesta = num1 / num2;
+            }
+
+            if (optExponente.Checked)
+            {
+                respuesta = Math.Pow(num1, num2);
+            }
+
+            if (optPorcentaje.Checked)
+            {
+                respuesta = num1 / num2 ;
+                respuesta = respuesta * 100;
+            }
+
+            if (optFactorial.Checked)
+            {
+               // respuesta = num1 num2;
+            }
+            //Porcentaje
+            //Factorial. =5x4x3x2x1=120
+            //
 
             lblrespuesta.Text = "Respuesta: " + respuesta;
         }
@@ -47,6 +84,34 @@ namespace miPrimerProyectoCsharp
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCalcularOpciones_Click(object sender, EventArgs e)
+        {
+            double num1, num2, respuesta = 0;
+            num1 = Double.Parse(txtnum1.Text);
+            num2 = double.Parse(txtnum2.Text);
+
+            switch (cboOpciones.SelectedIndex)
+            {
+                case 0:
+                    respuesta = num1 + num2;
+                    break;
+
+                case 1:
+                    respuesta = num1 - num2;
+                    break;
+
+                case 2:
+                    respuesta = num1 * num2;
+                    break;
+
+                case 3:
+                    respuesta = num1 / num2;
+                    break;
+
+            }
+            lblrespuesta.Text = "Respuesta: " + respuesta;
         }
     }
 }
