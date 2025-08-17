@@ -17,101 +17,44 @@ namespace miPrimerProyectoCsharp
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        private double[][] tablaIsr = {
 
+        new Double[] { 0.01,550, 0, 0 },
+        new Double[] { 550.01, 895.24, 0.10, 17.67 },
+        new Double[] { 895.25, 2038.10, 0.20, 60 },
+        new Double[] { 2038.11, 9999999, 0.30, 288.57 }
+
+        };
+
+        private double calcularDeducciones(double sueldo, double porcentaje) {
+            return sueldo * porcentaje ;
         }
 
-        private void btnSaludar_Click(object sender, EventArgs e)
-        {
-
+        private double calcularIsr (double sueldo) {
+            double isr = 0;
+            for (int i = 0; i < tablaIsr.Length; i++){
+                if (sueldo >= tablaIsr[i][0] && sueldo <= tablaIsr[i][1]) { 
+                    isr =(sueldo - tablaIsr[i][0]) * tablaIsr[i][2] + tablaIsr[i][3];
+                }
+            }
+            return isr;
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCalcular_Click(object sender, EventArgs e)
         {
-            double num1, num2, respuesta = 0;
-            num1 = Double.Parse(txtnum1.Text);
+            double sueldo = 0, isss = 0, afp = 0, isr = 0, sueldoneto = 0; 
 
-            num2 = double.Parse(txtnum2.Text);
+            sueldo = Double.Parse( txtSueldo.Text );
+            isss = calcularDeducciones(sueldo, 0.03); // 3% de ISSS -> 3/100=0.03
+            afp = calcularDeducciones(sueldo, 0.0725); // 7.25% de AFP -> 7.25/100=0.0725
+            isr = calcularIsr(sueldo - isss - afp); // Calcular ISR
 
-            if (optSuma.Checked)
-            {
-                respuesta = num1 + num2;
-            }
+            sueldoneto = sueldo -isss - afp - isr; //calcular sueldo neto
 
-            if (optResta.Checked)
-            {
-                respuesta = num1 - num2;
-            }
-
-            if (optMultiplicacion.Checked)
-            {
-                respuesta = num1 * num2;
-            }
-
-            if (optDivision.Checked)
-            {
-                respuesta = num1 / num2;
-            }
-
-            if (optExponente.Checked)
-            {
-                respuesta = Math.Pow(num1, num2);
-            }
-
-            if (optPorcentaje.Checked)
-            {
-                respuesta = num1 / num2 ;
-                respuesta = respuesta * 100;
-            }
-
-            if (optFactorial.Checked)
-            {
-               // respuesta = num1 num2;
-            }
-            //Porcentaje
-            //Factorial. =5x4x3x2x1=120
-            //
-
-            lblrespuesta.Text = "Respuesta: " + respuesta;
-        }
-
-        private void lblnum1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCalcularOpciones_Click(object sender, EventArgs e)
-        {
-            double num1, num2, respuesta = 0;
-            num1 = Double.Parse(txtnum1.Text);
-            num2 = double.Parse(txtnum2.Text);
-
-            switch (cboOpciones.SelectedIndex)
-            {
-                case 0:
-                    respuesta = num1 + num2;
-                    break;
-
-                case 1:
-                    respuesta = num1 - num2;
-                    break;
-
-                case 2:
-                    respuesta = num1 * num2;
-                    break;
-
-                case 3:
-                    respuesta = num1 / num2;
-                    break;
-
-            }
-            lblrespuesta.Text = "Respuesta: " + respuesta;
+            lblIsss.Text = " ISSS " + isss.ToString("C2");
+            lblAfp.Text = " AFP " + afp.ToString("C2");
+            lblIsr.Text = " ISR " + isr.ToString("C2");
+            lblTotalDeducciones.Text = " Total Deducciones " + (isss + afp + isr).ToString("C2");
+            lblSueldoNeto.Text = " Sueldo Neto " + sueldoneto.ToString("C2");
         }
     }
 }
