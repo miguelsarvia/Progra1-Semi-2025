@@ -28,117 +28,67 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblSueldo = new System.Windows.Forms.Label();
-            this.lblIsss = new System.Windows.Forms.Label();
-            this.lblAfp = new System.Windows.Forms.Label();
-            this.lblIsr = new System.Windows.Forms.Label();
-            this.lblTotalDeducciones = new System.Windows.Forms.Label();
-            this.lblSueldoNeto = new System.Windows.Forms.Label();
+            this.lblSerie = new System.Windows.Forms.Label();
+            this.lblSuma = new System.Windows.Forms.Label();
+            this.txtSerie = new System.Windows.Forms.TextBox();
             this.btnCalcular = new System.Windows.Forms.Button();
-            this.txtSueldo = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // lblSueldo
+            // lblSerie
             // 
-            this.lblSueldo.AutoSize = true;
-            this.lblSueldo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSueldo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblSueldo.Location = new System.Drawing.Point(100, 44);
-            this.lblSueldo.Name = "lblSueldo";
-            this.lblSueldo.Size = new System.Drawing.Size(104, 24);
-            this.lblSueldo.TabIndex = 0;
-            this.lblSueldo.Text = "SUELDO: ";
+            this.lblSerie.AutoSize = true;
+            this.lblSerie.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSerie.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lblSerie.Location = new System.Drawing.Point(72, 20);
+            this.lblSerie.Name = "lblSerie";
+            this.lblSerie.Size = new System.Drawing.Size(64, 20);
+            this.lblSerie.TabIndex = 0;
+            this.lblSerie.Text = "SERIE";
             // 
-            // lblIsss
+            // lblSuma
             // 
-            this.lblIsss.AutoSize = true;
-            this.lblIsss.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIsss.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblIsss.Location = new System.Drawing.Point(23, 79);
-            this.lblIsss.Name = "lblIsss";
-            this.lblIsss.Size = new System.Drawing.Size(66, 24);
-            this.lblIsss.TabIndex = 1;
-            this.lblIsss.Text = "ISSS: ";
+            this.lblSuma.AutoSize = true;
+            this.lblSuma.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSuma.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lblSuma.Location = new System.Drawing.Point(72, 61);
+            this.lblSuma.Name = "lblSuma";
+            this.lblSuma.Size = new System.Drawing.Size(80, 20);
+            this.lblSuma.TabIndex = 1;
+            this.lblSuma.Text = "SUMA: ?";
+            this.lblSuma.Click += new System.EventHandler(this.label2_Click);
             // 
-            // lblAfp
+            // txtSerie
             // 
-            this.lblAfp.AutoSize = true;
-            this.lblAfp.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAfp.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblAfp.Location = new System.Drawing.Point(157, 79);
-            this.lblAfp.Name = "lblAfp";
-            this.lblAfp.Size = new System.Drawing.Size(62, 24);
-            this.lblAfp.TabIndex = 2;
-            this.lblAfp.Text = "AFP: ";
-            // 
-            // lblIsr
-            // 
-            this.lblIsr.AutoSize = true;
-            this.lblIsr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIsr.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblIsr.Location = new System.Drawing.Point(288, 79);
-            this.lblIsr.Name = "lblIsr";
-            this.lblIsr.Size = new System.Drawing.Size(54, 24);
-            this.lblIsr.TabIndex = 3;
-            this.lblIsr.Text = "ISR: ";
-            // 
-            // lblTotalDeducciones
-            // 
-            this.lblTotalDeducciones.AutoSize = true;
-            this.lblTotalDeducciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalDeducciones.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblTotalDeducciones.Location = new System.Drawing.Point(23, 135);
-            this.lblTotalDeducciones.Name = "lblTotalDeducciones";
-            this.lblTotalDeducciones.Size = new System.Drawing.Size(197, 24);
-            this.lblTotalDeducciones.TabIndex = 4;
-            this.lblTotalDeducciones.Text = "Total Deducciones: ";
-            // 
-            // lblSueldoNeto
-            // 
-            this.lblSueldoNeto.AutoSize = true;
-            this.lblSueldoNeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSueldoNeto.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblSueldoNeto.Location = new System.Drawing.Point(23, 188);
-            this.lblSueldoNeto.Name = "lblSueldoNeto";
-            this.lblSueldoNeto.Size = new System.Drawing.Size(138, 24);
-            this.lblSueldoNeto.TabIndex = 5;
-            this.lblSueldoNeto.Text = "Sueldo Neto: ";
+            this.txtSerie.Location = new System.Drawing.Point(157, 20);
+            this.txtSerie.Name = "txtSerie";
+            this.txtSerie.Size = new System.Drawing.Size(100, 20);
+            this.txtSerie.TabIndex = 2;
             // 
             // btnCalcular
             // 
-            this.btnCalcular.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalcular.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnCalcular.Location = new System.Drawing.Point(172, 224);
+            this.btnCalcular.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCalcular.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.btnCalcular.Location = new System.Drawing.Point(118, 107);
             this.btnCalcular.Name = "btnCalcular";
-            this.btnCalcular.Size = new System.Drawing.Size(117, 36);
-            this.btnCalcular.TabIndex = 6;
+            this.btnCalcular.Size = new System.Drawing.Size(86, 31);
+            this.btnCalcular.TabIndex = 3;
             this.btnCalcular.Text = "Calcular";
             this.btnCalcular.UseVisualStyleBackColor = true;
             this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
-            // 
-            // txtSueldo
-            // 
-            this.txtSueldo.Location = new System.Drawing.Point(210, 48);
-            this.txtSueldo.Name = "txtSueldo";
-            this.txtSueldo.Size = new System.Drawing.Size(105, 20);
-            this.txtSueldo.TabIndex = 7;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 307);
-            this.Controls.Add(this.txtSueldo);
+            this.ClientSize = new System.Drawing.Size(330, 150);
             this.Controls.Add(this.btnCalcular);
-            this.Controls.Add(this.lblSueldoNeto);
-            this.Controls.Add(this.lblTotalDeducciones);
-            this.Controls.Add(this.lblIsr);
-            this.Controls.Add(this.lblAfp);
-            this.Controls.Add(this.lblIsss);
-            this.Controls.Add(this.lblSueldo);
+            this.Controls.Add(this.txtSerie);
+            this.Controls.Add(this.lblSuma);
+            this.Controls.Add(this.lblSerie);
             this.ForeColor = System.Drawing.SystemColors.Highlight;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,14 +96,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblSueldo;
-        private System.Windows.Forms.Label lblIsss;
-        private System.Windows.Forms.Label lblAfp;
-        private System.Windows.Forms.Label lblIsr;
-        private System.Windows.Forms.Label lblTotalDeducciones;
-        private System.Windows.Forms.Label lblSueldoNeto;
+        private System.Windows.Forms.Label lblSerie;
+        private System.Windows.Forms.Label lblSuma;
+        private System.Windows.Forms.TextBox txtSerie;
         private System.Windows.Forms.Button btnCalcular;
-        private System.Windows.Forms.TextBox txtSueldo;
     }
 }
 

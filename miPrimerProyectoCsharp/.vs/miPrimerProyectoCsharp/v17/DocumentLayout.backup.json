@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7B247638-8C37-4416-A705-1FBBB631F3B1}|miPrimerProyectoCsharp\\miPrimerProyectoCsharp.csproj|C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\miprimerproyectocsharp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B247638-8C37-4416-A705-1FBBB631F3B1}|miPrimerProyectoCsharp\\miPrimerProyectoCsharp.csproj|solutionrelative:miprimerproyectocsharp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7B247638-8C37-4416-A705-1FBBB631F3B1}|miPrimerProyectoCsharp\\miPrimerProyectoCsharp.csproj|c:\\users\\migue\\onedrive\\desktop\\progra1-semi-2025.git\\miprimerproyectocsharp\\miprimerproyectocsharp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{7B247638-8C37-4416-A705-1FBBB631F3B1}|miPrimerProyectoCsharp\\miPrimerProyectoCsharp.csproj|solutionrelative:miprimerproyectocsharp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,19 +30,36 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\miPrimerProyectoCsharp\\Form1.cs",
+              "RelativeDocumentMoniker": "miPrimerProyectoCsharp\\Form1.cs",
+              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\miPrimerProyectoCsharp\\Form1.cs [Dise\u00F1o]*",
+              "RelativeToolTip": "miPrimerProyectoCsharp\\Form1.cs [Dise\u00F1o]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-24T21:44:05.362Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs [Dise\u00F1o]",
+              "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\miPrimerProyectoCsharp\\Form1.cs",
               "RelativeDocumentMoniker": "miPrimerProyectoCsharp\\Form1.cs",
-              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\miPrimerProyectoCsharp\\Form1.cs [Dise\u00F1o]",
-              "RelativeToolTip": "miPrimerProyectoCsharp\\Form1.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Desktop\\Progra1-Semi-2025.git\\miPrimerProyectoCsharp\\miPrimerProyectoCsharp\\Form1.cs*",
+              "RelativeToolTip": "miPrimerProyectoCsharp\\Form1.cs*",
+              "ViewState": "AgIAABcAAAAAAAAAAAAswBkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-24T21:44:05.362Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-08-20T22:37:42.259Z",
+              "EditorCaption": ""
             }
           ]
         }
