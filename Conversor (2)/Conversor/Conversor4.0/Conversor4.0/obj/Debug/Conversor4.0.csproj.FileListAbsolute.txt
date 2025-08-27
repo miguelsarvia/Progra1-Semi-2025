@@ -30,3 +30,14 @@ C:\Users\jeffe\OneDrive\Desktop\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Co
 C:\Users\jeffe\OneDrive\Desktop\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.csproj.CoreCompileInputs.cache
 C:\Users\jeffe\OneDrive\Desktop\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.exe
 C:\Users\jeffe\OneDrive\Desktop\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.pdb
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\bin\Debug\Conversor4.0.exe.config
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\bin\Debug\Conversor4.0.exe
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\bin\Debug\Conversor4.0.pdb
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.csproj.AssemblyReference.cache
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.exe.config
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4._0.Form1.resources
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4._0.Properties.Resources.resources
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.csproj.GenerateResource.cache
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.csproj.CoreCompileInputs.cache
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.exe
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.pdb
