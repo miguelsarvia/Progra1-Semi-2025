@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Conversor4._0
@@ -17,73 +11,58 @@ namespace Conversor4._0
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-        /*
-       Monedas
-       Longitud
-       Masa
-       Volumen
-       Almacenamiento
-       Tiempo
-        */
-
-        String[][] etiquetas = new string[][] {
-            new string[]{"Dolar", "Pesos Mexicanos", "Quetzal", "Lempira", "Colon SV", "Cordobas", "Colon CR"}, //Monedas
-            new string[]{"Metros", "Cm", "Pulgadas","Pie", "Varas", "Yardas", "Km", "Millas"}, //Longitud
-            new string[]{"Libra", "Onza", "Gramo", "Kg", "Quintal", "Tonelada Corta"}, //Masa
-            new string[]{"Galon Us", "Litros", "Pinta Us", "Ml"}, //Volumen
-            new string[]{"GB", "Bit", "Byte", "KB", "MG", "TB"}, //Almacenamiento
-            new string[]{"Dia", "Segundos", "Minutos", "Horas", "Semana", "Meses", "Año"}, //Tiempo
-            new string[]{"Km2", "Mt2", "Milla cuadrada", "Yarda Cuadrada", "Pie cuadrado", "Pulgada Cuadrada", "Hectarea"}, //Area
+        // Tabla de Impuestos (fuera de los métodos)
+        private double[][] tablaImpuesto = {
+            new Double[] {0.01,  500, 1.5, 0 },
+            new Double[] { 500.01,1000 ,1.5, 3 },
+            new Double[] { 1000.01,2000 ,3 ,3 },
+            new Double[] { 2000.01 , 3000 , 6 ,3 },
+            new Double[] { 3000.01 , 6000 , 9 , 2 },
+            new Double[] { 8000.01 , 18000 , 15 , 2 },
+            new Double[] { 18000.01, 30000 , 39 , 2 },
+            new Double[] { 30000.01, 60000 ,  63 , 1 },
+            new Double[] { 60000.01 , 100000 , 93 , 0.8 },
+            new Double[] { 100000.01  ,  200000 , 125 , 0.7 },
+            new Double[] { 200000.01  ,  300000 , 195 , 0.6 },
+            new Double[] { 300000.01   , 400000,  255 , 0.45 },
+            new Double[] { 400000.01  ,  500000 , 300 , 0.4 },
+            new Double[] { 500000.01  ,  1000000 , 340 , 0.30 },
+            new Double[] { 1000000.01 ,  99999999  ,  490 , 0.18 },
         };
-        double[][] valores = new double[][] {
-            new double []{1,18.78, 7.66, 26.15, 8.75, 36.78, 504.12}, //Monedas
-            new double []{1, 100, 39.37, 3.28084, 1.193, 1.09361, 0.001, 0.000621371}, //Longitud
-            new double []{1, 16, 453.592, 0.453592, 0.01, 0.001,0.0005}, //Masa
-            new double []{1, 3.78541, 8, 3785.41}, //Volumen
-            new double []{1, 8e+9, 1e+9, 1e+6, 1000, 0.001}, //Almacenamiento
-            new double []{1, 86400, 1440, 24, 0.142857, 0.0328767, 0.00273973}, //Tiempo
-            new double []{1, 1e+6, 0.386102, 1.196e+6, 1.076e+7, 1.55e+9, 100} //Area
-        };
-        private double convertir(int tipo, int de, int a, double cantidad)
+
+
+        private double CalcularImpuesto(double monto)
         {
-            if (cantidad <= 0)
+            foreach (var tramo in tablaImpuesto)
             {
-                return 0;
+                double desde = tramo[0];
+                double hasta = tramo[1];
+                double precio = tramo[2];
+                double adicional = tramo[3];
+
+                if (monto >= desde && monto <= hasta)
+                {
+                    return (monto - desde) / 1000 * adicional  + precio;
+                }
             }
-            return cantidad * valores[tipo][a] / valores[tipo][de];
+            return 0;
         }
 
-        private void btnConvertir_Click_1(object sender, EventArgs e)
+        private void btnCalcular_Click_1(object sender, EventArgs e)
         {
-            try
+            double monto;
+            if (double.TryParse(txtNumero.Text, out monto))
             {
-                double cantidad = double.Parse(txtCantidadConversor.Text);
-
-                int tipo = cboTipoConversor.SelectedIndex;
-                int de = cboDeConversor.SelectedIndex;
-                int a = cboAConversor.SelectedIndex;
-
-                double respuesta = convertir(tipo, de, a, cantidad);
-                lblRespuestaConversor.Text = "RESPUESTA: " + respuesta.ToString("N2");
+                double impuesto = CalcularImpuesto(monto);
+                if (impuesto == 0)
+                    lblResultados.Text = "No se encontró un tramo de impuesto para el monto ingresado.";
+                else
+                    lblResultados.Text = $"El impuesto a pagar es: {impuesto:C2}";
             }
-            catch (Exception er)
+           
+            else
             {
-                lblRespuestaConversor.Text = "Error " + er.Message + " solo valores validos";
-            }
-        }
-
-        private void cboTipoConversor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            {
-                cboDeConversor.Items.Clear();
-                cboAConversor.Items.Clear();
-
-                cboDeConversor.Items.AddRange(etiquetas[cboTipoConversor.SelectedIndex]);
-                cboAConversor.Items.AddRange(etiquetas[cboTipoConversor.SelectedIndex]);
+                MessageBox.Show("Por favor ingrese un valor numérico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
