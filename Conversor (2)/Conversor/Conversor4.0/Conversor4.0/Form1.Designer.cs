@@ -37,7 +37,7 @@
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(444, 391);
             this.Name = "Form1";
-            this.Text = "Conversor";
+            this.Text = "Administracion de Alumnos";
             this.ResumeLayout(false);
 
         }
