@@ -16,11 +16,15 @@ namespace Conversor4._0
         {
             InitializeComponent();
         }
+        Conexion objConexion = new Conexion();
+        DataSet objDs = new DataSet();
+        DataTable objDt = new DataTable();
 
+        public int posicion = 0;
+        public string accion = "nuevo";
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-        
     }
 }

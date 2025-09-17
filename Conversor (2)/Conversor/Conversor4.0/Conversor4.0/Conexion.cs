@@ -18,7 +18,7 @@ namespace Conversor4._0
 
         public Conexion()
         { //Constructor. inicializador de los atributos
-            String cadenaConexion = "";
+            String cadenaConexion = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\db_academica.mdf;Integrated Security=True";
             objConexion.ConnectionString = cadenaConexion;
             objConexion.Open(); //Abrir la conexion a la BD
         }
