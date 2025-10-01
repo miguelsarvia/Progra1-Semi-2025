@@ -30,6 +30,7 @@ namespace Conversor4._0
             objDt = objDs.Tables["alumnos"];
             objDt.PrimaryKey = new DataColumn[] { objDt.Columns["idAlumno"] };
 
+            grdAlumnos.DataSource = objDt.DefaultView;
             mostrarDatos();
         }
         private void mostrarDatos()
@@ -55,7 +56,7 @@ namespace Conversor4._0
         {
             if (posicion < objDt.Rows.Count - 1)
             {
-                posicion++;// posicion=posicion+1
+                posicion++;// posicion = posicion+1
                 mostrarDatos();
             }
             else
@@ -175,6 +176,41 @@ namespace Conversor4._0
                     actualizarDs();
                 }
             }
+        }
+
+        private void txtBuscarAlumnos_KeyUp(object sender, KeyEventArgs e)
+        {
+            filtrarDatos(txtBuscarAlumnos.Text);
+        }
+
+        private void filtrarDatos(String valor)
+        {
+
+            DataView objDv = objDt.DefaultView;
+            objDv.RowFilter = "Codigo LIKE '%" + valor + "%' OR Nombre LIKE '%" + valor + "%' OR Direccion LIKE '%" + valor + "%'";
+            grdAlumnos.DataSource = objDv;
+            seleccionarAlumno();
+
+        }
+
+        private void seleccionarAlumno()
+        {
+            posicion = objDt.Rows.IndexOf(objDt.Rows.Find(grdAlumnos.CurrentRow.Cells["IdAlumno"].Value));
+            mostrarDatos();
+        }
+        private void grdAlumnos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            seleccionarAlumno();
+        }
+
+        private void Form1_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grbBusquedaAlumno_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

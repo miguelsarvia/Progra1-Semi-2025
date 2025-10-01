@@ -36,6 +36,7 @@
             this.alumnosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.docentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materiaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.periodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,8 @@
             this.aplicacionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.alumnosToolStripMenuItem,
             this.docentesToolStripMenuItem,
-            this.materiaToolStripMenuItem});
+            this.materiaToolStripMenuItem,
+            this.periodoToolStripMenuItem});
             this.aplicacionesToolStripMenuItem.Name = "aplicacionesToolStripMenuItem";
             this.aplicacionesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.aplicacionesToolStripMenuItem.Text = "Aplicaciones";
@@ -90,6 +92,12 @@
             this.materiaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.materiaToolStripMenuItem.Text = "Materia";
             // 
+            // periodoToolStripMenuItem
+            // 
+            this.periodoToolStripMenuItem.Name = "periodoToolStripMenuItem";
+            this.periodoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.periodoToolStripMenuItem.Text = "Periodo";
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,6 +108,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmPrincipal";
             this.Text = "Sistema Academico";
+            this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -116,5 +125,6 @@
         private System.Windows.Forms.ToolStripMenuItem alumnosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem docentesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materiaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem periodoToolStripMenuItem;
     }
 }

@@ -23,5 +23,10 @@ namespace Conversor4._0
             objAlumnos.MdiParent = this;
             objAlumnos.Show();
         }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
