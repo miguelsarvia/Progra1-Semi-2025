@@ -42,5 +42,10 @@ namespace Conversor4._0
             objPeriodos.MdiParent = this;
             objPeriodos.Show();
         }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

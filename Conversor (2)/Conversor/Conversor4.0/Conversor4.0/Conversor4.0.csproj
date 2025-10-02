@@ -129,6 +129,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
@@ -187,6 +188,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db_academica.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\Notas.png" />
+    <None Include="Resources\Periodo.png" />
+    <None Include="Resources\Periodos.png" />
+    <None Include="Resources\Materias.png" />
+    <None Include="Resources\Docente.png" />
+    <None Include="Resources\Alumno.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
