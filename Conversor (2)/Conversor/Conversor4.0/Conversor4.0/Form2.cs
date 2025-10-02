@@ -28,5 +28,12 @@ namespace Conversor4._0
         {
 
         }
+
+        private void materiaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMaterias objMaterias = new frmMaterias();
+            objMaterias.MdiParent = this;
+            objMaterias.Show();
+        }
     }
 }

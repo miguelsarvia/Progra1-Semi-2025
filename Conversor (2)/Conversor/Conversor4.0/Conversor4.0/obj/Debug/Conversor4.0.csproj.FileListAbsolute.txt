@@ -55,3 +55,4 @@ C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025g\Conversor (2)\Conversor\Co
 C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025g\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4.0.pdb
 C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025g\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4._0.FrmPrincipal.resources
 C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025g\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4._0.UserControl1.resources
+C:\Users\Migue\OneDrive\Escritorio\Progra1-Semi-2025g\Conversor (2)\Conversor\Conversor4.0\Conversor4.0\obj\Debug\Conversor4._0.frmMaterias.resources
