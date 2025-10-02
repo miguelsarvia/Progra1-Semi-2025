@@ -76,14 +76,14 @@
             // alumnosToolStripMenuItem
             // 
             this.alumnosToolStripMenuItem.Name = "alumnosToolStripMenuItem";
-            this.alumnosToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.alumnosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.alumnosToolStripMenuItem.Text = "Alumnos";
             this.alumnosToolStripMenuItem.Click += new System.EventHandler(this.alumnosToolStripMenuItem_Click_1);
             // 
             // docentesToolStripMenuItem
             // 
             this.docentesToolStripMenuItem.Name = "docentesToolStripMenuItem";
-            this.docentesToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.docentesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.docentesToolStripMenuItem.Text = "Docentes ";
             // 
             // materiaToolStripMenuItem
@@ -96,8 +96,9 @@
             // periodoToolStripMenuItem
             // 
             this.periodoToolStripMenuItem.Name = "periodoToolStripMenuItem";
-            this.periodoToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.periodoToolStripMenuItem.Text = "Periodo";
+            this.periodoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.periodoToolStripMenuItem.Text = "Periodos";
+            this.periodoToolStripMenuItem.Click += new System.EventHandler(this.periodoToolStripMenuItem_Click);
             // 
             // FrmPrincipal
             // 

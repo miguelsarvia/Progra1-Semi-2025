@@ -35,5 +35,12 @@ namespace Conversor4._0
             objMaterias.MdiParent = this;
             objMaterias.Show();
         }
+
+        private void periodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPeriodos objPeriodos = new frmPeriodos();
+            objPeriodos.MdiParent = this;
+            objPeriodos.Show();
+        }
     }
 }
