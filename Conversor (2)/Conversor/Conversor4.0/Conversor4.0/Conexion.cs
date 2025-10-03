@@ -37,8 +37,8 @@ namespace Conversor4._0
             objComando.CommandText = "SELECT * FROM materias";
             objAdaptador.Fill(objDs, "materias");//Tomando los datos de la BD y llenando el DataSet
 
-            objComando.CommandText = "SELECT * FROM docente";
-            objAdaptador.Fill(objDs, "docente");//Tomando los datos de la BD y llenando el DataSet
+            objComando.CommandText = "SELECT * FROM docentes";
+            objAdaptador.Fill(objDs, "Docentes");//Tomando los datos de la BD y llenando el DataSet
 
 
             return objDs;
@@ -76,6 +76,23 @@ namespace Conversor4._0
             else if (accion == "eliminar")
             {
                 sql = "DELETE FROM materias WHERE idMateria='" + datos[0] + "'";
+            }
+            return ejecutarSQL(sql, datos);
+        }
+        public string administrarDatosDocentes(String[] datos, String accion)
+        {
+            String sql = "";
+            if (accion == "nuevo")
+            {
+                sql = "INSERT INTO materias(codigo,nombre,direccion,numero) VALUES ('" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" + datos[4] + "')";
+            }
+            else if (accion == "modificar")
+            {
+                sql = "UPDATE docentes SET codigo='" + datos[1] + "', nombre='" + datos[2] + "', direccion='" + datos[3] + "', numero='" + datos[4] + "' WHERE idDocemtes='" + datos[0] + "'";
+            }
+            else if (accion == "eliminar")
+            {
+                sql = "DELETE FROM docentes WHERE idDocentes='" + datos[0] + "'";
             }
             return ejecutarSQL(sql, datos);
         }

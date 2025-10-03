@@ -28,16 +28,16 @@ namespace Conversor4._0
             objDs.Clear(); //Limpiar el DataSet
             objDs = objConexion.obtenerDatos();
             objDt = objDs.Tables["alumnos"];
-            objDt.PrimaryKey = new DataColumn[] { objDt.Columns["idAlumno"] };
+            objDt.PrimaryKey = new DataColumn[] { objDt.Columns["IdAlumno"] };
 
-            grdAlumnos.DataSource = objDt.DefaultView;
+            grdAlumno.DataSource = objDt.DefaultView;
             mostrarDatos();
         }
         private void mostrarDatos()
         {
             if (objDt.Rows.Count > 0)
             {
-                idAlumno.Text = objDt.Rows[posicion]["idAlumno"].ToString();
+                IdAlumno.Text = objDt.Rows[posicion]["IdAlumno"].ToString();
                 txtCodigo.Text = objDt.Rows[posicion]["codigo"].ToString();
                 txtNombre.Text = objDt.Rows[posicion]["nombre"].ToString();
                 txtDireccion.Text = objDt.Rows[posicion]["direccion"].ToString();
@@ -98,7 +98,7 @@ namespace Conversor4._0
         }
         private void limpiarControles()
         {
-            idAlumno.Text = "";
+            IdAlumno.Text = "";
             txtCodigo.Text = "";
             txtNombre.Text = "";
             txtDireccion.Text = "";
@@ -120,7 +120,7 @@ namespace Conversor4._0
             else
             {//Guardar
                 String[] alumnos = {
-                    idAlumno.Text, txtCodigo.Text, txtNombre.Text, txtDireccion.Text,
+                    IdAlumno.Text, txtCodigo.Text, txtNombre.Text, txtDireccion.Text,
                     txtNumero.Text
                 };
                 String respuesta = objConexion.administrarDatosAlumnos(alumnos, accion);
@@ -164,7 +164,7 @@ namespace Conversor4._0
                 "Eliminando alumnos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 String respuesta = objConexion.administrarDatosAlumnos(
-                    new String[] { idAlumno.Text, "", "", "", "" }, "eliminar"
+                    new String[] { IdAlumno.Text, "", "", "", "" }, "eliminar"
                 );
                 if (respuesta != "1")
                 {
@@ -178,39 +178,35 @@ namespace Conversor4._0
             }
         }
 
-        private void txtBuscarAlumnos_KeyUp(object sender, KeyEventArgs e)
-        {
-            filtrarDatos(txtBuscarAlumnos.Text);
-        }
+
 
         private void filtrarDatos(String valor)
         {
 
             DataView objDv = objDt.DefaultView;
-            objDv.RowFilter = "Codigo LIKE '%" + valor + "%' OR Nombre LIKE '%" + valor + "%' OR Direccion LIKE '%" + valor + "%'";
-            grdAlumnos.DataSource = objDv;
+            objDv.RowFilter = "codigo like '%" + valor + "%' OR nombre like '%" + valor + "%' OR direccion like '%" + valor + "%'";
+            grdAlumno.DataSource = objDv;
             seleccionarAlumno();
 
         }
 
         private void seleccionarAlumno()
         {
-            posicion = objDt.Rows.IndexOf(objDt.Rows.Find(grdAlumnos.CurrentRow.Cells["IdAlumno"].Value));
-            mostrarDatos();
+            if (grdAlumno.CurrentRow != null && grdAlumno.Rows.Count > 0)
+            {
+                posicion = objDt.Rows.IndexOf(objDt.Rows.Find(grdAlumno.CurrentRow.Cells["id"].Value));
+                mostrarDatos();
+            }
         }
-        private void grdAlumnos_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void txtBuscarAlumnos_KeyUp(object sender, KeyEventArgs e)
+        {
+            filtrarDatos(txtBuscarAlumno.Text);
+        }
+
+        private void grdAlumnos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             seleccionarAlumno();
-        }
-
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void grbBusquedaAlumno_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

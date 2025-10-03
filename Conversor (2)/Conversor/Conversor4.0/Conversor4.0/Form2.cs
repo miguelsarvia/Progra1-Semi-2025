@@ -47,5 +47,12 @@ namespace Conversor4._0
         {
             Close();
         }
+
+        private void docentesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDocentes objDocentes = new frmDocentes();
+            objDocentes.MdiParent = this;
+            objDocentes.Show();
+        }
     }
 }
