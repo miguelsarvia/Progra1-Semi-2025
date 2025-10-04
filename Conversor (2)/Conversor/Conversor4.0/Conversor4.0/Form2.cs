@@ -54,5 +54,12 @@ namespace Conversor4._0
             objDocentes.MdiParent = this;
             objDocentes.Show();
         }
+
+        private void notasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmNotas objNotas = new frmNotas();
+            objNotas.MdiParent = this;
+            objNotas.Show();
+        }
     }
 }

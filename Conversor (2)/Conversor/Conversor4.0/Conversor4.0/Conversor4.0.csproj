@@ -67,16 +67,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>db_academicaDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="db_academicaDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>db_academicaDataSet1.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="db_academicaDataSet2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>db_academicaDataSet2.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +90,12 @@
     </Compile>
     <Compile Include="frmMaterias.Designer.cs">
       <DependentUpon>frmMaterias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmNotas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNotas.Designer.cs">
+      <DependentUpon>frmNotas.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPeriodos.cs">
       <SubType>Form</SubType>
@@ -127,6 +123,9 @@
     <EmbeddedResource Include="frmMaterias.resx">
       <DependentUpon>frmMaterias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmNotas.resx">
+      <DependentUpon>frmNotas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPeriodos.resx">
       <DependentUpon>frmPeriodos.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,28 +152,6 @@
     </None>
     <None Include="db_academicaDataSet.xss">
       <DependentUpon>db_academicaDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="db_academicaDataSet1.xsc">
-      <DependentUpon>db_academicaDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="db_academicaDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>db_academicaDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="db_academicaDataSet1.xss">
-      <DependentUpon>db_academicaDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="db_academicaDataSet2.xsc">
-      <DependentUpon>db_academicaDataSet2.xsd</DependentUpon>
-    </None>
-    <None Include="db_academicaDataSet2.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>db_academicaDataSet2.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="db_academicaDataSet2.xss">
-      <DependentUpon>db_academicaDataSet2.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
