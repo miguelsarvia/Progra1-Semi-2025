@@ -90,7 +90,7 @@
             this.grdDocentes.Location = new System.Drawing.Point(28, 79);
             this.grdDocentes.Name = "grdDocentes";
             this.grdDocentes.ReadOnly = true;
-            this.grdDocentes.Size = new System.Drawing.Size(435, 164);
+            this.grdDocentes.Size = new System.Drawing.Size(429, 164);
             this.grdDocentes.TabIndex = 1;
             this.grdDocentes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdDocentes_CellClick);
             // 
@@ -322,7 +322,7 @@
             // 
             // id
             // 
-            this.id.DataPropertyName = "idDocentes";
+            this.id.DataPropertyName = "idDocente";
             this.id.HeaderText = "ID";
             this.id.Name = "id";
             this.id.ReadOnly = true;

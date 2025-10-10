@@ -29,280 +29,298 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNotas));
-            System.Windows.Forms.Label idNotaLabel;
-            System.Windows.Forms.Label idAlumnoLabel;
-            System.Windows.Forms.Label idPeriodoLabel;
-            System.Windows.Forms.Label fechaLabel;
-            this.db_academicaDataSet = new Conversor4._0.db_academicaDataSet();
-            this.notasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.notasTableAdapter = new Conversor4._0.db_academicaDataSetTableAdapters.notasTableAdapter();
-            this.tableAdapterManager = new Conversor4._0.db_academicaDataSetTableAdapters.TableAdapterManager();
-            this.notasBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-            this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-            this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
-            this.notasBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.idNotaTextBox = new System.Windows.Forms.TextBox();
-            this.idAlumnoTextBox = new System.Windows.Forms.TextBox();
-            this.idPeriodoTextBox = new System.Windows.Forms.TextBox();
-            this.fechaDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            idNotaLabel = new System.Windows.Forms.Label();
-            idAlumnoLabel = new System.Windows.Forms.Label();
-            idPeriodoLabel = new System.Windows.Forms.Label();
-            fechaLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.db_academicaDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notasBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notasBindingNavigator)).BeginInit();
-            this.notasBindingNavigator.SuspendLayout();
+            System.Windows.Forms.Label lblidNota;
+            System.Windows.Forms.Label lblMateria;
+            System.Windows.Forms.Label lblPeriodo;
+            System.Windows.Forms.Label lblFecha;
+            this.idNotaLabel1 = new System.Windows.Forms.Label();
+            this.notasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.db_academicaDataSet1 = new Conversor4._0.db_academicaDataSet();
+            this.cboMateria = new System.Windows.Forms.ComboBox();
+            this.materiasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cboPeriodo = new System.Windows.Forms.ComboBox();
+            this.periodosBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.db_academicaDataSet2 = new Conversor4._0.db_academicaDataSet();
+            this.fechaDateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dnotasDataGridView = new System.Windows.Forms.DataGridView();
+            this.idDetalle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idMateria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alumno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lab1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lab2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.parcial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nota_final = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dnotasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.notasTableAdapter1 = new Conversor4._0.db_academicaDataSetTableAdapters.notasTableAdapter();
+            this.tableAdapterManager1 = new Conversor4._0.db_academicaDataSetTableAdapters.TableAdapterManager();
+            this.dnotasTableAdapter = new Conversor4._0.db_academicaDataSetTableAdapters.dnotasTableAdapter();
+            this.materiasTableAdapter = new Conversor4._0.db_academicaDataSetTableAdapters.materiasTableAdapter();
+            this.periodosTableAdapter = new Conversor4._0.db_academicaDataSetTableAdapters.periodosTableAdapter();
+            lblidNota = new System.Windows.Forms.Label();
+            lblMateria = new System.Windows.Forms.Label();
+            lblPeriodo = new System.Windows.Forms.Label();
+            lblFecha = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.notasBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.db_academicaDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.materiasBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodosBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.db_academicaDataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dnotasDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dnotasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // db_academicaDataSet
+            // lblidNota
             // 
-            this.db_academicaDataSet.DataSetName = "db_academicaDataSet";
-            this.db_academicaDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            lblidNota.AutoSize = true;
+            lblidNota.Location = new System.Drawing.Point(94, 20);
+            lblidNota.Name = "lblidNota";
+            lblidNota.Size = new System.Drawing.Size(24, 13);
+            lblidNota.TabIndex = 0;
+            lblidNota.Text = "ID: ";
             // 
-            // notasBindingSource
+            // lblMateria
             // 
-            this.notasBindingSource.DataMember = "notas";
-            this.notasBindingSource.DataSource = this.db_academicaDataSet;
+            lblMateria.AutoSize = true;
+            lblMateria.Location = new System.Drawing.Point(84, 49);
+            lblMateria.Name = "lblMateria";
+            lblMateria.Size = new System.Drawing.Size(48, 13);
+            lblMateria.TabIndex = 2;
+            lblMateria.Text = "Materia: ";
             // 
-            // notasTableAdapter
+            // lblPeriodo
             // 
-            this.notasTableAdapter.ClearBeforeFill = true;
+            lblPeriodo.AutoSize = true;
+            lblPeriodo.Location = new System.Drawing.Point(359, 49);
+            lblPeriodo.Name = "lblPeriodo";
+            lblPeriodo.Size = new System.Drawing.Size(49, 13);
+            lblPeriodo.TabIndex = 4;
+            lblPeriodo.Text = "Periodo: ";
             // 
-            // tableAdapterManager
+            // lblFecha
             // 
-            this.tableAdapterManager.alumnosTableAdapter = null;
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.docentesTableAdapter = null;
-            this.tableAdapterManager.materiasTableAdapter = null;
-            this.tableAdapterManager.notasTableAdapter = this.notasTableAdapter;
-            this.tableAdapterManager.periodosTableAdapter = null;
-            this.tableAdapterManager.UpdateOrder = Conversor4._0.db_academicaDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            lblFecha.AutoSize = true;
+            lblFecha.Location = new System.Drawing.Point(84, 91);
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new System.Drawing.Size(43, 13);
+            lblFecha.TabIndex = 6;
+            lblFecha.Text = "Fecha: ";
             // 
-            // notasBindingNavigator
+            // idNotaLabel1
             // 
-            this.notasBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
-            this.notasBindingNavigator.BindingSource = this.notasBindingSource;
-            this.notasBindingNavigator.CountItem = this.bindingNavigatorCountItem;
-            this.notasBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
-            this.notasBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bindingNavigatorMoveFirstItem,
-            this.bindingNavigatorMovePreviousItem,
-            this.bindingNavigatorSeparator,
-            this.bindingNavigatorPositionItem,
-            this.bindingNavigatorCountItem,
-            this.bindingNavigatorSeparator1,
-            this.bindingNavigatorMoveNextItem,
-            this.bindingNavigatorMoveLastItem,
-            this.bindingNavigatorSeparator2,
-            this.bindingNavigatorAddNewItem,
-            this.bindingNavigatorDeleteItem,
-            this.notasBindingNavigatorSaveItem});
-            this.notasBindingNavigator.Location = new System.Drawing.Point(0, 0);
-            this.notasBindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
-            this.notasBindingNavigator.MoveLastItem = this.bindingNavigatorMoveLastItem;
-            this.notasBindingNavigator.MoveNextItem = this.bindingNavigatorMoveNextItem;
-            this.notasBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
-            this.notasBindingNavigator.Name = "notasBindingNavigator";
-            this.notasBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.notasBindingNavigator.Size = new System.Drawing.Size(299, 25);
-            this.notasBindingNavigator.TabIndex = 0;
-            this.notasBindingNavigator.Text = "bindingNavigator1";
+            this.idNotaLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.notasBindingSource1, "idNota", true));
+            this.idNotaLabel1.Location = new System.Drawing.Point(144, 20);
+            this.idNotaLabel1.Name = "idNotaLabel1";
+            this.idNotaLabel1.Size = new System.Drawing.Size(200, 23);
+            this.idNotaLabel1.TabIndex = 1;
+            this.idNotaLabel1.Text = "label1";
             // 
-            // bindingNavigatorMoveFirstItem
+            // notasBindingSource1
             // 
-            this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
-            this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
-            this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMoveFirstItem.Text = "Mover primero";
+            this.notasBindingSource1.DataMember = "notas";
+            this.notasBindingSource1.DataSource = this.db_academicaDataSet1;
             // 
-            // bindingNavigatorMovePreviousItem
+            // db_academicaDataSet1
             // 
-            this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
-            this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
-            this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorMovePreviousItem.Text = "Mover anterior";
+            this.db_academicaDataSet1.DataSetName = "db_academicaDataSet";
+            this.db_academicaDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // bindingNavigatorSeparator
+            // cboMateria
             // 
-            this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            this.cboMateria.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.materiasBindingSource, "nombre", true));
+            this.cboMateria.DataSource = this.materiasBindingSource;
+            this.cboMateria.DisplayMember = "nombre";
+            this.cboMateria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMateria.FormattingEnabled = true;
+            this.cboMateria.Location = new System.Drawing.Point(147, 46);
+            this.cboMateria.Name = "cboMateria";
+            this.cboMateria.Size = new System.Drawing.Size(200, 21);
+            this.cboMateria.TabIndex = 3;
+            this.cboMateria.ValueMember = "idMateria";
+            this.cboMateria.SelectedValueChanged += new System.EventHandler(this.cboMateria_SelectedValueChanged);
             // 
-            // bindingNavigatorPositionItem
+            // materiasBindingSource
             // 
-            this.bindingNavigatorPositionItem.AccessibleName = "Posición";
-            this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-            this.bindingNavigatorPositionItem.Text = "0";
-            this.bindingNavigatorPositionItem.ToolTipText = "Posición actual";
+            this.materiasBindingSource.DataMember = "materias";
+            this.materiasBindingSource.DataSource = this.db_academicaDataSet1;
             // 
-            // bindingNavigatorCountItem
+            // cboPeriodo
             // 
-            this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(37, 15);
-            this.bindingNavigatorCountItem.Text = "de {0}";
-            this.bindingNavigatorCountItem.ToolTipText = "Número total de elementos";
+            this.cboPeriodo.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.periodosBindingSource, "periodo", true));
+            this.cboPeriodo.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.periodosBindingSource, "idPeriodo", true));
+            this.cboPeriodo.DataSource = this.periodosBindingSource;
+            this.cboPeriodo.DisplayMember = "periodo";
+            this.cboPeriodo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPeriodo.FormattingEnabled = true;
+            this.cboPeriodo.Location = new System.Drawing.Point(422, 46);
+            this.cboPeriodo.Name = "cboPeriodo";
+            this.cboPeriodo.Size = new System.Drawing.Size(200, 21);
+            this.cboPeriodo.TabIndex = 5;
+            this.cboPeriodo.ValueMember = "idPeriodo";
+            this.cboPeriodo.SelectedValueChanged += new System.EventHandler(this.cboPeriodo_SelectedValueChanged);
             // 
-            // bindingNavigatorSeparator1
+            // periodosBindingSource
             // 
-            this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 6);
+            this.periodosBindingSource.DataMember = "periodos";
+            this.periodosBindingSource.DataSource = this.db_academicaDataSet2;
             // 
-            // bindingNavigatorMoveNextItem
+            // db_academicaDataSet2
             // 
-            this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
-            this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
-            this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 20);
-            this.bindingNavigatorMoveNextItem.Text = "Mover siguiente";
+            this.db_academicaDataSet2.DataSetName = "db_academicaDataSet";
+            this.db_academicaDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // bindingNavigatorMoveLastItem
+            // fechaDateTimePicker1
             // 
-            this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
-            this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
-            this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 20);
-            this.bindingNavigatorMoveLastItem.Text = "Mover último";
+            this.fechaDateTimePicker1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.notasBindingSource1, "fecha", true));
+            this.fechaDateTimePicker1.Location = new System.Drawing.Point(147, 89);
+            this.fechaDateTimePicker1.Name = "fechaDateTimePicker1";
+            this.fechaDateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.fechaDateTimePicker1.TabIndex = 7;
             // 
-            // bindingNavigatorSeparator2
+            // dnotasDataGridView
             // 
-            this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 6);
+            this.dnotasDataGridView.AllowUserToAddRows = false;
+            this.dnotasDataGridView.AllowUserToDeleteRows = false;
+            this.dnotasDataGridView.AutoGenerateColumns = false;
+            this.dnotasDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dnotasDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDetalle,
+            this.idNota,
+            this.idMateria,
+            this.alumno,
+            this.lab1,
+            this.lab2,
+            this.parcial,
+            this.nota_final});
+            this.dnotasDataGridView.DataSource = this.dnotasBindingSource;
+            this.dnotasDataGridView.Location = new System.Drawing.Point(41, 130);
+            this.dnotasDataGridView.Name = "dnotasDataGridView";
+            this.dnotasDataGridView.Size = new System.Drawing.Size(645, 278);
+            this.dnotasDataGridView.TabIndex = 8;
             // 
-            // bindingNavigatorAddNewItem
+            // idDetalle
             // 
-            this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-            this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-            this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-            this.bindingNavigatorAddNewItem.Text = "Agregar nuevo";
+            this.idDetalle.DataPropertyName = "idDetalle";
+            this.idDetalle.HeaderText = "ID";
+            this.idDetalle.Name = "idDetalle";
+            this.idDetalle.ReadOnly = true;
+            this.idDetalle.Visible = false;
+            this.idDetalle.Width = 50;
             // 
-            // bindingNavigatorDeleteItem
+            // idNota
             // 
-            this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-            this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-            this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 20);
-            this.bindingNavigatorDeleteItem.Text = "Eliminar";
+            this.idNota.DataPropertyName = "idNota";
+            this.idNota.HeaderText = "idNota";
+            this.idNota.Name = "idNota";
+            this.idNota.ReadOnly = true;
+            this.idNota.Visible = false;
             // 
-            // notasBindingNavigatorSaveItem
+            // idMateria
             // 
-            this.notasBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.notasBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("notasBindingNavigatorSaveItem.Image")));
-            this.notasBindingNavigatorSaveItem.Name = "notasBindingNavigatorSaveItem";
-            this.notasBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 23);
-            this.notasBindingNavigatorSaveItem.Text = "Guardar datos";
-            this.notasBindingNavigatorSaveItem.Click += new System.EventHandler(this.notasBindingNavigatorSaveItem_Click);
+            this.idMateria.DataPropertyName = "idMateria";
+            this.idMateria.HeaderText = "idMateria";
+            this.idMateria.Name = "idMateria";
+            this.idMateria.ReadOnly = true;
+            this.idMateria.Visible = false;
             // 
-            // idNotaLabel
+            // alumno
             // 
-            idNotaLabel.AutoSize = true;
-            idNotaLabel.Location = new System.Drawing.Point(8, 40);
-            idNotaLabel.Name = "idNotaLabel";
-            idNotaLabel.Size = new System.Drawing.Size(43, 13);
-            idNotaLabel.TabIndex = 1;
-            idNotaLabel.Text = "NOTA: ";
+            this.alumno.DataPropertyName = "nombre";
+            this.alumno.HeaderText = "ALUMNO";
+            this.alumno.Name = "alumno";
+            this.alumno.ReadOnly = true;
+            this.alumno.Width = 200;
             // 
-            // idNotaTextBox
+            // lab1
             // 
-            this.idNotaTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.notasBindingSource, "idNota", true));
-            this.idNotaTextBox.Location = new System.Drawing.Point(71, 37);
-            this.idNotaTextBox.Name = "idNotaTextBox";
-            this.idNotaTextBox.Size = new System.Drawing.Size(200, 20);
-            this.idNotaTextBox.TabIndex = 2;
+            this.lab1.DataPropertyName = "lab1";
+            this.lab1.HeaderText = "LAB1";
+            this.lab1.Name = "lab1";
             // 
-            // idAlumnoLabel
+            // lab2
             // 
-            idAlumnoLabel.AutoSize = true;
-            idAlumnoLabel.Location = new System.Drawing.Point(8, 66);
-            idAlumnoLabel.Name = "idAlumnoLabel";
-            idAlumnoLabel.Size = new System.Drawing.Size(59, 13);
-            idAlumnoLabel.TabIndex = 3;
-            idAlumnoLabel.Text = "ALUMNO: ";
+            this.lab2.DataPropertyName = "lab2";
+            this.lab2.HeaderText = "LAB2";
+            this.lab2.Name = "lab2";
             // 
-            // idAlumnoTextBox
+            // parcial
             // 
-            this.idAlumnoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.notasBindingSource, "idAlumno", true));
-            this.idAlumnoTextBox.Location = new System.Drawing.Point(71, 63);
-            this.idAlumnoTextBox.Name = "idAlumnoTextBox";
-            this.idAlumnoTextBox.Size = new System.Drawing.Size(200, 20);
-            this.idAlumnoTextBox.TabIndex = 4;
+            this.parcial.DataPropertyName = "parcial";
+            this.parcial.HeaderText = "PARCIAL";
+            this.parcial.Name = "parcial";
             // 
-            // idPeriodoLabel
+            // nota_final
             // 
-            idPeriodoLabel.AutoSize = true;
-            idPeriodoLabel.Location = new System.Drawing.Point(8, 92);
-            idPeriodoLabel.Name = "idPeriodoLabel";
-            idPeriodoLabel.Size = new System.Drawing.Size(62, 13);
-            idPeriodoLabel.TabIndex = 5;
-            idPeriodoLabel.Text = "PERIODO: ";
+            this.nota_final.DataPropertyName = "nf";
+            this.nota_final.HeaderText = "NF";
+            this.nota_final.Name = "nota_final";
+            this.nota_final.ReadOnly = true;
             // 
-            // idPeriodoTextBox
+            // dnotasBindingSource
             // 
-            this.idPeriodoTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.notasBindingSource, "idPeriodo", true));
-            this.idPeriodoTextBox.Location = new System.Drawing.Point(71, 89);
-            this.idPeriodoTextBox.Name = "idPeriodoTextBox";
-            this.idPeriodoTextBox.Size = new System.Drawing.Size(200, 20);
-            this.idPeriodoTextBox.TabIndex = 6;
+            this.dnotasBindingSource.DataMember = "dnotas";
+            this.dnotasBindingSource.DataSource = this.db_academicaDataSet1;
             // 
-            // fechaLabel
+            // btnGuardar
             // 
-            fechaLabel.AutoSize = true;
-            fechaLabel.Location = new System.Drawing.Point(8, 119);
-            fechaLabel.Name = "fechaLabel";
-            fechaLabel.Size = new System.Drawing.Size(48, 13);
-            fechaLabel.TabIndex = 7;
-            fechaLabel.Text = "FECHA: ";
+            this.btnGuardar.Location = new System.Drawing.Point(484, 89);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.TabIndex = 9;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
-            // fechaDateTimePicker
+            // notasTableAdapter1
             // 
-            this.fechaDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.notasBindingSource, "fecha", true));
-            this.fechaDateTimePicker.Location = new System.Drawing.Point(71, 115);
-            this.fechaDateTimePicker.Name = "fechaDateTimePicker";
-            this.fechaDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.fechaDateTimePicker.TabIndex = 8;
+            this.notasTableAdapter1.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager1
+            // 
+            this.tableAdapterManager1.alumnosTableAdapter = null;
+            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager1.dnotasTableAdapter = null;
+            this.tableAdapterManager1.docentesTableAdapter = null;
+            this.tableAdapterManager1.materiasTableAdapter = null;
+            this.tableAdapterManager1.notasTableAdapter = this.notasTableAdapter1;
+            this.tableAdapterManager1.periodosTableAdapter = null;
+            this.tableAdapterManager1.UpdateOrder = Conversor4._0.db_academicaDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            // 
+            // dnotasTableAdapter
+            // 
+            this.dnotasTableAdapter.ClearBeforeFill = true;
+            // 
+            // materiasTableAdapter
+            // 
+            this.materiasTableAdapter.ClearBeforeFill = true;
+            // 
+            // periodosTableAdapter
+            // 
+            this.periodosTableAdapter.ClearBeforeFill = true;
             // 
             // frmNotas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 160);
-            this.Controls.Add(idNotaLabel);
-            this.Controls.Add(this.idNotaTextBox);
-            this.Controls.Add(idAlumnoLabel);
-            this.Controls.Add(this.idAlumnoTextBox);
-            this.Controls.Add(idPeriodoLabel);
-            this.Controls.Add(this.idPeriodoTextBox);
-            this.Controls.Add(fechaLabel);
-            this.Controls.Add(this.fechaDateTimePicker);
-            this.Controls.Add(this.notasBindingNavigator);
+            this.ClientSize = new System.Drawing.Size(723, 420);
+            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.dnotasDataGridView);
+            this.Controls.Add(lblidNota);
+            this.Controls.Add(this.idNotaLabel1);
+            this.Controls.Add(lblMateria);
+            this.Controls.Add(this.cboMateria);
+            this.Controls.Add(lblPeriodo);
+            this.Controls.Add(this.cboPeriodo);
+            this.Controls.Add(lblFecha);
+            this.Controls.Add(this.fechaDateTimePicker1);
             this.Name = "frmNotas";
-            this.Text = "frmNotas";
             this.Load += new System.EventHandler(this.frmNotas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.db_academicaDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notasBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.notasBindingNavigator)).EndInit();
-            this.notasBindingNavigator.ResumeLayout(false);
-            this.notasBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.notasBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.db_academicaDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.materiasBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.periodosBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.db_academicaDataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dnotasDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dnotasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,5 +349,30 @@
         private System.Windows.Forms.TextBox idAlumnoTextBox;
         private System.Windows.Forms.TextBox idPeriodoTextBox;
         private System.Windows.Forms.DateTimePicker fechaDateTimePicker;
+        private db_academicaDataSet db_academicaDataSet1;
+        private System.Windows.Forms.BindingSource notasBindingSource1;
+        private db_academicaDataSetTableAdapters.notasTableAdapter notasTableAdapter1;
+        private db_academicaDataSetTableAdapters.TableAdapterManager tableAdapterManager1;
+        private System.Windows.Forms.Label idNotaLabel1;
+        private System.Windows.Forms.ComboBox cboMateria;
+        private System.Windows.Forms.ComboBox cboPeriodo;
+        private System.Windows.Forms.DateTimePicker fechaDateTimePicker1;
+        private System.Windows.Forms.BindingSource dnotasBindingSource;
+        private db_academicaDataSetTableAdapters.dnotasTableAdapter dnotasTableAdapter;
+        private System.Windows.Forms.DataGridView dnotasDataGridView;
+        private System.Windows.Forms.BindingSource materiasBindingSource;
+        private db_academicaDataSetTableAdapters.materiasTableAdapter materiasTableAdapter;
+        private db_academicaDataSet db_academicaDataSet2;
+        private System.Windows.Forms.BindingSource periodosBindingSource;
+        private db_academicaDataSetTableAdapters.periodosTableAdapter periodosTableAdapter;
+        private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDetalle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idNota;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idMateria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn alumno;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lab1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lab2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn parcial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nota_final;
     }
 }

@@ -28,7 +28,7 @@ namespace Conversor4._0
             objDs.Clear(); //Limpiar el DataSet
             objDs = objConexion.obtenerDatos();
             objDt = objDs.Tables["Docentes"];
-            objDt.PrimaryKey = new DataColumn[] { objDt.Columns["idDocente"] }; // <-- corregido
+            objDt.PrimaryKey = new DataColumn[] { objDt.Columns["idDocente"] };
 
             grdDocentes.DataSource = objDt.DefaultView;
             mostrarDatos();
@@ -73,7 +73,7 @@ namespace Conversor4._0
             }
             else
             {
-                MessageBox.Show("Estas en el primer registro.", "Navegacion de Docentes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(" Estas en el primer registro.", "Navegacion de Docentes", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Conversor4._0
 
         private void seleccionarDocentes()
         {
-            posicion = objDt.Rows.IndexOf(objDt.Rows.Find(grdDocentes.CurrentRow.Cells["idDocente"].Value));
+            posicion = objDt.Rows.IndexOf(objDt.Rows.Find(grdDocentes.CurrentRow.Cells["id"].Value));
             mostrarDatos();
         }
 

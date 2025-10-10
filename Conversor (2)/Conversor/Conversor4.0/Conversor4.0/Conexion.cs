@@ -11,9 +11,9 @@ namespace Conversor4._0
     internal class Conexion
     {
         //Definir los miembros de la clase Conexion de atributos y metodos.
-        SqlConnection objConexion = new SqlConnection(); //CONECTARME A BASE DE DATOS.
-        SqlCommand objComando = new SqlCommand(); //Ejecutar SQL A LA BASE DE DATOS. Actualizar, eliminar, insertar, consultar.
-        SqlDataAdapter objAdaptador = new SqlDataAdapter(); //Un puente entre la base de datos y el DaraSet y la aplicacion.
+        public SqlConnection objConexion = new SqlConnection(); //CONECTARME A BASE DE DATOS.
+        public SqlCommand objComando = new SqlCommand(); //Ejecutar SQL A LA BASE DE DATOS. Actualizar, eliminar, insertar, consultar.
+        public SqlDataAdapter objAdaptador = new SqlDataAdapter(); //Un puente entre la base de datos y el DaraSet y la aplicacion.
         DataSet objDs = new DataSet(); //Es una representacion de la arquitectura de bases de datos en memoria.
 
         public Conexion()
@@ -59,7 +59,7 @@ namespace Conversor4._0
             {
                 sql = "DELETE FROM alumnos WHERE IdAlumno='" + datos[0] + "'";
             }
-            return ejecutarSQL(sql, datos);
+            return ejecutarSQL(sql);
         }
 
         public string administrarDatosMaterias(String[] datos, String accion)
@@ -77,7 +77,7 @@ namespace Conversor4._0
             {
                 sql = "DELETE FROM materias WHERE idMateria='" + datos[0] + "'";
             }
-            return ejecutarSQL(sql, datos);
+            return ejecutarSQL(sql);
         }
         public string administrarDatosDocentes(String[] datos, String accion)
         {
@@ -94,9 +94,9 @@ namespace Conversor4._0
             {
                 sql = "DELETE FROM docentes WHERE idDocentes='" + datos[0] + "'";
             }
-            return ejecutarSQL(sql, datos);
+            return ejecutarSQL(sql);
         }
-        private String ejecutarSQL(String sql, String[] datos)
+        public String ejecutarSQL(String sql)
         {
             try
             {
