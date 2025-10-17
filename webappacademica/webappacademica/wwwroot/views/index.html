@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
 <head>
     <meta charset="utf-8" />
     <title>::.. Sistema Academico UGB ..::</title>
@@ -38,16 +38,32 @@
         <div class="position-absolute" id="periodo"></div>
         <div class="position-absolute" id="busqueda_periodo"></div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script>document.addEventListener("DOMContentLoaded", e => {
+    <script>
+    document.addEventListener("DOMContentLoaded", e => {
             mnxAcademica.addEventListener("click", event => {
                 event.preventDefault();
                 abrirVentana(event.target.dataset.form);
             });
         });
         function abrirVentana(form) {
-            let $ventana = document.querySelector(`#${form}`); //#alumno, #docente, #materia
-            console.log($ventana);
+            let $ventana = $(`#${form}`); //#alumno, #docente, #materia
+            if ($ventana.find('form').length > 0) {
+                $ventana.show();
+            } else {
+                let url = `/views/${form}.html`;
+                fetch(url).then(resp => resp.text()).then(vista => {
+                    $(`#${form}`).html(vista).draggable();
+                    cerrarVentana();
+                });
+            }
+        }
+        function cerrarVentana() {
+            $('.btn-close').click(e => {
+                $(`#${e.target.dataset.form}`).hide();
+            });
         }</script>
 </body>
 </html>
