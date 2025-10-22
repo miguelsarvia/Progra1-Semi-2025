@@ -61,5 +61,17 @@ namespace Conversor4._0
             objNotas.MdiParent = this;
             objNotas.Show();
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_Usuarios2 objUsuarios2 = new frm_Usuarios2();
+            objUsuarios2.MdiParent = this;
+            objUsuarios2.Show();
+        }
     }
 }

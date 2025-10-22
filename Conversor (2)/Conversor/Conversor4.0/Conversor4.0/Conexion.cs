@@ -40,6 +40,9 @@ namespace Conversor4._0
             objComando.CommandText = "SELECT * FROM docentes";
             objAdaptador.Fill(objDs, "Docentes");//Tomando los datos de la BD y llenando el DataSet
 
+            objComando.CommandText = "SELECT * FROM usuarios";
+            objAdaptador.Fill(objDs, "Usuarios");//Tomando los datos de la BD y llenando el DataSet
+
 
             return objDs;
         }
@@ -96,6 +99,29 @@ namespace Conversor4._0
             }
             return ejecutarSQL(sql);
         }
+
+
+        public string administrarDatosUsuarios(String[] datos, String accion)
+        {
+            String sql = "";
+            if (accion == "nuevo")
+            {
+                // Cambia 'usuario', 'contrasena', 'rol' por los nombres reales de columnas en tu tabla usuarios
+                sql = "INSERT INTO usuarios(usuario,contrasena,rol) VALUES ('" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "')";
+            }
+            else if (accion == "modificar")
+            {
+                sql = "UPDATE usuarios SET usuario='" + datos[1] + "', contrasena='" + datos[2] + "', rol='" + datos[3] + "' WHERE idUsuario='" + datos[0] + "'";
+            }
+            else if (accion == "eliminar")
+            {
+                sql = "DELETE FROM usuarios WHERE idUsuario='" + datos[0] + "'";
+            }
+            return ejecutarSQL(sql);
+        }
+
+
+
         public String ejecutarSQL(String sql)
         {
             try
