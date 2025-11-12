@@ -44,7 +44,10 @@
         </div>
     </div>
 </form>
-<script>frmAlumno.addEventListener('submit', e => {
+<script>
+    var accion = 'nuevo',
+        idAlumno = 0;
+    frmAlumno.addEventListener('submit', e => {
         e.preventDefault();
         guardarAlumno();
     });
@@ -56,6 +59,11 @@
             telefono: txtTelefonoAlumno.value
         },
             url = 'https://localhost:7085/api/Alumnos',
+        if (accion == "modificar") {
+            method = 'PUT';
+            url = `https://localhost:7085/api/Alumnos/${idAlumno}`;
+            datos.idAlumno = idAlumno;
+        }
             method = 'POST';
         const respuesta = await fetch(url, {
             method,
@@ -66,11 +74,25 @@
         }), alumno = await respuesta.json();
         if ((alumno?.idAlumno || 0) > 0) {
             limpiarDatosAlumno();
+            listarAlumnos();
         }
     }
     function limpiarDatosAlumno() {
+        accion = "nuevo";
+        idAlumno = 0;
         txtCodigoAlumno.value = "";
         txtNombreAlumno.value = "";
         txtDireccionAlumno.value = "";
         txtTelefonoAlumno.value = "";
-    }</script>
+    }
+    function modificarAlumno(alumno) {
+        accion = "modificar";
+        idAlumno = alumno.idAlumno;
+        txtCodigoAlumno.value = alumno.codigo;
+        txtNombreAlumno.value = alumno.nombre;
+        txtDireccionAlumno.value = alumno.direccion;
+        txtTelefonoAlumno.value = alumno.telefono;
+    }
+
+
+</script>

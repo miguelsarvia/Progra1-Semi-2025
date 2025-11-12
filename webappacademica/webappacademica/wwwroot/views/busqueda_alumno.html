@@ -13,6 +13,11 @@
             <table id="tblConsultaAlumnos" class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <th colspan="5">
+                            <input name="txtBuscarAlumno" id="txtBuscarAlumno" type="search" class="form-control" placeholder="Buscar alumnos por nombre, codigo" />
+                        </th>
+                    </tr>
+                    <tr>
                         <th>CODIGO</th>
                         <th>NOMBRE</th>
                         <th>DIRECCION</th>
@@ -25,3 +30,47 @@
         </div>
     </div>
 </form>
+ <script>listarAlumnos();
+
+    txtBuscarAlumno.addEventListener('keyup', e => {
+        listarAlumnos(txtBuscarAlumno.value);
+    });
+
+    async function listarAlumnos(buscar='') {
+        const respuesta = await fetch(`/api/Alumnos/buscar?buscar=${buscar}`, {
+            method:'GET',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }), alumnos = await respuesta.json();
+        let filas = '';
+        alumnos.forEach(alumno => {
+            filas += `
+                <tr onClick='modificarAlumno(${JSON.stringify(alumno)})'>
+                    <td>${alumno.codigo}</td>
+                    <td>${alumno.nombre}</td>
+                    <td>${alumno.direccion}</td>
+                    <td>${alumno.telefono}</td>
+                    <td><button type="button" class="btn btn-outline-danger btn-sm" onClick='eliminarAlumno(${JSON.stringify(alumno)}, event)'>DEL</button>
+                </tr>
+            `;
+        });
+        document.querySelector("#tblConsultaAlumnos > tbody").innerHTML = filas;
+    }
+    async function eliminarAlumno(alumno, event) {
+        event.preventDefault();
+
+        if (confirm(`Esta seguro de eliminar a ${alumno.nombre.trim()}?`) ) {
+            const respuesta = await fetch(`/api/Alumnos/${alumno.idAlumno}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }), data = await respuesta.text();
+            if (data && data.length > 0) {
+                alert(`Error, nose pudo eliminar el alumno ${alumno.nombre}, error: ${data}`);
+                return;
+            }
+            listarAlumnos();
+        }
+    }</script>
