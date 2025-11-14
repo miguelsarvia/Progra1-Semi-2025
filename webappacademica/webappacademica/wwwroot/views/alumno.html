@@ -74,7 +74,7 @@
         }), alumno = await respuesta.json();
         if ((alumno?.idAlumno || 0) > 0) {
             limpiarDatosAlumno();
-            listarAlumnos();
+            listarAlumnos(txtBuscarAlumno.value || '');
         }
     }
     function limpiarDatosAlumno() {

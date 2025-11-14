@@ -1,4 +1,8 @@
-wwwroot\img\Logo_UGB.png
 wwwroot\views\index.html
-wwwroot\views\alumno.html
+wwwroot\img\Logo_UGB.png
 wwwroot\views\busqueda_alumno.html
+wwwroot\views\alumno.html
+wwwroot\views\busqueda_materia.html
+wwwroot\views\materia.html
+wwwroot\views\busqueda_docente.html
+wwwroot\views\docente.html
