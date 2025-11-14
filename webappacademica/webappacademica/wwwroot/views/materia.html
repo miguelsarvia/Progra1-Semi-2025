@@ -51,11 +51,11 @@
             nombre: txtNombreMateria.value,
             uv: txtUvMateria.value
         },
-            url = 'https://localhost:7005/api/Materias',
+            url = 'https://localhost:7085/api/Materias',
             method = 'POST';
         if (accion == "modificar") {
             method = 'PUT';
-            url = `https://localhost:7005/api/Materias/${idMateria}`;
+            url = `https://localhost:7085/api/Materias/${idMateria}`;
             datos.idMateria = idMateria;
         }
         const respuesta = await fetch(url, {
