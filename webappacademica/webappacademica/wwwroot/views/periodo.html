@@ -75,7 +75,7 @@
     function modificarPeriodo(periodo) {
         accion = "modificar";
         idPeriodo = periodo.idPeriodo;
-        txtFechaPeriodo.value = periodo.fecha;
-        cboPeriodo.value = periodo.periodo;
+        txtFechaPeriodo.value = new Date(periodo.fecha).toLocaleDateString("en-GB").split("/").reverse().join("-");
+        cboPeriodo.value = periodo.periodo.trim();
     }
 </script>

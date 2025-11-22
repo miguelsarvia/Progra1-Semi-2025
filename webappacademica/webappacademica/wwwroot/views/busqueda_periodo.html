@@ -47,7 +47,7 @@
         periodos.forEach(periodo => {
             filas += `
                 <tr onClick='modificarPeriodo(${JSON.stringify(periodo)})'>
-                    <td>${periodo.fecha}</td>
+                    <td>${new Date(periodo.fecha).toLocaleDateString("en-GB") }</td>
                     <td>${periodo.periodo}</td>
                     <td><button type="button" class="btn btn-outline-danger btn-sm" onClick='eliminarPeriodo(${JSON.stringify(periodo)}, event)'>DEL</button>
                 </tr>
