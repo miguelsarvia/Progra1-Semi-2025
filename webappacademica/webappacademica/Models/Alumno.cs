@@ -11,5 +11,9 @@ namespace webappacademica.Models
         public string nombre { get; set; }
         public string direccion { get; set; }
         public string telefono { get; set; }
+
+
+        //Relacion con la tabla matriculas
+        public ICollection<Matricula> Matriculas { get; set; }
     }
 }

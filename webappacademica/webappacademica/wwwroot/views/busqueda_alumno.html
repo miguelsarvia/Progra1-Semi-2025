@@ -37,13 +37,8 @@
     });
 
     async function listarAlumnos(buscar='') {
-        const respuesta = await fetch(`/api/Alumnos/buscar?buscar=${buscar}`, {
-            method:'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }), alumnos = await respuesta.json();
-        let filas = '';
+        let alumnos = await obtenerAlumnos(buscar),
+            filas = '';
         alumnos.forEach(alumno => {
             filas += `
                 <tr onClick='modificarAlumno(${JSON.stringify(alumno)})'>

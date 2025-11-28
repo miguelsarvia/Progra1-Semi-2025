@@ -37,13 +37,8 @@
     });
 
     async function listarPeriodos(buscar='') {
-        const respuesta = await fetch(`/api/Periodos/buscar?buscar=${buscar}`, {
-            method:'GET',
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }), periodos = await respuesta.json();
-        let filas = '';
+        let periodos = await obtenerPeriodos(buscar),
+            filas = '';
         periodos.forEach(periodo => {
             filas += `
                 <tr onClick='modificarPeriodo(${JSON.stringify(periodo)})'>
