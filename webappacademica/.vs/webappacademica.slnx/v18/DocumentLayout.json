@@ -3,36 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\matricula.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\wwwroot\\views\\matricula.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\wwwroot\\views\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_periodo.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\wwwroot\\views\\busqueda_periodo.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_alumno.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\wwwroot\\views\\busqueda_alumno.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\models\\periodo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\models\\periodo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\controllers\\matriculascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\controllers\\matriculascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\models\\matricula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\models\\matricula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\models\\alumno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\models\\alumno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\models\\matriculabusquedaparametro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\models\\matriculabusquedaparametro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\models\\mydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_matricula.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\wwwroot\\views\\busqueda_matricula.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|c:\\users\\migue\\onedrive\\escritorio\\progra1-semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\matricula.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0CB77BDA-1E25-D9C2-31FA-45870B035E41}|webappacademica\\webappacademica.csproj|solutionrelative:webappacademica\\wwwroot\\views\\matricula.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -70,106 +62,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "matricula.html",
               "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\matricula.html",
               "RelativeDocumentMoniker": "webappacademica\\wwwroot\\views\\matricula.html",
               "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\matricula.html",
               "RelativeToolTip": "webappacademica\\wwwroot\\views\\matricula.html",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAUwHIAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAHIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-28T14:59:49.572Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\index.html",
-              "RelativeDocumentMoniker": "webappacademica\\wwwroot\\views\\index.html",
-              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\index.html",
-              "RelativeToolTip": "webappacademica\\wwwroot\\views\\index.html",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAC4AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-28T14:57:53.929Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "busqueda_periodo.html",
-              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_periodo.html",
-              "RelativeDocumentMoniker": "webappacademica\\wwwroot\\views\\busqueda_periodo.html",
-              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_periodo.html",
-              "RelativeToolTip": "webappacademica\\wwwroot\\views\\busqueda_periodo.html",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAACgAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-28T14:57:16.244Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "busqueda_alumno.html",
-              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_alumno.html",
-              "RelativeDocumentMoniker": "webappacademica\\wwwroot\\views\\busqueda_alumno.html",
-              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_alumno.html",
-              "RelativeToolTip": "webappacademica\\wwwroot\\views\\busqueda_alumno.html",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAACgAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-28T14:55:33.087Z",
+              "WhenOpened": "2025-11-28T22:01:27.583Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Periodo.cs",
-              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\Periodo.cs",
-              "RelativeDocumentMoniker": "webappacademica\\Models\\Periodo.cs",
-              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\Periodo.cs",
-              "RelativeToolTip": "webappacademica\\Models\\Periodo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T14:53:33.805Z",
+              "Title": "busqueda_matricula.html",
+              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_matricula.html",
+              "RelativeDocumentMoniker": "webappacademica\\wwwroot\\views\\busqueda_matricula.html",
+              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\wwwroot\\views\\busqueda_matricula.html",
+              "RelativeToolTip": "webappacademica\\wwwroot\\views\\busqueda_matricula.html",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-11-28T22:00:41.136Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "MyDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\MyDbContext.cs",
               "RelativeDocumentMoniker": "webappacademica\\Models\\MyDbContext.cs",
               "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\MyDbContext.cs",
               "RelativeToolTip": "webappacademica\\Models\\MyDbContext.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAqwCIAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAuwBkAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T14:52:08.433Z",
+              "WhenOpened": "2025-11-28T21:59:35.824Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
+              "Title": "MatriculaBusquedaParametro.cs",
+              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\MatriculaBusquedaParametro.cs",
+              "RelativeDocumentMoniker": "webappacademica\\Models\\MatriculaBusquedaParametro.cs",
+              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\MatriculaBusquedaParametro.cs",
+              "RelativeToolTip": "webappacademica\\Models\\MatriculaBusquedaParametro.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-28T21:58:55.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Matricula.cs",
               "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\Matricula.cs",
               "RelativeDocumentMoniker": "webappacademica\\Models\\Matricula.cs",
               "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\Matricula.cs",
               "RelativeToolTip": "webappacademica\\Models\\Matricula.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T14:51:00.912Z",
+              "WhenOpened": "2025-11-28T21:57:34.41Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Alumno.cs",
-              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\Alumno.cs",
-              "RelativeDocumentMoniker": "webappacademica\\Models\\Alumno.cs",
-              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Models\\Alumno.cs",
-              "RelativeToolTip": "webappacademica\\Models\\Alumno.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA+AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "MatriculasController.cs",
+              "DocumentMoniker": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Controllers\\MatriculasController.cs",
+              "RelativeDocumentMoniker": "webappacademica\\Controllers\\MatriculasController.cs",
+              "ToolTip": "C:\\Users\\Migue\\OneDrive\\Escritorio\\Progra1-Semi-2025.git\\webappacademica\\webappacademica\\Controllers\\MatriculasController.cs",
+              "RelativeToolTip": "webappacademica\\Controllers\\MatriculasController.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAgwKsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-28T14:49:47.953Z",
+              "WhenOpened": "2025-11-28T21:55:06.425Z",
               "EditorCaption": ""
             }
           ]

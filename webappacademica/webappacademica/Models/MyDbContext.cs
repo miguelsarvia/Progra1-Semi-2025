@@ -20,6 +20,7 @@ namespace webappacademica.Models
             modelBuilder.Entity<Docente>().HasKey(d => d.idDocente);
             modelBuilder.Entity<Periodo>().HasKey(p => p.idPeriodo);
             modelBuilder.Entity<Matricula>().HasKey(mt => mt.idMatricula);
+
             //Relacion de matriucla con la tabla alumnos
             modelBuilder.Entity<Matricula>()
                 .HasOne(a => a.Alumno)

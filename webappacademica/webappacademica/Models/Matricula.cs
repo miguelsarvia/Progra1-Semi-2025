@@ -12,9 +12,9 @@ namespace webappacademica.Models
         public DateTime fecha { get; set; }
         //Relacion con la tabla alumnos
         [ForeignKey("idAlumno")]
-        public Alumno Alumno { get; set; }
+        public Alumno? Alumno { get; set; }
         //Relacion con la tabla periodos
         [ForeignKey("idPeriodo")]
-        public Periodo Periodo { get; set; }
+        public Periodo? Periodo { get; set; }
     }
 }
