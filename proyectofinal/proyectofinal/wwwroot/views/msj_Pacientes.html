@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Mensajería - Pacientes</title>
+ <style>
+     :root {
+         --bg: #e0f7fa;
+         --panel: #a1eaf3;
+         --accent: #00695c;
+         --accent-dark: #004d40;
+         --chip: #b2dfdb;
+         --text: #033;
+         --bubble-patient: #c8fff4;
+         --bubble-admin: #ffe7d9;
+     }
+
+     body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background: var(--bg);
+         margin: 0;
+     }
+
+     .container {
+         width: 92%;
+         margin: 24px auto;
+     }
+
+     .header {
+         background: var(--panel);
+         color: var(--accent);
+         padding: 16px;
+         border-radius: 16px;
+         box-shadow: 8px 22px rgba(0, 0, 0, 0.12);
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+     }
+
+     .title {
+         font-family: "Brush Script MT", cursive;
+         font-size: 1.9rem;
+         font-style: italic;
+         margin: 0;
+         letter-spacing: .4px;
+     }
+
+     .chip-link {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         text-decoration: none;
+         font-weight: 700;
+         color: var(--accent);
+     }
+
+     .chip {
+         display: inline-flex;
+         width: 42px;
+         height: 42px;
+         border-radius: 50%;
+         align-items: center;
+         justify-content: center;
+         background: var(--chip);
+         color: var(--accent-dark);
+         box-shadow: 4px 10px rgba(0, 0, 0, .15);
+     }
+
+     .stats {
+         display: flex;
+         gap: 10px;
+         margin-top: 8px;
+     }
+
+     .stat-card {
+         background: #f5fdff;
+         border: 1px solid #b2dfdb;
+         border-radius: 12px;
+         padding: 8px 12px;
+         color: #044;
+         font-weight: 700;
+     }
+
+     .chat-panel {
+         background: var(--panel);
+         border-radius: 16px;
+         box-shadow: 10px 24px rgba(0, 0, 0, 0.12);
+         margin-top: 18px;
+         display: grid;
+         grid-template-rows: auto 1fr auto;
+         height: calc(100vh - 240px);
+         min-height: 420px;
+     }
+
+     .chat-header {
+         padding: 10px 39px;
+         border-bottom: 1px solid #b2dfdb;
+         color: var(--accent-dark);
+         font-weight: 700;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         gap: 10px;
+     }
+
+         .chat-header .left {
+             display: flex;
+             align-items: center;
+             gap: 20px;
+         }
+
+     .avatar {
+         width: 30px;
+         height: 30px;
+         border-radius: 50%;
+         background: #b2dfdb;
+         color: #004d40;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         font-weight: 800;
+         box-shadow: 3px 10px rgba(0, 0, 0, .15);
+         font-size: .85rem;
+     }
+
+     .chat-header .sub {
+         font-weight: 600;
+         color: #044;
+         font-size: .9rem;
+         opacity: .9;
+     }
+
+     .messages {
+         padding: 8px;
+         overflow-y: auto;
+         display: flex;
+         flex-direction: column;
+         gap: 14px;
+         background: #f5fdff;
+     }
+
+     .day-sep {
+         text-align: center;
+         font-size: .8rem;
+         color: #066;
+         opacity: .7;
+         margin: 8px 0;
+     }
+
+     .msg {
+         max-width: 72%;
+         padding: 10px 12px 8px;
+         border-radius: 14px;
+         box-shadow: 2px 6px rgba(0, 0, 0, 0.08);
+         line-height: 1.35;
+         word-wrap: break-word;
+         position: relative;
+     }
+
+     .from-patient {
+         background: var(--bubble-patient);
+         align-self: flex-end;
+     }
+
+     .from-admin {
+         background: var(--bubble-admin);
+         align-self: flex-start;
+     }
+
+     .meta {
+         font-size: .75rem;
+         color: #355;
+         margin-top: 6px;
+         opacity: .85;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         gap: 8px;
+     }
+
+     .quick {
+         display: flex;
+         gap: 8px;
+         flex-wrap: wrap;
+         padding: 8px 12px;
+     }
+
+         .quick button {
+             background: #fff;
+             border: 1px solid #b2dfdb;
+             color: #044;
+             border-radius: 999px;
+             padding: 6px 10px;
+             font-weight: 600;
+             cursor: pointer;
+         }
+
+     .input-row {
+         display: flex;
+         gap: 10px;
+         padding: 12px;
+         border-top: 1px solid #b2dfdb;
+         background: #f0fbfd;
+         align-items: center;
+     }
+
+     .text-input {
+         flex: 1;
+         border: 1px solid #b2dfdb;
+         border-radius: 8px;
+         padding: 10px 12px;
+         font-size: 1rem;
+         outline: none;
+     }
+
+     .btn {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         background: linear-gradient(90deg, #00796b, #004d40);
+         color: #fff;
+         border: none;
+         padding: 10px 14px;
+         border-radius: 8px;
+         font-weight: 700;
+         cursor: pointer;
+         box-shadow: 6px 14px rgba(0, 0, 0, 0.1);
+         transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+         text-decoration: none;
+         white-space: nowrap;
+         font-size: .95rem;
+     }
+
+     .btn-danger {
+         background: linear-gradient(90deg, #c62828, #8e0000);
+     }
+ </style>
+</head>
+
+<body>
+ <div class="container">
+        <!-- Encabezado -->
+        <div class="header">
+            <div>
+                <h1 class="title">Mensajería Pacientes</h1>
+            </div>
+            <a href="UsuarioPacientes.html" class="chip-link" title="Volver">
+                <span class="chip">🏠</span>
+                <span>Inicio</span>
+            </a>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats">
+            <div class="stat-card">Hoy: <span id="statToday">0</span></div>
+            <div class="stat-card">Total: <span id="statTotal">0</span></div>
+            <div class="stat-card">Administración: <span id="statAdmin">0</span></div>
+        </div>
+
+        <!-- Panel de chat -->
+        <div class="chat-panel" aria-live="polite">
+            <!-- Cabecera del chat -->
+            <div class="chat-header">
+                <div class="left">
+                    <span class="avatar" id="adminAvatar">AD</span>
+                    <span>Comunícate con la administración de nuestro consultorio</span>
+                    <span class="sub" id="chatAdminLabel"> · Conversando con: Administración</span>
+                </div>
+                <button id="deleteMessages" class="btn btn-danger" type="button" title="Eliminar todos los mensajes">🗑️ Eliminar</button>
+            </div>
+
+            <!-- Mensajes -->
+            <div id="messages" class="messages"></div>
+
+            <!-- Indicador de escritura -->
+            <div id="typing" class="typing" style="padding: 0 16px 10px; display: none;">
+                La administración está escribiendo…
+            </div>
+
+            <!-- Botones rápidos -->
+            <div class="quick">
+                <button type="button" data-q="Hola doctor, tengo una consulta.">
+                    Hola doctor, tengo una consulta.
+                </button>
+                <button type="button" data-q="¿Podemos reprogramar mi cita?">
+                    ¿Podemos reprogramar mi cita?
+                </button>
+                <button type="button" data-q="Gracias por su atención.">
+                    Gracias por su atención.
+                </button>
+            </div>
+
+            <!-- Formulario de entrada -->
+            <form id="chatForm" class="input-row">
+                <input id="msgInput"
+                       class="text-input"
+                       type="text"
+                       placeholder="Escribe un mensaje... 😊"
+                       autocomplete="off"
+                       required />
+                <button class="btn" type="submit">Enviar ▶</button>
+            </form>
+        </div>
+    </div>
+
+ <script>
+     // Usar únicamente el ID de inicio de sesión para relacionar conversaciones.
+     const CHAT_PREFIX = 'chat_admin_paciente_';
+
+     // Resolver clave única por paciente SOLO con ID de sesión
+     const getPatientScopeKey = () => {
+         const id = localStorage.getItem('idPacienteUsuario');
+         if (id && id.trim()) return `${CHAT_PREFIX}${id.trim()}`;
+
+         // Fallback: anónimo por sesión si no hay ID
+         let anon = sessionStorage.getItem('chat_scope_anon');
+         if (!anon) {
+             anon = Math.random().toString(36).slice(2);
+             sessionStorage.setItem('chat_scope_anon', anon);
+         }
+         return `${CHAT_PREFIX}${anon}`;
+     };
+
+     const CHAT_KEY = getPatientScopeKey();
+     const SENDER = 'Paciente';
+     const TYPING_KEY = 'chat_typing';
+
+     // Cargar historial de chat
+     function loadChat() {
+         try {
+             const raw = localStorage.getItem(CHAT_KEY);
+             return raw ? JSON.parse(raw) : [];
+         } catch {
+             return [];
+         }
+     }
+
+     // Guardar historial de chat
+     function saveChat(list) {
+         localStorage.setItem(CHAT_KEY, JSON.stringify(list));
+     }
+
+     // Formatear hora y fecha
+     function formatTime(d) {
+         const dt = new Date(d);
+         return dt.toLocaleString('es-ES', {
+             hour: '2-digit',
+             minute: '2-digit',
+             hour12: false
+         }) + ' · ' + dt.toLocaleDateString('es-ES');
+     }
+
+     // Clave de día para separar mensajes
+     function dayKey(d) {
+         const t = new Date(d);
+         return t.toDateString();
+     }
+
+     // Renderizar estadísticas
+     function renderStats(chat) {
+         const today = new Date().toDateString();
+         const todayCount = chat.filter(m => new Date(m.at).toDateString() === today).length;
+         const adminCount = chat.filter(m => m.sender !== 'Paciente').length;
+
+         document.getElementById('statToday').textContent = String(todayCount);
+         document.getElementById('statTotal').textContent = String(chat.length);
+         document.getElementById('statAdmin').textContent = String(adminCount);
+     }
+
+     // Renderizar mensajes
+     function render() {
+         const box = document.getElementById('messages');
+         const chat = loadChat();
+
+         renderStats(chat);
+         box.innerHTML = '';
+
+         let lastDay = null;
+         chat.forEach(m => {
+             const dk = dayKey(m.at);
+
+             // Separador de día
+             if (dk !== lastDay) {
+                 const sep = document.createElement('div');
+                 sep.className = 'day-sep';
+                 sep.textContent = new Date(m.at).toLocaleDateString('es-ES');
+                 box.appendChild(sep);
+                 lastDay = dk;
+             }
+
+             // Mensaje
+             const div = document.createElement('div');
+             div.className = 'msg ' + (m.sender === 'Paciente' ? 'from-patient' : 'from-admin');
+             const senderLabel = m.sender === 'Paciente' ? 'Paciente' : 'Administración';
+
+             div.innerHTML = `
+         <div>${m.text}</div>
+         <div class='meta'>${senderLabel} · ${formatTime(m.at)}</div>
+       `;
+             box.appendChild(div);
+         });
+
+         box.scrollTop = box.scrollHeight;
+     }
+
+     // Envío de mensaje
+     document.getElementById('chatForm').addEventListener('submit', e => {
+         e.preventDefault();
+         const input = document.getElementById('msgInput');
+         const text = input.value.trim();
+         if (!text) return;
+
+         const chat = loadChat();
+         chat.push({ sender: SENDER, text, at: new Date().toISOString() });
+         saveChat(chat);
+
+         input.value = '';
+         localStorage.setItem(TYPING_KEY, '');
+         render();
+     });
+
+     // Botones rápidos
+     document.querySelectorAll('.quick button').forEach(b => {
+         b.addEventListener('click', () => {
+             const input = document.getElementById('msgInput');
+             input.value = b.getAttribute('data-q');
+             input.focus();
+         });
+     });
+
+     // Estado de escritura
+     document.getElementById('msgInput').addEventListener('input', () => {
+         localStorage.setItem(TYPING_KEY, 'patient');
+     });
+
+     // Sincronización entre pestañas
+     window.addEventListener('storage', e => {
+         if (e.key === CHAT_KEY) render();
+         if (e.key === TYPING_KEY) {
+             const t = document.getElementById('typing');
+             t.style.display = (e.newValue === 'admin') ? '' : 'none';
+         }
+     });
+
+     // Eliminar todos los mensajes
+     document.getElementById('deleteMessages').addEventListener('click', () => {
+         if (!confirm('¿Eliminar todos los mensajes de esta conversación?')) return;
+         saveChat([]);
+         render();
+     });
+
+     // Render inicial
+     render();
+ </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = proyectofinal
+build_property.RootNamespace = proyectofinal
+build_property.ProjectDir = C:\Users\jeffe\OneDrive\Desktop\Proyetcooriginal\proyectofinal\proyectofinal\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\jeffe\OneDrive\Desktop\Proyetcooriginal\proyectofinal\proyectofinal
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/jeffe/OneDrive/Desktop/Proyetcooriginal/proyectofinal/proyectofinal/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jeffe/OneDrive/Desktop/Proyetcooriginal/proyectofinal/proyectofinal/Views/usuarioPacientes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXN1YXJpb1BhY2llbnRlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jeffe/OneDrive/Desktop/Proyetcooriginal/proyectofinal/proyectofinal/Views/usuarioPacientes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXN1YXJpb1BhY2llbnRlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jeffe/OneDrive/Desktop/Proyetcooriginal/proyectofinal/proyectofinal/Views/usuarioPacientes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXN1YXJpb1BhY2llbnRlc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jeffe/OneDrive/Desktop/Proyetcooriginal/proyectofinal/proyectofinal/Views/usuarioPacientes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXN1YXJpb1BhY2llbnRlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jeffe/OneDrive/Desktop/Proyetcooriginal/proyectofinal/proyectofinal/Views/usuarioPacientes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdXN1YXJpb1BhY2llbnRlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

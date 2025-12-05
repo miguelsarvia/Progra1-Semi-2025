@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #a1eaf3; /* celeste suave */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #ffffff;
+            width: 380px;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+            .form-header h2 {
+                margin: 0;
+                font-size: 22px;
+                color: #00695c;
+            }
+
+        label 
+        {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #004d40;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #b2dfdb;
+            font-size: 15px;
+            outline: none;
+            transition: border 0.2s;
+            background-color: #ffffff;
+        }
+
+            input[type="text"]:focus,
+            input[type="date"]:focus,
+            select:focus {
+                border-color: #00796b;
+            }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #00796b;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+
+            .btn-primary:hover {
+                background-color: #23a0a0;
+            }
+
+        /* Botón salir más pequeño y centrado, igual que agenda.html */
+        .btn-exit {
+            width: auto;
+            min-width: 160px;
+            display: block;
+            margin: 12px auto 0 auto;
+            background: linear-gradient(90deg,#004d40,#00796b);
+            color: #fff;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 999px;
+            font-size: .7rem;
+            letter-spacing: .4px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,121,107,0.3);
+            transition: .25s;
+            cursor: pointer;
+        }
+
+            .btn-exit:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0,121,107,0.4);
+            }
+    </style>
+
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Agenda</h2>
+            <h1> 📝 </h1>
+        </div>
+
+        <form id="formCita" autocomplete="off">
+            <label for="nombre">Nombre del paciente:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="edad">Edad:</label>
+            <input type="text" id="edad" name="edad" placeholder="Ingrese su edad" required autocomplete="off" inputmode="numeric" pattern="[0-9]*" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="motivo">Motivo:</label>
+            <select id="motivo" name="motivo" required autocomplete="off">
+                <option value="">Seleccione un motivo</option>
+                <option>Consulta General</option>
+                <option>Pediatría</option>
+                <option>Cardiología</option>
+                <option>Analisis de Laboratorio</option>
+                <option>Vacunacion</option>
+                <option>Chequeo Medico</option>
+                <option>Emergencias</option>
+                <option>Radiología</option>
+            </select>
+
+            <label for="fecha">Fecha:</label>
+            <input type="text" id="fecha" name="fecha" required autocomplete="off">
+
+            <label for="hora">Hora:</label>
+            <select id="hora" name="hora" required autocomplete="off">
+                <option value="">Seleccione una hora</option>
+            </select>
+
+            <button type="submit" class="btn-primary">Guardar cita</button>
+            <a href="agendacion.html" class="btn-exit" title="Regresar a agenda">Salir</a>
+        </form>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+
+        const franjasHorarias =
+            [
+            "09:00 - 09:30",
+            "09:30 - 10:00",
+            "10:00 - 10:30",
+            "10:30 - 11:00",
+            "11:00 - 11:30",
+            "11:30 - 12:00"
+        ];
+        // Columnas sin Domingo para que coincida con agendacion.html
+        const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]; // NORMALIZADO
+        const mapaDias = {
+            'lunes': 'Lunes', 'martes': 'Martes', 'miércoles': 'Miércoles', 'miercoles': 'Miércoles',
+            'jueves': 'Jueves', 'viernes': 'Viernes', 'sábado': 'Sábado', 'sabado': 'Sábado'
+        };
+
+        function fechaLocalYYYYMMDD(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth()+1).padStart(2,'0');
+            const day = String(d.getDate()).padStart(2,'0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function obtenerDiaNormalizado(fechaStr){
+            const d = new Date(fechaStr + 'T00:00:00');
+            const diaNombre = d.toLocaleDateString('es-ES',{weekday:'long'}).toLowerCase();
+            return mapaDias[diaNombre];
+        }
+
+        function loadCitas(){
+            try{ const raw = localStorage.getItem('citas'); return raw? JSON.parse(raw):{}; }catch{ return {}; }
+        }
+        function saveCitas(c){ localStorage.setItem('citas', JSON.stringify(c)); }
+
+        function mostrarHoras(fecha){
+            const horaSelect = document.getElementById('hora');
+            horaSelect.innerHTML = '<option value="">Seleccione una hora</option>';
+            if(!fecha) return;
+            const diaNorm = obtenerDiaNormalizado(fecha);
+            if(!diaNorm || !columnas.includes(diaNorm)) return; // domingo queda fuera
+
+            const citas = loadCitas();
+            const ocupadas = new Set();
+            Object.keys(citas).forEach(k=>{
+                const partes = k.split('_');
+                if(partes.length!==3) return;
+                const [f,d,i] = partes;
+                if(f===fecha && d===diaNorm){
+                    const idx = parseInt(i);
+                    if(!isNaN(idx) && franjasHorarias[idx]) ocupadas.add(franjasHorarias[idx]);
+                }
+            });
+            franjasHorarias.forEach(h=>{
+                const opt = document.createElement('option');
+                opt.value = h;
+                const ocupado = ocupadas.has(h);
+                opt.textContent = ocupado? `${h} (Ocupado)`: h;
+                opt.disabled = ocupado;
+                horaSelect.appendChild(opt);
+            });
+        }
+
+        document.getElementById('formCita').addEventListener('submit', function(e){
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const edad = formatEdad(document.getElementById('edad').value.trim());
+            const motivo = document.getElementById('motivo').value.trim();
+            const fecha = document.getElementById('fecha').value; // ya formato yyyy-mm-dd
+            const hora = document.getElementById('hora').value;
+            if(!nombre || !edad || !motivo || !fecha || !hora){ alert('Complete todos los campos.'); return; }
+            const diaNorm = obtenerDiaNormalizado(fecha);
+            if(!diaNorm){ alert('Día no válido (no se permiten domingos).'); return; }
+            const horaLimpia = hora.replace(' (Ocupado)','').trim();
+            const idx = franjasHorarias.indexOf(horaLimpia);
+            if(idx === -1){ alert('Hora inválida.'); return; }
+            const clave = `${fecha}_${diaNorm}_${idx}`;
+            const citas = loadCitas();
+            if(citas[clave]){ alert('Ya existe una cita en esa hora.'); return; }
+            citas[clave] = { valor: `${nombre} · Edad: ${edad} · Motivo: ${motivo} · ${horaLimpia}`, homePacientes: true };
+            saveCitas(citas);
+            console.log('CITA GUARDADA', clave, citas[clave]);
+            alert('Cita agendada.');
+            mostrarHoras(fecha);
+            this.reset();
+
+            // Forzar evento de almacenamiento manual para otras pestañas que no reciben change (opcional)
+            window.dispatchEvent(new StorageEvent('storage', { key: 'citas', newValue: localStorage.getItem('citas') }));
+        });
+
+        window.onload = ()=>{
+            const fechaInput = document.getElementById('fecha');
+            const hoy = fechaLocalYYYYMMDD(new Date());
+            fechaInput.value = hoy;
+            mostrarHoras(hoy);
+            fechaInput.addEventListener('change', ()=> mostrarHoras(fechaInput.value));
+        };
+
+        flatpickr('#fecha', { locale:'es', dateFormat:'Y-m-d', disable:[d=> d.getDay()===0] });
+
+        window.addEventListener('storage', e => { if (e.key === 'citas') { mostrarHoras(document.getElementById('fecha').value); } });
+
+        // Helper para formatear edad (solo números) a "N Años"
+        function formatEdad(input) {
+            const n = String(input || '').match(/\d+/);
+            return n ? `${n[0]} Años` : '';
+        }
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil Administrativo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #e0f7fa;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: #004d40;
+        }
+
+        .perfil {
+            width: 100%;
+            max-width: 640px;
+            background: #ffffff;
+            border: 1px solid #b2dfdb;
+            border-radius: 28px;
+            padding: 42px 40px 50px;
+            box-shadow: 0 12px 40px rgba(0, 121, 107, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .perfil::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><g stroke='%2300695c' stroke-width='2' fill='none' opacity='.18' stroke-linecap='round' stroke-linejoin='round'><rect x='10' y='10' width='28' height='36' rx='4'/><path d='M18 18 h16 M24 24 h14 M30 30 h10'/><rect x='14' y='76' width='46' height='18' rx='9'/></g></svg>");
+                background-size: 120px 120px;
+                background-repeat: repeat;
+                opacity: .25;
+                pointer-events: none;
+            }
+
+        h1 {
+            position: relative;
+            z-index: 1;
+            font-size: 2rem;
+            color: #00796b;
+            font-weight: 700;
+            letter-spacing: .5px;
+            margin: 0 0 28px 0;
+        }
+
+        .avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: #b2ebf2;
+            border: 6px solid #ffffff;
+            box-shadow: 0 10px 26px rgba(0, 121, 107, 0.25);
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #00695c;
+            margin: 0 auto 24px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .acciones {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .upload-label {
+            display: block;
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 999px;
+            font-size: .7rem;
+            letter-spacing: .4px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 121, 107, 0.35);
+            transition: .25s;
+        }
+
+            .upload-label:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 26px rgba(0, 121, 107, 0.45);
+            }
+
+        .exit-btn {
+            display: block;
+            background: linear-gradient(90deg, #004d40, #00796b);
+            color: #fff;
+            padding: 10px 26px;
+            border-radius: 999px;
+            font-size: .75rem;
+            letter-spacing: .4px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 6px 18px rgba(0, 121, 107, 0.35);
+            transition: .25s;
+        }
+
+        .exit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(0, 121, 107, 0.45);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .datos {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .fila {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: #e0f2f1;
+            padding: 14px 18px 16px;
+            border: 1px solid #b2dfdb;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.12);
+        }
+
+        .label {
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .15rem;
+            color: #00796b;
+            text-transform: uppercase;
+        }
+
+        .valor {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #004d40;
+            word-break: break-word;
+        }
+
+        .estado-foto {
+            font-size: .7rem;
+            color: #00695c;
+            text-align: center;
+            margin-top: -6px;
+            margin-bottom: 4px;
+            font-style: italic;
+        }
+
+        @media (max-width: 640px) {
+            .perfil {
+                padding: 34px 26px 44px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .avatar {
+                width: 130px;
+                height: 130px;
+                font-size: 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="perfil">
+        <h1>Perfil Administrativo</h1>
+        <div id="avatar" class="avatar" aria-label="Foto de la secretaria">👤</div>
+        <div class="acciones">
+            <label class="upload-label" for="fotoPerfil">Cambiar Foto</label>
+            <a href="agendacion.html" class="exit-btn" title="Regresar a agenda">Salir</a>
+        </div>
+        <input id="fotoPerfil" type="file" accept="image/*" class="hidden" />
+        <div id="estadoFoto" class="estado-foto"></div>
+
+        <div class="datos">
+            <div class="fila">
+                <span class="label">Nombre</span>
+                <span class="valor" id="val-nombre">-</span>
+            </div>
+            <div class="fila">
+                 <span class="label">Apellido</span>
+                 <span class="valor" id="val-apellido">-</span>
+            </div>
+            <div class="fila">
+                 <span class="label">DUI</span>
+                 <span class="valor" id="val-dui">-</span>
+            </div>
+            <div class="fila">
+                 <span class="label">Especialidad</span>
+                 <span class="valor" id="val-especialidad">-</span>
+            </div>
+            <div class="fila">
+                 <span class="label">Teléfono</span>
+                 <span class="valor" id="val-telefono">-</span>
+            </div>
+            <div class="fila">
+                 <span class="label">Fecha</span>
+                 <span class="valor" id="val-fecha">-</span>
+            </div>
+            <div class="fila">
+                  <span class="label">Correo</span>
+                  <span class="valor" id="val-correo">-</span>
+            </div>
+            <div class="fila">
+                  <span class="label">Dirección</span>
+                  <span class="valor" id="val-direccion">-</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const campos = {
+            nombre: document.getElementById('val-nombre'),
+            apellido: document.getElementById('val-apellido'),
+            dui: document.getElementById('val-dui'),
+            especialidad: document.getElementById('val-especialidad'),
+            telefono: document.getElementById('val-telefono'),
+            fecha: document.getElementById('val-fecha'),
+            correo: document.getElementById('val-correo'),
+            direccion: document.getElementById('val-direccion')
+        };
+
+        const avatar = document.getElementById('avatar');
+        const estadoFoto = document.getElementById('estadoFoto');
+        const idSecretaria = localStorage.getItem('idSecretaria');
+
+        function fillFromLocalStorage() {
+            try {
+                const raw = localStorage.getItem('datosAdministracion');
+                if (!raw) return false;
+                const data = JSON.parse(raw);
+                if (!data) return false;
+                campos.nombre.textContent = data.nombre || campos.nombre.textContent;
+                campos.apellido.textContent = data.apellido || campos.apellido.textContent;
+                campos.dui.textContent = data.dui || campos.dui.textContent;
+                campos.especialidad.textContent = data.especialidad || campos.especialidad.textContent;
+                campos.telefono.textContent = data.telefono || campos.telefono.textContent;
+                campos.fecha.textContent = data.fecha || campos.fecha.textContent;
+                campos.correo.textContent = data.correo || campos.correo.textContent;
+                campos.direccion.textContent = data.direccion || campos.direccion.textContent;
+                return true;
+            } catch { return false; }
+        }
+
+        async function cargarDatos() {
+            // Primero intentamos desde localStorage (Datos_administracion.html)
+            const filled = fillFromLocalStorage();
+            if (filled) {
+                // si hay foto guardada localmente, mantenerla
+                const fotoLocal = localStorage.getItem('fotoSecretaria');
+                if (fotoLocal) establecerFoto(fotoLocal);
+            }
+
+            // Si existe idSecretaria, intentamos sobre-escribir con datos del backend
+            if (!idSecretaria) return;
+            try {
+                const resp = await fetch(`/api/UsuarioSecretaria/obtenerDatosSecretaria/${idSecretaria}`);
+                if (resp.ok) {
+                    const data = await resp.json();
+                    campos.nombre.textContent = data.nombre || campos.nombre.textContent;
+                    campos.apellido.textContent = data.apellido || campos.apellido.textContent;
+                    campos.dui.textContent = data.dui || campos.dui.textContent;
+                    campos.especialidad.textContent = data.especialidad || campos.especialidad.textContent;
+                    campos.telefono.textContent = data.telefono || campos.telefono.textContent;
+                    campos.fecha.textContent = data.fecha || campos.fecha.textContent;
+                    campos.correo.textContent = data.correo || campos.correo.textContent;
+                    campos.direccion.textContent = data.direccion || campos.direccion.textContent;
+
+                    if (data.fotoRuta) {
+                        avatar.style.backgroundImage = `url(${data.fotoRuta})`;
+                        avatar.style.backgroundSize = 'cover';
+                        avatar.style.backgroundPosition = 'center';
+                        avatar.textContent = '';
+                    }
+                } else {
+                    console.warn('No se pudo obtener datos');
+                }
+            } catch (e) {
+                console.warn('Error cargando datos', e);
+            }
+        }
+
+        function establecerFoto(dataUrl) {
+            avatar.style.backgroundImage = `url(${dataUrl})`;
+            avatar.style.backgroundSize = 'cover';
+            avatar.style.backgroundPosition = 'center';
+            avatar.textContent = '';
+            estadoFoto.textContent = 'Foto cargada';
+        }
+
+        const fotoLocal = localStorage.getItem('fotoSecretaria');
+        if (fotoLocal) establecerFoto(fotoLocal);
+
+        document.getElementById('fotoPerfil').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (!file.type.startsWith('image/')) {
+                estadoFoto.textContent = 'Archivo no válido';
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = () => {
+                localStorage.setItem('fotoSecretaria', reader.result);
+                establecerFoto(reader.result);
+            };
+            reader.readAsDataURL(file);
+            estadoFoto.textContent = 'Procesando imagen...';
+        });
+
+        cargarDatos();
+    </script>
+</body>
+</html>

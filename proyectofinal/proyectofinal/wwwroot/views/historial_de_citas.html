@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Citas</title>
+    <style>
+
+        /* Reset general */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Fondo y centrado */
+        body {
+            background-color: #a1eaf3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Contenedor principal */
+        .contenedor {
+            background: #ffffff;
+            width: 600px;
+            border-radius: 12px;
+            /* Corregido: faltaba espacio en box-shadow */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            /* Corregido: padding debe tener espacio entre valores */
+            padding: 40px 50px;
+        }
+
+        /* Título */
+        .titulo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+            .titulo h2 {
+                font-size: 2rem;
+                color: #00796b;
+                margin: 0;
+            }
+
+        /* Etiquetas */
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #004d40;
+        }
+
+        /* Inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 0.95rem;
+            border: 1px solid #b2dfdb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            /* Corregido: faltaba espacio en inset */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #00796b;
+            outline: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px 10px; /* faltaba el espacio entre valores */
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f1f8f9;
+        }
+
+        tbody tr:hover {
+            background: #d0f0f3;
+        }
+
+        /* Botón salir con estilo consistente */
+        .exit-btn {
+            width: auto;
+            min-width: 160px;
+            display: block;
+            margin: 12px auto 0 auto; /* corregido: antes estaba "12px auto0 auto" */
+            background: linear-gradient(90deg, #004d40, #00796b);
+            color: #fff;
+            padding: 8px 20px; /* corregido: antes estaba "8px20px" */
+            border: none;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            letter-spacing: 0.4px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3); /* corregido: antes estaba "04px12px" */
+            transition: 0.25s;
+            cursor: pointer;
+        }
+
+            .exit-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(0, 121, 107, 0.4); /* corregido: antes estaba "08px20px" */
+            }
+
+        @media (max-width: 480px) {
+            .contenedor {
+                width: 95%;
+                padding: 25px;
+            }
+
+            .titulo h2 {
+                font-size: 1.6rem;
+            }
+
+            th,
+            td {
+                padding: 10px 8px; /* corregido: antes estaba "10px8px" */
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor">
+        <div class="titulo">
+            <h2>Historial de Citas 📚</h2>
+        </div>
+
+        <div style="margin-bottom: 18px;">
+            <label for="filtro-fecha" style="font-weight: 600; color: #444;">
+                Buscar por fecha:
+            </label>
+            <input type="date"
+                   id="filtro-fecha"
+                   style="padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc;">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Motivo</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                </tr>
+            </thead>
+            <tbody id="historial-citas-body">
+                <!-- Aquí se insertarán dinámicamente las filas -->
+            </tbody>
+        </table>
+
+        <a href="home_pacientes.html" class="exit-btn" title="Regresar al inicio">
+            Salir
+        </a>
+    </div>
+
+
+    <script>
+        // Identidad actual: obtiene el ID del paciente desde localStorage
+        const currentUserId = (localStorage.getItem('idPacienteUsuario') || '').trim();
+
+        /**
+         * Obtiene el nombre completo del usuario actual.
+         * Esto es útil para compatibilidad si la cita no tiene ownerId.
+         */
+        function getCurrentUserName() {
+            try {
+                // Si no hay ID, no se puede obtener nombre
+                if (!currentUserId) return '';
+
+                // Recupera los datos del paciente en formato JSON
+                const raw = localStorage.getItem(`datosPaciente_${currentUserId}`);
+                if (!raw) return '';
+
+                const obj = JSON.parse(raw);
+
+                // Extrae nombre y apellido, asegurando que no sean undefined
+                const nombre = (obj?.nombre || '').trim();
+                const apellido = (obj?.apellido || '').trim();
+
+                // Une nombre y apellido, elimina espacios sobrantes y pasa a minúsculas
+                return [nombre, apellido]
+                    .filter(Boolean) // elimina valores vacíos
+                    .join(' ')
+                    .trim()
+                    .toLowerCase();
+            } catch {
+                // En caso de error, devuelve cadena vacía
+                return '';
+            }
+        }
+
+        /**
+         * Parser de citas: recibe un string o un objeto { valor }
+         * Devuelve un objeto con nombre, motivo y hora.
+         */
+        function parseCita(valor) {
+            try {
+                let texto = '';
+
+                // Si es string, lo usa directamente
+                if (typeof valor === 'string') {
+                    texto = valor;
+                }
+                // Si es objeto con propiedad "valor", lo extrae
+                else if (typeof valor === 'object' && valor.valor) {
+                    texto = valor.valor;
+                }
+
+                if (!texto) return null;
+
+                // Divide el texto por el separador "·"
+                const partes = texto.split('·').map(p => p.trim());
+
+                // Primer parte: nombre
+                const nombre = partes[0] || '';
+
+                // Busca la parte que empieza con "Motivo:"
+                const motivo = partes.find(p => p.startsWith('Motivo:'))
+                    ?.replace('Motivo:', '')
+                    .trim() || '';
+
+                // Busca la parte que contiene hora (ejemplo: "10:00 - 11:00")
+                const hora = partes.find(p => p.includes(':') && p.includes('-')) || '';
+
+                return { nombre, motivo, hora };
+            } catch {
+                // En caso de error, devuelve null
+                return null;
+            }
+        }
+
+        /**
+         * Determina si una cita pertenece al usuario actual.
+         * @param {Object|string} cita - Puede ser un objeto con ownerId o un string parseable.
+         * @returns {boolean} true si la cita es del usuario actual, false en caso contrario.
+         */
+        function esCitaPropia(cita) {
+            try {
+                if (!cita) return false;
+
+                // 1. Preferir ownerId cuando existe en el objeto
+                if (
+                    typeof cita === 'object' &&
+                    cita.ownerId !== undefined &&
+                    cita.ownerId !== null
+                ) {
+                    const owner = String(cita.ownerId).trim();
+                    return !!currentUserId && owner && owner === currentUserId;
+                }
+
+                // 2. Fallback: comparar por nombre de paciente
+                const parsed = parseCita(cita);
+                const citaNombre = (parsed?.nombre || '').trim().toLowerCase();
+                const userName = getCurrentUserName();
+
+                if (!citaNombre || !userName) return false;
+
+                return citaNombre === userName;
+            } catch {
+                // En caso de error, devuelve false
+                return false;
+            }
+        }
+
+        /**
+         * Carga el historial de citas en la tabla.
+         * @param {string} filtroFecha - Fecha en formato YYYY-MM-DD para filtrar, opcional.
+         */
+        function cargarHistorialCitas(filtroFecha = "") {
+            const tbody = document.getElementById('historial-citas-body');
+            tbody.innerHTML = ''; // Limpia el contenido previo
+            let citas = {};
+
+            // Recupera las citas desde localStorage
+            try {
+                const raw = localStorage.getItem('citas');
+                citas = raw ? JSON.parse(raw) : {};
+            } catch {
+                citas = {};
+            }
+
+            let hay = false;
+
+            // Itera sobre cada cita almacenada
+            Object.entries(citas).forEach(([clave, valor]) => {
+                const fecha = clave.split('_')[0]; // La clave contiene la fecha
+                if (filtroFecha && filtroFecha !== fecha) return;
+
+                // Solo mostrar citas del usuario actual
+                if (!esCitaPropia(valor)) return;
+
+                const parsed = parseCita(valor);
+                if (!parsed) return;
+
+                // Construye la fila de la tabla
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="padding: 6px 4px;">${parsed.nombre}</td>
+                    <td style="padding: 6px 4px;">${parsed.motivo}</td>
+                    <td style="padding: 6px 4px;">${fecha}</td>
+                    <td style="padding: 6px 4px;">${parsed.hora}</td>
+                `;
+                tbody.appendChild(tr);
+                hay = true;
+            });
+
+            // Si no hay citas, muestra mensaje
+            if (!hay) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td colspan="4" style="padding: 10px; text-align: center; color: #888;">
+                        No hay citas para mostrar.
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            }
+        }
+
+        // Inicializa eventos al cargar el DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            const filtro = document.getElementById('filtro-fecha');
+            filtro.addEventListener('input', () => cargarHistorialCitas(filtro.value));
+            cargarHistorialCitas(); // Carga inicial
+        });
+
+        // Sincroniza si otras pestañas modifican las citas
+        window.addEventListener('storage', e => {
+            if (e.key === 'citas') {
+                const filtro = document.getElementById('filtro-fecha');
+                cargarHistorialCitas(filtro.value);
+            }
+        });
+    </script>
+</body>
+</html>

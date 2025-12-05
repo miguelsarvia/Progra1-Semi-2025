@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Búsqueda de Pacientes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* 🔷 ESTILO GENERAL DEL CUERPO */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e0f7fa; /* celeste suave */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 🔷 CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto; /* antes 50px → más arriba */
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px 100px 80px 40px;
+            position: relative;
+        }
+
+        /* 🔷 TÍTULO */
+        h2 {
+            text-align: center;
+            margin-top: 0; /* nuevo: elimina espacio arriba */
+            margin-bottom: 28px;
+            color: #00796b;
+            font-size: 1.8rem;
+        }
+
+        /* 🔷 ACCIONES INFERIORES */
+        .actions-bottom {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .actions-bottom a {
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 6px 16px rgba(0, 121, 107, 0.35);
+        }
+
+        .actions-bottom a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 🔷 CAMPOS DE TEXTO (Nombre, Motivo, etc.) */
+        input[type="text"] {
+            width: 103%; /* más compacto */
+            padding: 10px;
+            font-size: 0.95rem;
+            border: 1px solid #b2dfdb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 🔷 CAMPO DE FECHA (flatpickr) */
+        .flatpickr-input {
+            width: 90%; /* igual que input de texto */
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* 🔷 TABLA DE PACIENTES */
+        table {
+            width: 105%; /* ligeramente más estrecha */
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        /* 🔷 CELDAS DE LA TABLA */
+        th, td {
+            border: 1px solid #b2dfdb;
+            padding: 8px 10px; /* menos relleno */
+            font-size: 1.1rem; /* texto un poco más pequeño */
+            text-align: left;
+        }
+
+        /* 🔷 ENCABEZADO DE LA TABLA */
+        th {
+            background: #b2ebf2;
+            color: #004d40;
+        }
+
+        /* 🔷 FILAS ALTERNAS Y HOVER */
+        tr:nth-child(even) {
+            background: #f1f8e9;
+        }
+
+        tr:hover {
+            background: #dcedc8;
+        }
+
+        /* 🔷 MENSAJE CUANDO NO HAY RESULTADOS */
+        .no-results {
+            text-align: center;
+            color: #666;
+            padding: 20px 0;
+            font-style: italic;
+        }
+
+        /* 🔷 BOTONES DE ACCIÓN */
+        .btn {
+            padding: 4px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-right: 4px;
+        }
+
+        /* 🔷 BOTÓN ELIMINAR */
+        .btn-eliminar 
+        {
+            background: #c9e553;
+            color: #221717;
+        }
+    </style>
+
+</head>
+
+
+
+
+<body>
+    <div class="container">
+        <h2>Búsqueda de Pacientes 👤</h2>
+        <input type="text" id="busqueda" placeholder="Buscar por nombre..." autocomplete="off" />
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:38px;"><input type="checkbox" id="selectAll" title="Seleccionar todo"></th>
+                    <th>Nombre</th>
+                    <th>Motivo</th>
+                    <th>Edad</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="resultados">
+                <!-- Resultados aquí -->
+            </tbody>
+        </table>
+        <div id="noResultados" class="no-results" style="display:none;">No se encontraron pacientes.</div>
+        <div class="actions-bottom" style="margin-top:16px;display:flex;gap:12px;justify-content:center;align-items:center;">
+            <button id="deleteSelected" class="btn" style="background: linear-gradient(90deg, #00796b, #004d40); color: #fff; padding:10px 22px; border-radius:999px; font-size:0.8rem; font-weight:600; text-decoration: none; display: inline-block; box-shadow:06px16px rgba(0,121,107,0.35);">Eliminar citas seleccionadas</button>
+            <a href="agendacion.html" title="Regresar a agenda" style="background: linear-gradient(90deg, #00796b, #004d40); color: #fff; padding:10px 22px; border-radius:999px; font-size:0.8rem; font-weight:600; text-decoration: none; display: inline-block; box-shadow:06px16px rgba(0,121,107,0.35);">Salir</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        const franjasHorarias = [
+            "09:00 - 09:30",
+            "09:30 - 10:00",
+            "10:00 - 10:30",
+            "10:30 - 11:00",
+            "11:00 - 11:30",
+            "11:30 - 12:00"
+        ];
+        const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const MOTIVOS = [
+            "Consulta General", "Pediatría", "Cardiología",
+            "Analisis de Laboratorio", "Vacunacion",
+            "Chequeo Medico", "Emergencias", "Radiología"
+        ];
+
+        // Parsea el string de la cita y extrae nombre, edad, motivo y hora
+        function parseCitaString(valor) {
+            // valor esperado: "Nombre · Edad: 13 · Motivo: Dolor de cabeza · 09:30 - 10:00"
+            const partes = valor.split('·').map(p => p.trim());
+            const nombre = partes[0] || "-";
+            let edad = "-";
+            let motivo = "-";
+            let hora = "-";
+            const horaRegex = /^\d{2}:\d{2}\s*-\s*\d{2}:\d{2}$/; // detecta HH:MM - HH:MM con espacios opcionales
+            partes.forEach(p => {
+                if (p.startsWith("Edad:")) edad = p.replace("Edad:", "").trim();
+                if (p.startsWith("Motivo:")) motivo = p.replace("Motivo:", "").trim();
+                if (franjasHorarias.includes(p) || horaRegex.test(p)) {
+                    const [ini, fin] = p.split('-').map(x => x.trim());
+                    hora = `${ini} - ${fin}`; // normaliza el formato
+                }
+            });
+            return { nombre, motivo, edad, hora };
+        }
+
+        // Lee las citas desde localStorage y extrae los pacientes únicos con su cita
+        function obtenerPacientesDeCitas() {
+            const raw = localStorage.getItem('citas');
+            if (!raw) return [];
+            const citas = JSON.parse(raw);
+            const pacientes = [];
+
+            Object.entries(citas).forEach(([clave, valor]) => {
+                const [fecha, ,] = clave.split('_');
+                let texto = null;
+                if (typeof valor === 'string') {
+                    texto = valor;
+                } else if (typeof valor === 'object' && typeof valor.valor === 'string') {
+                    texto = valor.valor;
+                }
+                if (texto) {
+                    const cita = parseCitaString(texto);
+                    pacientes.push({ ...cita, fecha, clave });
+                }
+            });
+
+            return pacientes;
+        }
+
+        const inputBusqueda = document.getElementById('busqueda');
+        const tbody = document.getElementById('resultados');
+        const noResultados = document.getElementById('noResultados');
+        const selectAll = document.getElementById('selectAll');
+        const btnDeleteSelected = document.getElementById('deleteSelected');
+
+        function mostrarResultados(filtrados) {
+            tbody.innerHTML = '';
+            if (filtrados.length === 0) {
+                noResultados.style.display = 'block';
+                return;
+            }
+            noResultados.style.display = 'none';
+            filtrados.forEach((p, idx) => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td><input type="checkbox" class="row-select" data-clave="${p.clave}"></td>
+                    <td>${p.nombre}</td>
+                    <td>${p.motivo}</td>
+                    <td>${p.edad}</td>
+                    <td>${p.fecha}</td>
+                    <td>${p.hora}</td>
+                    <td>
+
+                        <button class="btn btn-eliminar" data-idx="${idx}">Eliminar</button>
+                    </td>
+                `;
+                tbody.appendChild(fila);
+            });
+
+            // Asignar eventos a los botones
+            document.querySelectorAll('.btn-eliminar').forEach(btn => {
+                btn.onclick = function () {
+                    const idx = this.getAttribute('data-idx');
+                    eliminarCita(filtrados[idx].clave);
+                };
+            });
+
+        }
+
+        function eliminarCita(clave) {
+            if (!confirm('¿Eliminar esta cita?')) return;
+            const raw = localStorage.getItem('citas');
+            if (!raw) return;
+            const citas = JSON.parse(raw);
+            delete citas[clave];
+            localStorage.setItem('citas', JSON.stringify(citas));
+            filtrarPacientes();
+        }
+
+        function eliminarSeleccionadas() {
+            const checks = Array.from(document.querySelectorAll('.row-select'));
+            const seleccionadas = checks.filter(c => c.checked).map(c => c.getAttribute('data-clave'));
+            if (seleccionadas.length === 0) {
+                alert('No hay citas seleccionadas.');
+                return;
+            }
+            if (!confirm(`Eliminar ${seleccionadas.length} citas seleccionadas?`)) return;
+            const raw = localStorage.getItem('citas');
+            const citas = raw ? JSON.parse(raw) : {};
+            seleccionadas.forEach(clave => { delete citas[clave]; });
+            localStorage.setItem('citas', JSON.stringify(citas));
+            filtrarPacientes();
+        }
+
+        function filtrarPacientes() {
+            const pacientes = obtenerPacientesDeCitas();
+            const texto = inputBusqueda.value.trim().toLowerCase();
+            const filtrados = pacientes.filter(p =>
+                p.nombre.toLowerCase().includes(texto)
+            );
+            mostrarResultados(filtrados);
+            // reset select-all state after refresh
+            selectAll.checked = false;
+        }
+
+        inputBusqueda.addEventListener('input', filtrarPacientes);
+        selectAll.addEventListener('change', () => {
+            const checks = document.querySelectorAll('.row-select');
+            checks.forEach(c => c.checked = selectAll.checked);
+        });
+        btnDeleteSelected.addEventListener('click', eliminarSeleccionadas);
+
+        // Mostrar todos al cargar
+        filtrarPacientes();
+    </script>
+</body>
+</html>

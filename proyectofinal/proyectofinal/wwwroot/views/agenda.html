@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Agendar Cita</title>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+ <style>
+     body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background-color: #a1eaf3; /* celeste suave */
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         margin: 0;
+     }
+
+     .form-container {
+         background: #ffffff;
+         width: 380px;
+         padding: 25px 30px;
+         border-radius: 12px;
+         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+     }
+
+     .form-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 15px;
+     }
+
+         .form-header h2 {
+             margin: 0;
+             font-size: 22px;
+             color: #00695c;
+         }
+
+         .form-header img {
+             width: 32px;
+             height: 32px;
+         }
+
+     label {
+         display: block;
+         font-weight: bold;
+         margin: 10px 0 5px;
+         color: #004d40;
+     }
+
+     input[type="text"],
+     input[type="date"],
+     select {
+         width: 100%;
+         padding: 10px;
+         border-radius: 6px;
+         border: 1px solid #b2dfdb;
+         font-size: 15px;
+         outline: none;
+         transition: border 0.2s;
+         background-color: #ffffff;
+     }
+
+         input[type="text"]:focus,
+         input[type="date"]:focus,
+         select:focus {
+             border-color: #00796b;
+         }
+
+     .btn-primary {
+         width: 100%;
+
+         font-size: 16px;
+         font-weight: bold;
+         padding: 10px;
+         border: none;
+         border-radius: 8px;
+         margin-top: 15px;
+         cursor: pointer;
+         transition: background-color 0.3s;
+         box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+         display: inline-block;
+         text-align: center;
+         background: #00796b;
+         color: white;
+     }
+
+         .btn-primary:hover {
+             background: #23a0a0;
+         }
+
+         /* Botón salir más pequeño y centrado */
+         .btn-exit {
+             width: auto;
+             min-width: 160px;
+             display: block;
+             margin: 12px auto 0 auto;
+             background: linear-gradient(90deg, #004d40, #00796b);
+             color: white;
+             padding: 8px 20px;
+             border: none;
+             border-radius: 999px;
+             font-size: 0.7rem;
+             letter-spacing: 0.4px;
+             font-weight: 600;
+             text-decoration: none;
+             text-align: center;
+             box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3);
+             transition: 0.25s;
+             cursor: pointer;
+         }
+
+         .btn-exit:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 8px 20px rgba(0, 121, 107, 0.4);
+         }
+ </style>
+
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Agenda</h2>
+            <h1> 📝 </h1>
+        </div>
+
+        <form id="formCita" autocomplete="off">
+            <label for="nombre">Nombre del paciente:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="edad">Edad:</label>
+            <input type="text" id="edad" name="edad" placeholder="Ingrese su edad" required autocomplete="off" inputmode="numeric" pattern="[0-9]*" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="motivo">Motivo:</label>
+            <select id="motivo" name="motivo" required autocomplete="off">
+                <option value="">Seleccione un motivo</option>
+                <option>Consulta General</option>
+                <option>Pediatría</option>
+                <option>Cardiología</option>
+                <option>Analisis de Laboratorio</option>
+                <option>Vacunacion</option>
+                <option>Chequeo Medico</option>
+                <option>Emergencias</option>
+                <option>Radiología</option>
+            </select>
+
+            <label for="fecha">Fecha:</label>
+            <input type="text" id="fecha" name="fecha" required autocomplete="off">
+
+            <label for="hora">Hora:</label>
+            <select id="hora" name="hora" required autocomplete="off">
+                <option value="">Seleccione una hora</option>
+            </select>
+
+            <button type="submit" class="btn-primary">Agendar Cita</button>
+            <a href="home_pacientes.html" class="btn-exit" title="Regresar al inicio">Salir</a>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+
+        const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]; // sin Domingo
+        const franjasHorarias = [
+            "09:00 - 09:30",
+            "09:30 - 10:00",
+            "10:00 - 10:30",
+            "10:30 - 11:00",
+            "11:00 - 11:30",
+            "11:30 - 12:00"
+        ];
+
+        let origenEsHome = false;
+        try {
+            const referrer = document.referrer;
+            if (referrer.includes("home_pacientes.html")) origenEsHome = true;
+        } catch (e) {
+            origenEsHome = false;
+        }
+
+        function formatDate(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function loadCitas() {
+            try {
+                const raw = localStorage.getItem('citas');
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                console.warn('Error parseando citas desde localStorage:', e);
+                return {};
+            }
+        }
+
+        function saveCitas(citas) {
+            localStorage.setItem('citas', JSON.stringify(citas));
+            localStorage.setItem('citas_sync', Date.now().toString());
+        }
+
+        function obtenerDia(fechaStr) {
+            const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+            const fecha = new Date(fechaStr + 'T00:00:00');
+            const dia = fecha.getDay();
+            return dia === 0 ? null : dias[dia];
+        }
+
+        function mostrarHoras(fecha) {
+            const sel = document.getElementById('hora');
+            sel.innerHTML = '<option value="">Seleccione una hora</option>';
+            if (!fecha) return;
+
+            const dia = obtenerDia(fecha);
+            if (!dia || !columnas.includes(dia)) return;
+
+            const citas = loadCitas();
+            const ocupadas = [];
+
+            Object.keys(citas).forEach(clave => {
+                const partes = clave.split('_');
+                if (partes.length === 3) {
+                    const [f, d, i] = partes;
+                    if (f === fecha && d === dia) {
+                        const fr = franjasHorarias[parseInt(i)];
+                        if (fr) ocupadas.push(fr);
+                    }
+                }
+            });
+
+            franjasHorarias.forEach(h => {
+                const opt = document.createElement('option');
+                opt.value = h;
+                const ocupado = ocupadas.includes(h);
+                opt.textContent = ocupado ? `${h} (Ocupado)` : h;
+                opt.disabled = ocupado;
+                sel.appendChild(opt);
+            });
+        }
+
+        window.onload = () => {
+            const fechaInput = document.getElementById('fecha');
+            const hoy = formatDate(new Date());
+            fechaInput.value = hoy;
+            mostrarHoras(hoy);
+            fechaInput.addEventListener('change', () => mostrarHoras(fechaInput.value));
+        };
+
+        flatpickr('#fecha', {
+            locale: 'es',
+            dateFormat: 'Y-m-d',
+            disable: [d => d.getDay() === 0]
+        });
+
+        document.getElementById('formCita').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const nombre = nombreInput.value.trim();
+            const edad = formatEdad(edadInput.value.trim());
+            const motivo = motivoInput.value.trim();
+            const fecha = fechaInput.value;
+            const hora = horaSelect.value;
+
+            if (!nombre || !edad || !motivo || !fecha || !hora) {
+                alert('Por favor complete todos los campos.');
+                return;
+            }
+
+            const dia = obtenerDia(fecha);
+            if (!dia || !columnas.includes(dia)) {
+                alert('La fecha seleccionada no corresponde a un día hábil.');
+                return;
+            }
+
+            const horaLimpia = hora.replace(' (Ocupado)', '').trim();
+            const idx = franjasHorarias.indexOf(horaLimpia);
+            if (idx === -1) {
+                alert('Seleccione una franja horaria válida.');
+                return;
+            }
+
+            const clave = `${fecha}_${dia}_${idx}`;
+            const citas = loadCitas();
+            if (citas[clave]) {
+                alert('Ya existe una cita para ese día y hora.');
+                return;
+            }
+
+            citas[clave] = {
+                valor: `${nombre} · Edad: ${edad} · Motivo: ${motivo} · ${horaLimpia}`
+            };
+            saveCitas(citas);
+
+            window.dispatchEvent(new StorageEvent('storage', {
+                key: 'citas',
+                newValue: localStorage.getItem('citas')
+            }));
+
+            fetch('https://localhost:7289/api/GuardarCitas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nombre: nombre.trim(),
+                    motivo: motivo.trim(),
+                    fecha: fecha,
+                    hora: horaLimpia
+                })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.success) console.error('Error guardando en DB:', data.error);
+                })
+                .catch(err => console.error('Error en fetch:', err));
+
+            alert('Cita agendada correctamente.');
+            mostrarHoras(fecha);
+            e.target.reset();
+        });
+
+        window.addEventListener('storage', e => {
+            if (e.key === 'citas' || e.key === 'citas_sync') {
+                mostrarHoras(fechaInput.value);
+            }
+        });
+
+        const nombreInput = document.getElementById('nombre');
+        const edadInput = document.getElementById('edad');
+        const motivoInput = document.getElementById('motivo');
+        const fechaInput = document.getElementById('fecha');
+        const horaSelect = document.getElementById('hora');
+
+        // Helper para formatear edad (solo números) a "N Años"
+        function formatEdad(input) {
+            const n = String(input || '').match(/\d+/);
+            return n ? `${n[0]} Años` : '';
+        }
+    </script>
+</body>
+</html>

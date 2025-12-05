@@ -1,0 +1,595 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Agenda Medica - Dr. Cordova</title>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+ <style>
+     body {
+         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+         background-color: #e0f7fa;
+         margin: 0;
+         padding: 0;
+     }
+
+     table {
+         border-collapse: collapse;
+         width: 92%;
+         margin: 30px auto;
+         background-color: #ffffff;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+     }
+
+     th,
+     td {
+         border: 1px solid #b2dfdb;
+         padding: 10px;
+         text-align: center;
+     }
+
+         th.hora,
+         td.hora {
+             background: #a1eaf3;
+             width: 140px;
+             font-weight: 700;
+             color: #004d40;
+         }
+
+     .titulo {
+         font-family: "Brush Script MT", cursive;
+         font-size: 2em;
+         font-style: italic;
+         background-color: #a1eaf3;
+         border: none;
+         text-align: center;
+         height: 60px;
+         vertical-align: middle;
+         color: #00695c;
+     }
+
+     .menu {
+         background-color: #c6ffff;
+         font-weight: bold;
+         text-align: center;
+         padding: 12px 0;
+         position: relative;
+     }
+
+     .menu-bar {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 12px;
+         padding: 4px 12px;
+     }
+
+     .btn {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         background: linear-gradient(90deg, #00796b 0%, #004d40 100%);
+         color: #fff;
+         border: none;
+         padding: 10px 14px;
+         border-radius: 8px;
+         font-weight: 700;
+         cursor: pointer;
+         box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+         transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+         text-decoration: none;
+         white-space: nowrap;
+         font-size: .95rem;
+     }
+
+         .btn.secondary {
+             background: #ffffff;
+             color: #333;
+             border: 1px solid #b2dfdb;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+             font-weight: 600;
+         }
+
+     .dias {
+         background-color: #a1eaf3;
+         font-weight: bold;
+         color: #004d40;
+     }
+
+     td.disponible {
+         background-color: #e0f2f1;
+         cursor: pointer;
+         vertical-align: middle;
+     }
+
+     td.ocupado {
+         background-color: #333;
+         color: #e0f2f1;
+         font-weight: 700;
+         cursor: default;
+     }
+
+     td.cita-home {
+         background-color: #ded753;
+         color: #004d40;
+         font-weight: 700;
+     }
+
+     td.disponible:hover {
+         background-color: #b2dfdb;
+     }
+
+     .cell-text {
+         white-space: nowrap;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         max-width: 120px;
+         display: inline-block;
+         vertical-align: middle;
+     }
+
+     /* Solo esta sección: igualar disposición a agendacion.html */
+     .topbar {
+         width: 92%;
+         margin: 24px auto 0 auto;
+         display: flex;
+         align-items: center;
+         gap: 12px;
+     }
+
+     .top-actions {
+         display: inline-flex;
+         align-items: center;
+         gap: 12px;
+     }
+
+         .top-actions a {
+             display: inline-flex;
+             align-items: center;
+             gap: 8px;
+             text-decoration: none;
+             font-weight: 700;
+             color: #00695c;
+             font-size: .9rem;
+         }
+
+     .icon-chip {
+         display: inline-flex;
+         width: 42px;
+         height: 42px;
+         border-radius: 50%;
+         align-items: center;
+         justify-content: center;
+         background: #b2dfdb;
+         color: #004d40;
+         font-size: 22px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+     }
+
+     .date-picker {
+         margin-left: auto;
+     }
+
+     @media (max-width: 640px) {
+         .menu-bar {
+             flex-direction: column;
+             gap: 8px;
+         }
+
+         th.hora,
+         td.hora {
+             width: 110px;
+             font-size: .9rem;
+             padding: 8px;
+         }
+
+         .cell-text {
+             max-width: 80px;
+         }
+
+         td.home-pacientes {
+             background-color: #2031be;
+             color: #f6cb41;
+             font-weight: bold;
+             cursor: pointer;
+         }
+
+         .top-actions .label-text {
+             display: none;
+         }
+
+         .top-actions {
+             gap: 12px;
+         }
+
+         .topbar {
+             width: 92%;
+             margin: 16px auto 0 auto;
+         }
+
+         .date-picker {
+             margin-left: 0;
+         }
+     }
+ </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="top-actions">
+            <a href="perfil.html" title="Ver perfil" class="profile-btn">
+                <span class="icon-chip">👤</span>
+                <span class="label-text">Perfil</span>
+            </a>
+            <a href="msj_Pacientes.html" title="Mensajes internos" class="mensajes-btn">
+                <span class="icon-chip">📞</span>
+                <span class="label-text">Mensajería interna</span>
+            </a>
+        </div>
+        <div class="date-picker">
+            <label for="calendario" style="font-weight: bold; color: #00695c;">
+                Seleccionar semana:
+            </label>
+            <input id="calendario"
+                   type="text"
+                   style="padding: 8px 12px; border-radius: 6px; border: 1px solid #b2dfdb; font-size: 1rem;" />
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <td colspan="7" class="titulo">Dr. Cordova</td>
+        </tr>
+
+        <tr class="menu">
+            <td colspan="7">
+                <div class="menu-bar" role="toolbar" aria-label="Navegación principal">
+                    <a class="btn" href="agenda.html" role="button">Agendar 📝</a>
+                    <a class="btn secondary" href="historial_de_citas.html" role="button">Historial de Citas 📚</a>
+                </div>
+            </td>
+        </tr>
+
+        <tr class="dias">
+            <th class="hora">Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+        </tr>
+
+        <tbody id="agenda-body"></tbody>
+    </table>
+
+    <dialog id="motivoDialog" style="padding: 16px; border: 1px solid #b2dfdb; border-radius: 8px;">
+        <h3 id="motivoTitle" style="margin: 0 12px 0; color: #00695c;">Seleccione el motivo</h3>
+
+        <select id="motivoSelect"
+                style="width: 100%; padding: 8px; border: 1px solid #b2dfdb; border-radius: 6px;">
+        </select>
+
+        <div style="margin-top: 12px; display: flex; gap: 8px; justify-content: flex-end;">
+            <button type="button" id="motivoCancel" class="btn secondary">Cancelar</button>
+            <button type="button" id="motivoOk" class="btn">Aceptar</button>
+        </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        const filas = 6;
+        const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const franjasHorarias = [
+            "09:00 -09:30", "09:30 -10:00", "10:00 -10:30",
+            "10:30 -11:00", "11:00 -11:30", "11:30 -12:00"
+        ];
+        const MOTIVOS = [
+            "Consulta General", "Pediatría", "Cardiología",
+            "Analisis de Laboratorio", "Vacunacion",
+            "Chequeo Medico", "Emergencias", "Radiología"
+        ];
+
+        // ID de usuario actual (para individualizar citas)
+        const currentUserId = (localStorage.getItem('idPacienteUsuario') || '').trim();
+
+        function getMonday(d) {
+            d = new Date(d);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function getWeekDates(selectedDate) {
+            const monday = getMonday(selectedDate);
+            return Array.from({ length: 6 }, (_, i) => {
+                const d = new Date(monday);
+                d.setDate(monday.getDate() + i);
+                return d;
+            });
+        }
+
+        function formatDate(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function loadCitas() {
+            try {
+                const raw = localStorage.getItem('citas');
+                return raw ? JSON.parse(raw) : {};
+            } catch {
+                return {};
+            }
+        }
+
+        function saveCitas(citas) {
+            localStorage.setItem('citas', JSON.stringify(citas));
+        }
+
+        function loadCitasPacientes() {
+            try {
+                const raw = localStorage.getItem('citas_pacientes');
+                return raw ? JSON.parse(raw) : {};
+            } catch {
+                return {};
+            }
+        }
+
+        function parseValor(valor) {
+            const parts = valor.split('·').map(p => p.trim());
+            const nombre = parts[0] || '';
+            const edad = parts.find(p => p.startsWith('Edad:'))?.split(':')[1]?.trim() || '';
+            const motivo = parts.find(p => p.startsWith('Motivo:'))?.split(':')[1]?.trim() || '';
+            const hora = parts.find(p => p.includes(':') && p.includes('-')) || '';
+            return { nombre, edad, motivo, hora };
+        }
+
+        // Helper para formatear edad (solo números) a "N Años"
+        function formatEdad(input) {
+            const n = String(input || '').match(/\d+/);
+            return n ? `${n[0]} Años` : '';
+        }
+
+        // Intentar obtener el nombre completo del usuario actual desde localStorage (datosPaciente_{id})
+        function getCurrentUserName() {
+            try {
+                if (!currentUserId) return '';
+                const raw = localStorage.getItem(`datosPaciente_${currentUserId}`);
+                if (!raw) return '';
+                const obj = JSON.parse(raw);
+                const nombre = (obj?.nombre || '').trim();
+                const apellido = (obj?.apellido || '').trim();
+                return [nombre, apellido].filter(Boolean).join(' ').trim().toLowerCase();
+            } catch { return ''; }
+        }
+
+        // Determina si una cita pertenece al usuario actual
+        function esCitaPropia(cita) {
+            try {
+                if (!cita) return false;
+                // Nueva forma: usar ownerId exacto
+                if (typeof cita === 'object' && cita.ownerId !== undefined && cita.ownerId !== null) {
+                    const owner = String(cita.ownerId).trim();
+                    return !!currentUserId && owner && owner === currentUserId;
+                }
+                // Compatibilidad: si no hay ownerId, comparar el nombre del valor con el del usuario actual
+                const userName = getCurrentUserName();
+                if (!userName) return false;
+                let texto = '';
+                if (typeof cita === 'string') texto = cita;
+                else if (typeof cita === 'object' && cita.valor) texto = cita.valor;
+                if (!texto) return false;
+                const parsed = parseValor(texto);
+                const citaNombre = (parsed.nombre || '').trim().toLowerCase();
+                return !!citaNombre && citaNombre === userName;
+            } catch { return false; }
+        }
+
+        let selectedDate = new Date();
+
+        function renderTable() {
+            const cuerpo = document.getElementById('agenda-body');
+            if (!cuerpo) return;
+            cuerpo.innerHTML = '';
+
+            const citas = loadCitas();
+            const citasPacientes = loadCitasPacientes();
+            const weekDates = getWeekDates(selectedDate);
+
+            for (let i = 0; i < filas; i++) {
+                const fila = document.createElement('tr');
+
+                const horaCelda = document.createElement('td');
+                horaCelda.className = 'hora';
+                horaCelda.textContent = franjasHorarias[i];
+                fila.appendChild(horaCelda);
+
+                columnas.forEach((dia, idx) => {
+                    const celda = document.createElement('td');
+                    const fechaClave = formatDate(weekDates[idx]);
+                    const clave = `${fechaClave}_${dia}_${i}`;
+                    const valor = citas[clave];
+                    const bloqueo = citasPacientes[clave];
+
+                    if (bloqueo && bloqueo.bloqueado) {
+                        celda.className = 'ocupado';
+                        const text = document.createElement('span');
+                        text.className = 'cell-text';
+                        text.textContent = 'Ocupado';
+                        celda.appendChild(text);
+                    } else if (valor)
+                    {
+                        const propia = esCitaPropia(valor);
+                        if (propia)
+                        {   celda.className = 'cita-home';
+                            const text = document.createElement('span');
+                            text.className = 'cell-text';
+                            text.textContent = (typeof valor === 'object' && valor.valor) ? valor.valor : 'Ocupado';
+                            celda.appendChild(text);
+                            // Permitir editar/eliminar solo si es propia
+                            celda.style.cursor = 'pointer';
+                            celda.addEventListener('click', () =>
+                                onCellClick(clave, (typeof valor === 'object' && valor.valor) ? valor.valor : valor)
+                            );
+                        } else
+                        {
+                            celda.className = 'ocupado';
+                            const text = document.createElement('span');
+                            text.className = 'cell-text';
+                            text.textContent = 'Ocupado';
+                            celda.appendChild(text);
+                            // No acción para citas de otros
+                            celda.style.cursor = 'default';
+                        }
+                    } else {
+                        celda.className = 'disponible';
+                        celda.textContent = 'Disponible';
+                        celda.addEventListener('click', () => onCrearCita(dia, i, weekDates));
+                    }
+
+                    fila.appendChild(celda);
+                });
+
+                cuerpo.appendChild(fila);
+            }
+        }
+
+        async function seleccionarMotivo(textoTitulo, preseleccion) {
+            return new Promise(resolve => {
+                const dlg = document.getElementById('motivoDialog');
+                const sel = document.getElementById('motivoSelect');
+                const title = document.getElementById('motivoTitle');
+                const ok = document.getElementById('motivoOk');
+                const cancel = document.getElementById('motivoCancel');
+
+                sel.innerHTML = '';
+                MOTIVOS.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m;
+                    opt.textContent = m;
+                    sel.appendChild(opt);
+                });
+
+                if (preseleccion && MOTIVOS.includes(preseleccion)) sel.value = preseleccion;
+                title.textContent = textoTitulo || 'Seleccione el motivo';
+
+                const onOk = () => { cleanup(); dlg.close(); resolve(sel.value || null); };
+                const onCancel = () => { cleanup(); dlg.close(); resolve(null); };
+                const onCancelEvent = e => { if (e.key === 'Escape') { cleanup(); resolve(null); } };
+
+                function cleanup() {
+                    ok.removeEventListener('click', onOk);
+                    cancel.removeEventListener('click', onCancel);
+                    dlg.removeEventListener('cancel', onCancel);
+                    document.removeEventListener('keydown', onCancelEvent);
+                }
+                ok.addEventListener('click', onOk);
+                cancel.addEventListener('click', onCancel);
+                dlg.addEventListener('cancel', onCancel);
+                document.addEventListener('keydown', onCancelEvent, { once: true });
+
+                if (typeof dlg.showModal === 'function') {
+                    dlg.showModal();
+                } else {
+                    dlg.show();
+                }
+            });
+        }
+
+        async function onCellClick(clave, valor) {
+            const citas = loadCitas();
+            const original = citas[clave];
+            const ownerId = (original && typeof original === 'object') ? original.ownerId : undefined;
+            const parsed = parseValor(valor);
+
+            const editar = confirm(
+                `Cita:\nNombre: ${parsed.nombre}\nEdad: ${parsed.edad}\nMotivo: ${parsed.motivo}\nHora: ${parsed.hora}\n\nAceptar para EDITAR\nCancelar para ELIMINAR`
+            );
+
+            if (editar) {
+                const nuevoNombre = prompt('Editar nombre del paciente:', parsed.nombre);
+                if (nuevoNombre === null) return;
+
+                const nuevaEdadRaw = prompt('Editar edad del paciente:', parsed.edad);
+                if (nuevaEdadRaw === null) return;
+                const nuevaEdad = formatEdad(nuevaEdadRaw);
+
+                const nuevoMotivo = await seleccionarMotivo('Editar motivo de la cita:', parsed.motivo);
+                if (nuevoMotivo === null) return;
+
+                const nuevaCita = {
+                    valor: `${nuevoNombre.trim()} · Edad: ${nuevaEdad} · Motivo: ${nuevoMotivo.trim()} · ${parsed.hora}`
+                };
+                // Preservar owner si existe
+                if (ownerId !== undefined && ownerId !== null) nuevaCita.ownerId = ownerId;
+                citas[clave] = nuevaCita;
+            } else {
+                if (confirm('¿Eliminar esta cita permanentemente?')) {
+                    delete citas[clave];
+                } else {
+                    return;
+                }
+            }
+
+            saveCitas(citas);
+            renderTable();
+        }
+
+        async function onCrearCita(dia, indice, weekDates) {
+            const nombre = prompt(
+                `Agendar cita para ${dia} (${franjasHorarias[indice]})\nIngrese nombre del paciente:`
+            );
+            if (!nombre) return;
+
+            const edadRaw = prompt(`Ingrese la edad de ${nombre.trim()}:`);
+            if (!edadRaw) return;
+            const edad = formatEdad(edadRaw);
+
+            const motivo = await seleccionarMotivo(`Seleccione el motivo de la cita para ${nombre.trim()}:`);
+            if (!motivo) return;
+
+            const citas = loadCitas();
+            const fechaClave = formatDate(weekDates[columnas.indexOf(dia)]);
+            const clave = `${fechaClave}_${dia}_${indice}`;
+
+            const nueva = {
+                valor: `${nombre.trim()} · Edad: ${edad} · Motivo: ${motivo.trim()} · ${franjasHorarias[indice]}`
+            };
+            // Asociar esta cita al usuario actual para individualizar visibilidad
+            if (currentUserId) {
+                nueva.ownerId = currentUserId;
+            }
+
+            citas[clave] = nueva;
+
+            saveCitas(citas);
+            renderTable();
+        }
+
+        flatpickr('#calendario', {
+            locale: 'es',
+            defaultDate: new Date(),
+            inline: false,
+            onChange: (selectedDates) => {
+                if (selectedDates.length > 0) {
+                    selectedDate = selectedDates[0];
+                    renderTable();
+                }
+            },
+            disable: [d => d.getDay() === 0]
+        });
+
+        document.getElementById('calendario').value = formatDate(selectedDate);
+        renderTable();
+
+        window.addEventListener('storage', e => {
+            if (e.key === 'citas') {
+                renderTable();
+            }
+        });
+    </script>
+
+</body>
+</html>

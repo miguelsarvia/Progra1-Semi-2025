@@ -1,0 +1,605 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Dr. Cordoba</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0f7fa; /* celeste suave */
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 92%;
+            margin: 30px auto;
+            background-color: #a1eaf3;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #b2dfdb;
+            padding: 10px;
+            text-align: center;
+        }
+
+            /* Columna de horas */
+            th.hora, td.hora {
+                background: #a1eaf3;
+                width: 140px;
+                font-weight: 700;
+                color: #004d40;
+            }
+
+        /* Encabezado */
+        .titulo {
+            font-family: "Brush Script MT", cursive;
+            font-size: 2em;
+            font-style: italic;
+            background-color: #a1eaf3;
+            border: none;
+            text-align: center;
+            height: 60px;
+            vertical-align: middle;
+            color: #00695c;
+        }
+
+        /* Menú */
+        .menu {
+            background-color: #c6ffff;
+            font-weight: bold;
+            text-align: center;
+            padding: 12px 0;
+            position: relative;
+        }
+
+        .menu-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 4px 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg,#00796b 0%, #004d40 100%);
+            color: #fff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+            text-decoration: none;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+            .btn.secondary {
+                background: #ffffff;
+                color: #333;
+                border: 1px solid #b2dfdb;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+                font-weight: 600;
+            }
+
+        /* Iconos */
+        .iconos {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icono {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            line-height: 1;
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .icono:hover {
+                background: rgba(0,0,0,0.04);
+            }
+
+            .icono:focus {
+                outline: 3px solid rgba(0,150,136,0.2);
+            }
+
+        /* Días */
+        .dias {
+            background-color: #a1eaf3;
+            font-weight: bold;
+            color: #004d40;
+        }
+
+        /* Celdas */
+        td.disponible {
+            background-color: #b2dfdb;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        td.ocupado {
+            background-color: #ffcdd2;
+            color: #444;
+            font-weight: bold;
+            cursor: default;
+        }
+
+        td.disponible:hover {
+            background-color: #b2dfdb;
+        }
+
+        /* Texto en celda ocupada */
+        .cell-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 120px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 640px) {
+            .menu-bar {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .iconos {
+                right: 8px;
+            }
+
+            th.hora, td.hora {
+                width: 110px;
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            .cell-text {
+                max-width: 80px;
+            }
+        }
+
+        /* Chips superiores: Perfil y Gráficos */
+        .top-chips {
+            width: 92%;
+            margin: 24px auto 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .chip-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            color: #00695c;
+            font-size: 0.95rem;
+        }
+
+        .chip {
+            display: inline-flex;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            background: #b2dfdb;
+            color: #004d40;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.15);
+        }
+
+        .icon-chip {
+            display: inline-flex;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            background: #b2dfdb;
+            color: #004d40;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Botón para Mensajería interna con el mismo estilo */
+        .Mensajes-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            color: #333;
+            border: 1px solid #b2dfdb;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+            font-size: 0.95rem;
+        }
+
+        .Mensajes-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .Mensajes-btn .label-text {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-chips">
+        <a href="perfil_administrativo.html" class="chip-link" title="Perfil">
+            <span class="chip">👤</span>
+            <span>Perfil</span>
+        </a>
+        <a href="graficos.html" class="chip-link" title="Gráficos">
+            <span class="chip">📊</span>
+            <span>Gráficos</span>
+        </a>
+        <a href="msj_Administracion.html" class="chip-link" title="Mensajes internos">
+            <span class="chip">📞</span>
+            <span>Mensajería interna</span>
+        </a>
+        <div style="margin-left:auto;">
+            <label for="calendario" style="font-weight:bold;color:#00695c;">
+                Seleccionar semana:
+            </label>
+            <input id="calendario" type="text"
+                   style="padding:8px 12px;border-radius:6px;border:1px solid #b2dfdb;font-size:1rem;" />
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <td colspan="7" class="titulo">Dr. Cordoba</td>
+        </tr>
+        <tr class="menu">
+            <td colspan="7">
+                <div class="menu-bar" role="toolbar" aria-label="Navegación principal">
+                    <a class="btn" href="subAgenda.html" role="button">Agenda 📝</a>
+                    <a class="btn secondary" href="busqueda_Pacientes.html" role="button">Busqueda de pacientes 🔎</a>
+                    <a class="btn secondary" href="factura_pacientes.html" role="button">Facturas 📄</a>
+                </div>
+            </td>
+        </tr>
+        <tr class="dias">
+            <th class="hora">Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+        </tr>
+        <tbody id="agenda-body"></tbody>
+    </table>
+
+    <dialog id="motivoDialog" style="padding:16px;border:1px solid #b2dfdb;border-radius:8px;">
+        <h3 id="motivoTitle" style="margin:0 0 12px 0;color:#00695c;">Seleccione el motivo</h3>
+        <select id="motivoSelect" style="width:100%;padding:8px;border:1px solid #b2dfdb;border-radius:6px;"></select>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
+            <button type="button" id="motivoCancel" class="btn secondary">Cancelar</button>
+            <button type="button" id="motivoOk" class="btn">Aceptar</button>
+        </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <script>
+        const filas = 6;
+        const columnas = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const franjasHorarias = [
+            "09:00 - 09:30",
+            "09:30 - 10:00",
+            "10:00 - 10:30",
+            "10:30 - 11:00",
+            "11:00 - 11:30",
+            "11:30 - 12:00"
+        ];
+        const MOTIVOS = [
+            "Consulta General", "Pediatría", "Cardiología",
+            "Analisis de Laboratorio", "Vacunacion",
+            "Chequeo Medico", "Emergencias", "Radiología"
+        ];
+        let lunesActual = null;
+
+        function getMonday(d) {
+            d = new Date(d);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function getWeekDates(monday) {
+            return Array.from({ length: 6 }, (_, i) => {
+                const date = new Date(monday);
+                date.setDate(monday.getDate() + i);
+                return date;
+            });
+        }
+
+        // Reemplazar formato UTC por formato local para que coincida con subAgenda y home_pacientes
+        function formatISO(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() +1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function formatDisplay(d) {
+            const dd = String(d.getDate()).padStart(2, '0');
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            return `${dd}/${mm}`;
+        }
+
+        function loadCitas() {
+            try {
+                const raw = localStorage.getItem('citas');
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                console.warn('Error leyendo citas:', e);
+                return {};
+            }
+        }
+
+        function saveCitas(citas) {
+            localStorage.setItem('citas', JSON.stringify(citas));
+        }
+
+        function parseValor(valor) {
+            if (typeof valor === 'object' && valor.valor) valor = valor.valor;
+            if (typeof valor !== 'string') return { nombre: '', edad: '', motivo: '', hora: '' };
+            const parts = valor.split('·').map(p => p.trim());
+            return {
+                nombre: parts[0] || '',
+                edad: parts.find(p => p.startsWith("Edad:"))?.split(":")[1]?.trim() || '',
+                motivo: parts.find(p => p.startsWith("Motivo:"))?.split(":")[1]?.trim() || '',
+                hora: parts.find(p => p.includes("-")) || ''
+            };
+        }
+
+        async function seleccionarMotivo(textoTitulo, preseleccion) {
+            return new Promise(resolve => {
+                const dlg = document.getElementById('motivoDialog');
+                const sel = document.getElementById('motivoSelect');
+                const title = document.getElementById('motivoTitle');
+                const ok = document.getElementById('motivoOk');
+                const cancel = document.getElementById('motivoCancel');
+
+                sel.innerHTML = '';
+                MOTIVOS.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m;
+                    opt.textContent = m;
+                    sel.appendChild(opt);
+                });
+                if (preseleccion && MOTIVOS.includes(preseleccion)) sel.value = preseleccion;
+                title.textContent = textoTitulo || 'Seleccione el motivo';
+
+                const onOk = () => { cleanup(); dlg.close(); resolve(sel.value || null); };
+                const onCancel = () => { cleanup(); dlg.close(); resolve(null); };
+                const onCancelEvent = e => { if (e.key === 'Escape') { cleanup(); resolve(null); } };
+
+                function cleanup(){
+                    ok.removeEventListener('click', onOk);
+                    cancel.removeEventListener('click', onCancel);
+                    dlg.removeEventListener('cancel', onCancel);
+                    document.removeEventListener('keydown', onCancelEvent);
+                }
+                ok.addEventListener('click', onOk);
+                cancel.addEventListener('click', onCancel);
+                dlg.addEventListener('cancel', onCancel);
+                document.addEventListener('keydown', onCancelEvent, { once:true });
+
+                if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.show();
+            });
+        }
+
+        // Helper para formatear edad (solo números) a "N Años"
+        function formatEdad(input) {
+            const n = String(input || '').match(/\d+/);
+            return n ? `${n[0]} Años` : '';
+        }
+
+        let selectedDate = new Date();
+
+        function renderTable() {
+            const tbody = document.getElementById('agenda-body');
+            tbody.innerHTML = '';
+            const citas = loadCitas();
+            const weekDates = getWeekDates(lunesActual);
+
+            // Fechas en los encabezados
+            columnas.forEach((dia, i) => {
+                const el = document.getElementById('f-' + dia.toLowerCase());
+                if (el) el.textContent = formatDisplay(weekDates[i]);
+            });
+
+            for (let i =0; i < filas; i++) {
+                const tr = document.createElement('tr');
+                const tdHora = document.createElement('td');
+                tdHora.className = 'hora';
+                tdHora.textContent = franjasHorarias[i];
+                tr.appendChild(tdHora);
+
+                columnas.forEach((dia, colIdx) => {
+                    const td = document.createElement('td');
+                    const fechaISO = formatISO(weekDates[colIdx]);
+                    const clave = `${fechaISO}_${dia}_${i}`;
+                    const cita = citas[clave];
+
+                    if (cita) {
+                        // Mostrar todos los datos de la cita
+                        const p = parseValor(cita);
+                        td.innerHTML = `<div class='cell-text'><strong>${p.nombre}</strong><br>Edad: ${p.edad}<br>Motivo: ${p.motivo}<br>Hora: ${p.hora}</div>`;
+                        // Color según origen: más claro si viene de home (sin homePacientes)
+                        td.style.backgroundColor = (typeof cita === 'object' && !cita.homePacientes) ? '#ffe7d9' : '#ffccbc'; // tono claro para origen home
+                        td.style.cursor = 'pointer';
+                        td.title = 'Click para editar/eliminar';
+                        td.onclick = () => editarOEliminar(clave, cita);
+                    } else {
+                        td.textContent = 'Disponible';
+                        td.style.backgroundColor = '#e8f5e9';
+                        td.style.cursor = 'pointer';
+                        td.onclick = () => crearCita(dia, i, weekDates);
+                    }
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            }
+        }
+
+        async function crearCita(dia, indice, weekDates) {
+            const nombre = prompt(`Nueva cita para ${dia} ${franjasHorarias[indice]}\nNombre del paciente:`);
+            if (!nombre?.trim()) return;
+
+            const edadRaw = prompt(`Ingrese la edad de ${nombre.trim()}:`);
+            if (!edadRaw) return;
+            const edad = formatEdad(edadRaw);
+
+            const motivo = await seleccionarMotivo(`Motivo de la consulta para ${nombre.trim()}:`);
+            if (!motivo) return;
+
+            const fechaISO = formatISO(weekDates[columnas.indexOf(dia)]);
+            const clave = `${fechaISO}_${dia}_${indice}`;
+            const citas = loadCitas();
+
+            // Guardamos la cita normal en esta agenda
+            citas[clave] = {
+                valor: `${nombre.trim()} · Edad: ${edad.trim()} · Motivo: ${motivo.trim()} · ${franjasHorarias[indice]}`,
+                homePacientes: true
+            };
+
+            saveCitas(citas);
+            renderTable();
+        }
+
+        async function editarOEliminar(clave, valorActual) {
+            // Si está bloqueada por el otro médico → no dejar tocar
+            if (loadCitas()[clave + "_blocked"]) {
+                alert("Esta hora está ocupada,y no se puede modificar desde aquí.");
+                return;
+            }
+
+            const p = parseValor(valorActual);
+            const editar = confirm(
+                `Paciente: ${p.nombre}\nEdad: ${p.edad}\nMotivo: ${p.motivo}\nHora: ${p.hora}\n\n` +
+                `Aceptar → Editar\nCancelar → Eliminar`
+            );
+
+            const citas = loadCitas();
+            if (editar) {
+                const nuevoNombre = prompt('Nombre:', p.nombre) || p.nombre;
+                const nuevaEdad = prompt('Edad:', p.edad) || p.edad;
+                const nuevoMotivo = await seleccionarMotivo('Motivo:', p.motivo) || p.motivo;
+                // Conservar homePacientes solo si ya existía
+                const citaActual = citas[clave];
+                const nuevaCita = {
+                    valor: `${nuevoNombre.trim()} · Edad: ${nuevaEdad.trim()} · Motivo: ${nuevoMotivo.trim()} · ${p.hora}`
+                };
+                if (citaActual && citaActual.homePacientes) {
+                    nuevaCita.homePacientes = true;
+                }
+                citas[clave] = nuevaCita;
+            } else {
+                if (confirm('¿Eliminar esta cita permanentemente?')) {
+                    delete citas[clave];
+                    // También quitamos el bloqueo en la otra agenda
+                    delete citas[clave + "_blocked"];
+                } else {
+                    return;
+                }
+            }
+            saveCitas(citas);
+            renderTable();
+        }
+
+        function applySubAgendaDraft() {
+            try {
+                const raw = localStorage.getItem('datosSubAgendacion');
+                if (!raw) return;
+                const data = JSON.parse(raw);
+                if (!data || !data.fecha || !data.hora || !data.nombre) {
+                    localStorage.removeItem('datosSubAgendacion');
+                    return;
+                }
+                const dia = new Date(data.fecha).toLocaleDateString('es-ES', { weekday: 'long' });
+                const mapaDias = {
+                    'lunes': 'Lunes', 'martes': 'Martes', 'miércoles': 'Miércoles', 'miercoles': 'Miércoles',
+                    'jueves': 'Jueves', 'viernes': 'Viernes', 'sábado': 'Sábado', 'sabado': 'Sábado'
+                };
+                const diaColumna = mapaDias[dia.toLowerCase()];
+                if (!diaColumna || !columnas.includes(diaColumna)) {
+                    localStorage.removeItem('datosSubAgendacion');
+                    return;
+                }
+                const indiceFranja = franjasHorarias.indexOf(data.hora);
+                if (indiceFranja === -1) {
+                    localStorage.removeItem('datosSubAgendacion');
+                    return;
+                }
+                const clave = `${data.fecha}_${diaColumna}_${indiceFranja}`;
+                const citas = loadCitas();
+                if (!citas[clave]) {
+                    citas[clave] = { valor: `${data.nombre} · Edad: ${data.edad} · Motivo: ${data.motivo} · ${data.hora}`, homePacientes: true };
+                    saveCitas(citas);
+                }
+                // Consumir el borrador para que no se vuelva a recrear la cita tras eliminarla.
+                localStorage.removeItem('datosSubAgendacion');
+            } catch (e) { console.warn('No se pudo aplicar datosSubAgendacion:', e); localStorage.removeItem('datosSubAgendacion'); }
+        }
+
+        // Inicialización del calendario
+        const fp = flatpickr("#calendario", {
+            locale: "es",
+            dateFormat: "d/m/Y",
+            defaultDate: new Date(),
+            disable: [date => date.getDay() === 0],
+            onChange: function (selectedDates) {
+                if (selectedDates[0]) {
+                    lunesActual = getMonday(selectedDates[0]);
+                    renderTable();
+                }
+            }
+        });
+
+        lunesActual = getMonday(new Date());
+        fp.setDate(new Date());
+        applySubAgendaDraft(); // integrar cita creada en subAgenda si existe
+        renderTable();
+
+        // Sincronización entre pestañas
+        window.addEventListener("storage", e => {
+            if (e.key === "citas") renderTable();
+        });
+    </script>
+</body>
+</html>

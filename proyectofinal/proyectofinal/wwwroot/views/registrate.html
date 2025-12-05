@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a1eaf3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .contenedor {
+            background: white;
+            width: 700px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .formulario {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Igualar tamaño visual de las cajas */
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        .nota {
+            font-size: 12px;
+            color: gray;
+            margin-top: 15px;
+        }
+
+        .nota::after {
+            content: " *";
+            color: red;
+        }
+
+        /* Botones con contorno celestito */
+        .btn,
+        .btn-salir {
+            border: 2px solid #a1eaf3;
+            color: #00695c;
+            background: #ffffff;
+            border-radius: 999px;
+            padding: 10px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: .4px;
+        }
+        .btn:hover,
+        .btn-salir:hover {
+            background: #e3f8fb;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .doctor {
+            width: 250px;
+        }
+
+        /* Contenedor contraseña con botón ojo clickable */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 44px; /* espacio para el botón */
+            box-sizing: border-box;
+        }
+        .toggle-visibility {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+        }
+        .toggle-visibility .icon {
+            font-size: 18px;
+            color: #182c4f; /* azul oscuro similar al ejemplo */
+        }
+
+        /* Alinear botones en la misma dirección (en línea, con separación) */
+        .acciones {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            margin-top: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="formulario">
+            <h2>Crea una cuenta</h2>
+
+            <form id="registroForm" autocomplete="off">
+                <label>Correo:</label>
+                <input type="email" id="email" name="email" placeholder="Introduce tu correo" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+
+                <label>Contraseña:</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Introduce tu contraseña" required autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+                    <!-- Ícono ojo simple -->
+                    <button type="button" id="togglePwd" class="toggle-visibility" aria-label="Mostrar u ocultar contraseña">
+                        <span class="icon">👁️</span>
+                    </button>
+                </div>
+
+
+                <p class="nota">No olvides guardar tus datos</p>
+
+                <div class="acciones">
+                    <button type="submit" class="btn">Siguiente</button>
+                    <button type="button" class="btn-salir" onclick="window.location.href='UsuarioPacientes.html'">Salir</button>
+                </div>
+            </form>
+        </div>
+        <img src="/img/crear.jpg" class="doctor" />
+    </div>
+
+    <script>
+        // Mostrar/ocultar contraseña al presionar el ícono
+        document.getElementById('togglePwd').addEventListener('click', function () {
+            const input = document.getElementById('password');
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            // Cambiar color del ícono para dar feedback
+            const icon = this.querySelector('.icon');
+            icon.style.color = isPassword ? '#00796b' : '#182c4f';
+        });
+    </script>
+
+    <script>
+        document.getElementById("registroForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            try {
+                const respuesta = await fetch("https://localhost:7289/api/usuarioPacientes/PostusuarioPaciente", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (respuesta.status === 409) {
+                    const data = await respuesta.json();
+                    let mensaje = data.mensaje + "\n\nSugerencias de contraseña:\n";
+                    mensaje += data.sugerencias.map(s => `• ${s}`).join("\n");
+                    alert(mensaje);
+                } else if (respuesta.ok) {
+                    const data = await respuesta.json();
+                    localStorage.setItem("idPacienteUsuario", data.idPacienteUsuario);
+                    alert("Registro exitoso");
+                    window.location.href = "DatosPacientes.html";
+                } else {
+                    alert("Error al registrar. Intenta nuevamente.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("No se pudo conectar con el servidor.");
+            }
+        });
+    </script>
+</body>
+</html>

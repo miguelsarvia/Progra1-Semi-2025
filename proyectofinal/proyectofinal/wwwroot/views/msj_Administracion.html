@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>Mensajería Interna - Administración</title>
+ <style>
+     :root {
+         --bg: #e0f7fa;
+         --panel: #a1eaf3;
+         --accent: #00695c;
+         --accent-dark: #004d40;
+         --chip: #b2dfdb;
+         --text: #033;
+         --bubble-admin: #c8fff4;
+         --bubble-patient: #ffe7d9;
+     }
+
+     body {
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+         background-color: var(--bg);
+         margin: 0;
+     }
+
+     .container {
+         width: 92%;
+         margin: 24px auto;
+     }
+
+     .header {
+         background: var(--panel);
+         color: var(--accent);
+         padding: 16px;
+         border-radius: 16px;
+         box-shadow: 8px 22px rgba(0,0,0,0.12);
+         display: flex;
+         align-items: center;
+         justify-content: space-between;}
+
+     .title 
+     {
+         font-family: "Brush Script MT", cursive;
+         font-size: 1.9rem;
+         font-style: italic;
+         margin: 0;
+         letter-spacing: .4px;
+     }
+
+     .chip-link {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         text-decoration: none;
+         font-weight: 700;
+         color: var(--accent);
+     }
+
+     .chip {
+         display: inline-flex;
+         width: 42px;
+         height: 42px;
+         border-radius: 50%;
+         align-items: center;
+         justify-content: center;
+         background: var(--chip);
+         color: var(--accent-dark);
+         box-shadow: 4px 10px rgba(0,0,0,.15);
+     }
+
+     .chat-panel
+     {
+         background: var(--panel);
+         border-radius: 16px;
+         box-shadow: 10px 24px rgba(0,0,0,0.12);
+         margin-top: 18px;
+         display: grid;
+         grid-template-rows: auto auto 1fr auto;
+     }
+
+     .chat-header {
+         padding: 14px 22px;
+         border-bottom: 1px solid #b2dfdb;
+         color: var(--accent-dark);
+         font-weight: 700;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         gap: 10px;
+     }
+
+         .chat-header .left {
+             display: flex;
+             align-items: center;
+             gap: 16px;
+         }
+
+     .avatar {
+         width: 32px;
+         height: 32px;
+         border-radius: 50%;
+         background: #b2dfdb;
+         color: #004d40;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         font-weight: 800;
+         box-shadow: 3px 10px rgba(0,0,0,.15);
+         font-size: .9rem;
+     }
+
+     .chat-header .sub {
+         font-weight: 600;
+         color: #044;
+         font-size: .95rem;
+         opacity: .95;
+     }
+
+     .controls {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         padding: 12px 22px;
+         border-bottom: 1px solid #b2dfdb;
+     }
+
+     .select {
+         border: 1px solid #b2dfdb;
+         background: #fff;
+         border-radius: 8px;
+         padding: 8px 10px;
+         font-weight: 600;
+         color: #044;
+     }
+
+     .btn {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         background: linear-gradient(90deg, #00796b, #004d40);
+         color: #fff;
+         border: none;
+         padding: 8px 12px;
+         border-radius: 8px;
+         font-weight: 700;
+         cursor: pointer;
+         box-shadow: 6px 14px rgba(0,0,0,0.1);
+     }
+
+     .info {
+         padding: 10px 22px;
+         color: #044;
+         font-weight: 600;
+     }
+
+     .messages {
+         padding: 10px;
+         overflow-y: auto;
+         display: flex;
+         flex-direction: column;
+         gap: 14px;
+         background: #f5fdff;
+         min-height: 280px;
+     }
+
+     .day-sep {
+         text-align: center;
+         font-size: .8rem;
+         color: #066;
+         opacity: .7;
+         margin: 8px 0;
+     }
+
+     .msg {
+         max-width: 72%;
+         padding: 10px 12px 8px;
+         border-radius: 14px;
+         box-shadow: 2px 6px rgba(0,0,0,0.08);
+         line-height: 1.35;
+         word-wrap: break-word;
+         position: relative;
+     }
+
+     .from-admin {
+         background: var(--bubble-admin);
+         align-self: flex-end;
+     }
+
+     .from-patient {
+         background: var(--bubble-patient);
+         align-self: flex-start;
+     }
+
+     .meta 
+     {
+         font-size: .75rem;
+         color: #355;
+         margin-top: 6px;
+         opacity: .85;}
+     .input-row {
+         display: flex;
+         gap: 10px;
+         padding: 12px 22px;
+         border-top: 1px solid #b2dfdb;
+         background: #f0fbfd;
+         align-items: center;
+     }
+
+     .text-input {
+         flex: 1;
+         border: 1px solid #b2dfdb;
+         border-radius: 8px;
+         padding: 10px 12px;
+         font-size: 1rem;
+         outline: none;
+     }</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 class="title">Mensajería Interna</h1></div>
+            <a href="agendacion.html" class="chip-link" title="Volver a Agenda">
+                <span class="chip">📅</span>
+                <span>Agenda</span>
+            </a></div>
+        <div class="chat-panel" aria-live="polite">
+            <div class="chat-header">
+                <div class="left">
+                    <span class="avatar" id="patientAvatar">👤</span>
+                    <span class="sub" id="chatPatientName"> · Conversando con: Paciente</span></div>
+            </div>
+
+            <div class="controls">
+                <select id="patientSelect" class="select" title="Seleccionar paciente">
+                    <option value="">Seleccione un paciente</option>
+                </select>
+                <button id="openConversation" class="btn" type="button">Abrir conversación</button>
+            </div>
+            <div class="info" id="chatInfo">
+                Seleccione un paciente para iniciar conversación.
+            </div>
+
+            <div id="messages" class="messages"></div>
+            <form id="chatForm" class="input-row" style="display:none;">
+                <input id="msgInput"
+                       class="text-input"
+                       type="text"
+                       placeholder="Escribe un mensaje... 😊"
+                       autocomplete="off"
+                       required />
+                <button class="btn" type="submit">Enviar ▶</button>
+            </form>
+        </div>
+    </div>
+
+ <script>
+     const CHAT_PREFIX = 'chat_admin_paciente_';
+     const SENDER = 'Administración';
+     let CHAT_KEY = '';
+
+     function listPatientDataKeys() {
+         const keys = [];
+         for (let i = 0; i < localStorage.length; i++) {
+             const k = localStorage.key(i);
+             if (k && k.startsWith('datosPaciente_')) keys.push(k);
+         }
+         return keys.sort();
+     }
+
+     function getPatientNameFromData(data) {
+         try {
+             const nombre = (data?.nombre || '').trim();
+             const apellido = (data?.apellido || '').trim();
+             const full = [nombre, apellido].filter(Boolean).join(' ').trim();
+             return full || nombre || 'Paciente';
+         } catch {
+             return 'Paciente';
+         }
+     }
+
+     // Normaliza IDs para evitar duplicados por espacios, mayúsculas o caracteres extra
+     function normalizeId(idRaw) {
+         return (idRaw || '')
+             .trim()
+             .toLowerCase()
+             .replace(/[^a-z0-9]/g, ''); // solo alfanumérico
+     }
+
+     function populatePatientSelect() {
+         const sel = document.getElementById('patientSelect');
+         const current = sel.value;
+         sel.innerHTML = '<option value="">Seleccione un paciente</option>';
+
+         const keys = listPatientDataKeys();
+         const mapById = new Map(); // normId -> { idOriginal, name }
+
+         for (const k of keys) {
+             const idRaw = k.replace('datosPaciente_', '');
+             const idOriginal = (idRaw || '').trim();
+             const normId = normalizeId(idOriginal);
+             let name = 'Paciente';
+
+             try
+             {
+                 const raw = localStorage.getItem(k);
+                 if (raw) name = getPatientNameFromData(JSON.parse(raw));
+             } catch { }
+
+             mapById.set(normId, { idOriginal, name });
+         }
+
+         const seenNames = new Set();
+         const items = Array.from(mapById.values())
+             .sort((a, b) => a.name.localeCompare(b.name, 'es'));
+
+         for (const info of items) {
+             const nameKey = info.name.toLowerCase();
+             if (seenNames.has(nameKey)) continue;
+             seenNames.add(nameKey);
+
+             const opt = document.createElement('option');
+             opt.value = info.idOriginal;
+             opt.textContent = info.name || `Paciente ${info.idOriginal}`;
+             sel.appendChild(opt);
+         }
+
+         if (current && Array.from(sel.options).some(o => o.value === current)) {
+             sel.value = current;
+         }
+     }
+
+     function setHeaderBySelection(id, name) {
+         document.getElementById('chatPatientName').textContent = ` · Conversando con: ${name}`;
+         const initials = name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
+         document.getElementById('patientAvatar').textContent = initials || '👤';
+     }
+
+     function formatTime(d) {
+         const dt = new Date(d);
+         return dt.toLocaleString('es-ES', {
+             hour: '2-digit',
+             minute: '2-digit',
+             hour12: false
+         }) + ' · ' + dt.toLocaleDateString('es-ES');
+     }
+
+     function dayKey(d) {
+         return new Date(d).toDateString();
+     }
+
+     function loadChat() {
+         try {
+             const raw = localStorage.getItem(CHAT_KEY);
+             return raw ? JSON.parse(raw) : [];
+         } catch {
+             return [];
+         }}
+
+     function saveChat(list) {
+         localStorage.setItem(CHAT_KEY, JSON.stringify(list));
+     }
+
+     function render() {
+         const box = document.getElementById('messages');
+
+         box.innerHTML = '';
+         if (!CHAT_KEY) return;
+
+         const chat = loadChat();
+         let lastDay = null;
+
+         chat.forEach(m => {
+             const dk = dayKey(m.at);
+             if (dk !== lastDay) {
+                 const sep = document.createElement('div');
+                 sep.className = 'day-sep';
+                 sep.textContent = new Date(m.at).toLocaleDateString('es-ES');
+                 box.appendChild(sep);
+                 lastDay = dk;
+             }
+
+             const div = document.createElement('div');
+             div.className = 'msg ' + (m.sender === SENDER ? 'from-admin' : 'from-patient');
+             div.innerHTML = `
+         <div>${m.text}</div>
+         <div class='meta'>${m.sender} · ${formatTime(m.at)}</div>
+       `;
+             box.appendChild(div);
+         });
+
+         box.scrollTop = box.scrollHeight;
+     }
+
+     document.getElementById('patientSelect').addEventListener('change', e => {
+         const id = (e.target.value || '').trim();
+         if (!id) return;
+
+         localStorage.setItem('idPacienteUsuario', id);
+         let name = 'Paciente';
+
+         try {
+             const raw = localStorage.getItem(`datosPaciente_${id}`);
+             if (raw) {
+                 const obj = JSON.parse(raw);
+                 name = getPatientNameFromData(obj);
+             }
+         } catch { }
+
+         setHeaderBySelection(id, name);
+         CHAT_KEY = `${CHAT_PREFIX}${normalizeId(id)}`;
+
+         if (!localStorage.getItem(CHAT_KEY)) {
+             localStorage.setItem(CHAT_KEY, JSON.stringify([]));
+         }
+
+         document.getElementById('chatForm').style.display = '';
+         document.getElementById('chatInfo').textContent = 'Conversación activa.';
+         render();
+     });
+
+     document.getElementById('openConversation').addEventListener('click', () => {
+         const id = (document.getElementById('patientSelect').value || '').trim();
+         if (!id) {
+             alert('Seleccione un paciente');
+             return;
+         }
+
+         CHAT_KEY = `${CHAT_PREFIX}${normalizeId(id)}`;
+         if (!localStorage.getItem(CHAT_KEY)) {
+             localStorage.setItem(CHAT_KEY, JSON.stringify([]));
+         }
+
+         document.getElementById('chatForm').style.display = '';
+         document.getElementById('chatInfo').textContent = 'Conversación activa.';
+         render();
+     });
+
+     document.getElementById('chatForm').addEventListener('submit', e => {
+         e.preventDefault();
+         if (!CHAT_KEY) return;
+
+         const input = document.getElementById('msgInput');
+         const text = input.value.trim();
+         if (!text) return;
+
+         const chat = loadChat();
+         chat.push({ sender: SENDER, text, at: new Date().toISOString() });
+         saveChat(chat);
+
+         input.value = '';
+
+         render();
+     });
+
+     window.addEventListener('storage', (e) => {
+         if (!e.key) return;
+         if (e.key.startsWith('datosPaciente_')) {
+             populatePatientSelect();
+         }
+         if (e.key === CHAT_KEY) {
+             render();
+         }
+     });
+
+     populatePatientSelect();
+
+     (function initHeaderFromSession() {
+         const id = (localStorage.getItem('idPacienteUsuario') || '').trim();
+         if (!id) return;
+
+         let name = 'Paciente';
+         try {
+             const raw = localStorage.getItem(`datosPaciente_${id}`);
+             if (raw) {
+                 const obj = JSON.parse(raw);
+                 name = getPatientNameFromData(obj);
+             }
+         } catch { }
+
+         setHeaderBySelection(id, name);
+         CHAT_KEY = `${CHAT_PREFIX}${normalizeId(id)}`;
+
+         if (localStorage.getItem(CHAT_KEY)) {
+             document.getElementById('chatForm').style.display = '';
+             document.getElementById('chatInfo').textContent = 'Conversación activa.';
+             render();
+         }
+     })();
+ </script>
+</body>
+
+</html>

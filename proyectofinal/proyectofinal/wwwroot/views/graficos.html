@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Gráficos - Agenda Médica</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        /* Base más grande */
+        :root {
+            --font-base:18px; /* antes ~16px */
+            --font-small:15px;
+            --font-title:22px;
+            --card-padding:18px;
+            --chip-radius:12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f1f8f9;
+            margin:0;
+            padding:0;
+            color: #0a4a4a;
+            font-size: var(--font-base);
+        }
+
+        header {
+            background: #00796b;
+            color: #fff;
+            padding:16px28px; /* + */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+            header h1 {
+                margin:0;
+                font-size:1.6rem; /* + */
+                letter-spacing: .3px;
+            }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right:18px;
+            font-size:1rem; /* + */
+            font-weight:700;
+        }
+
+        .container {
+            width:96%; /* + */
+            max-width:1320px; /* + */
+            margin:20px auto; /* + */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px,1fr)); /* + */
+            gap:22px; /* + */
+            margin-top:14px;
+        }
+
+        .card {
+            background: #fff;
+            border:1px solid #cde5e4;
+            border-radius:14px; /* + */
+            padding: var(--card-padding);
+            box-shadow:06px16px rgba(0,0,0,.08); /* + */
+            position: relative;
+        }
+
+            .card h2 {
+                margin:0010px;
+                font-size:1.15rem; /* + */
+                color: #00695c;
+                display: flex;
+                align-items: center;
+                gap:8px;
+            }
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); /* + */
+            gap:14px;
+            margin-top:10px;
+        }
+
+        .kpi {
+            background: #ffffff;
+            border:1px solid #cde5e4;
+            border-radius:10px; /* + */
+            padding:14px; /* + */
+            text-align: center;
+            box-shadow:04px10px rgba(0,0,0,.06); /* + */
+        }
+
+            .kpi .label {
+                font-size: .9rem; /* + */
+                text-transform: uppercase;
+                font-weight:700;
+                color: #00695c;
+                letter-spacing: .6px;
+            }
+
+            .kpi .value {
+                font-size:1.4rem; /* + */
+                font-weight:800;
+                margin-top:6px;
+            }
+
+        .actions {
+            display: flex;
+            gap:10px; /* + */
+            flex-wrap: wrap;
+            margin-top:10px;
+        }
+
+        button.export {
+            background: #004d40;
+            color: #fff;
+            border: none;
+            border-radius: var(--chip-radius);
+            padding:8px14px; /* + */
+            font-size:1.2rem; /* + */
+            font-weight:600;
+            cursor: pointer;
+        }
+
+        .range-box {
+            display: flex;
+            align-items: center;
+            gap:10px; /* + */
+            margin-top:6px;
+            font-size:1rem; /* + */
+            flex-wrap: wrap;
+        }
+
+            .range-box input {
+                padding:6px10px; /* + */
+                border:1px solid #cde5e4;
+                border-radius: var(--chip-radius);
+                font-size:1rem; /* + */
+            }
+
+        footer {
+            margin:36px016px; /* + */
+            text-align: center;
+            font-size: .95rem; /* + */
+            color: #357f7c;
+        }
+
+        .chart-wrapper {
+            height:320px; /* + */
+        }
+
+        canvas { /* mejorar legibilidad */
+            transform: translateZ(0);
+        }
+
+        .badge {
+            background: #e0f2f1;
+            color: #004d40;
+            border-radius:16px; /* + */
+            padding:4px10px; /* + */
+            font-size: .85rem; /* + */
+            font-weight:700;
+        }
+
+        .empty {
+            font-size:1rem; /* + */
+            color: #777;
+        }
+
+        @media (max-width:640px) {
+            header h1 { flex:11100%; margin-bottom:8px; font-size:1.3rem; }
+            nav { flex:11100%; }
+            .chart-wrapper { height:280px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gráficos</h1>
+        <nav>
+            <a href="agendacion.html">Agenda</a>
+            <a href="busqueda_Pacientes.html">Busqueda</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1>Indicadores clave</h1>
+            <div class="range-box">
+                <label for="desde">Desde</label>
+                <input id="desde" type="date" />
+                <label for="hasta">Hasta</label>
+                <input id="hasta" type="date" />
+                <button id="aplicarRango" class="export">Filtrar</button>
+            </div>
+            <div class="kpis" id="kpis"></div>
+            <div class="actions">
+                <button id="exportCSV" class="export">Exportar CSV</button>
+                <button id="resetRango" class="export" style="background:#00796b;">Rango completo</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Ocupación por día <span id="totalDias" class="badge"></span></h2>
+                <div class="chart-wrapper">
+                    <canvas id="chartDias"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Motivos frecuentes <span id="totalMotivos" class="badge"></span></h2>
+                <div class="chart-wrapper">
+                    <canvas id="chartMotivos"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Horas pico <span id="totalHoras" class="badge"></span></h2>
+                <div class="chart-wrapper">
+                    <canvas id="chartHoras"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="listaCitasCard">
+            <h2>Listado filtrado</h2>
+            <div id="listaCitas" style="max-height:340px; overflow:auto; font-size:1rem; line-height:1.4;"></div>
+        </div>
+    </div>
+
+    <footer>Graficos locales</footer>
+
+    <script>
+        // === Utilidades ===
+        const franjasHorarias = [
+            "09:00 -09:30",
+            "09:30 -10:00",
+            "10:00 -10:30",
+            "10:30 -11:00",
+            "11:00 -11:30",
+            "11:30 -12:00"
+        ];
+        const MOTIVOS = [
+            "Consulta General","Pediatría","Cardiología",
+            "Analisis de Laboratorio","Vacunacion",
+            "Chequeo Medico","Emergencias","Radiología"
+        ];
+
+        function loadCitas() {
+            try {
+                const raw = localStorage.getItem('citas');
+                return raw ? JSON.parse(raw) : {};
+            } catch { return {}; }
+        }
+
+        function parseValor(valor) {
+            const parts = (valor || '').split('·').map(p => p.trim());
+            const nombre = parts[0] || '';
+            const edad = parts.find(p => p.startsWith('Edad:'))?.split(':')[1]?.trim() || '';
+            const motivo = parts.find(p => p.startsWith('Motivo:'))?.split(':')[1]?.trim() || '';
+            const hora = parts.find(p => p.includes(':') && p.includes('-')) || '';
+            return { nombre, edad, motivo, hora };
+        }
+
+        function toDate(fechaStr) {
+            const [y, m, d] = fechaStr.split('-').map(Number);
+            return new Date(y, m -1, d);
+        }
+
+        function inRange(dt, desde, hasta) {
+            if (!desde && !hasta) return true;
+            if (desde && dt < desde) return false;
+            if (hasta && dt > hasta) return false;
+            return true;
+        }
+
+        // === Filtro rango ===
+        let rangoDesde = null;
+        let rangoHasta = null;
+        const inputDesde = document.getElementById('desde');
+        const inputHasta = document.getElementById('hasta');
+
+        // Inicializar rango completo (min y max)
+        (function initRange() {
+            const citas = loadCitas();
+            const fechas = Object.keys(citas).map(k => k.split('_')[0]);
+            if (!fechas.length) return;
+            const uniq = [...new Set(fechas)].sort();
+            inputDesde.value = uniq[0];
+            inputHasta.value = uniq[uniq.length -1];
+            rangoDesde = toDate(inputDesde.value);
+            rangoHasta = toDate(inputHasta.value);
+        })();
+
+        // === KPIs + Datos agregados ===
+        function agregar() {
+            const citas = loadCitas();
+            const datos = [];
+            Object.keys(citas).forEach(clave => {
+                const vObj = citas[clave];
+                const valor = typeof vObj === 'object' ? vObj.valor : vObj;
+                const fechaStr = clave.split('_')[0];
+                const parsed = parseValor(valor);
+                if (!parsed.nombre) return;
+                const dt = toDate(fechaStr);
+                if (!inRange(dt, rangoDesde, rangoHasta)) return;
+                const indice = clave.split('_')[2];
+                const rango = parsed.hora || franjasHorarias[parseInt(indice || '0',10)];
+                datos.push({
+                    fecha: fechaStr,
+                    dia: clave.split('_')[1],
+                    slot: indice,
+                    rango,
+                    nombre: parsed.nombre,
+                    motivo: parsed.motivo,
+                    edad: parsed.edad
+                });
+            });
+            return datos;
+        }
+
+        function buildKpis(datos) {
+            const totalCitas = datos.length;
+            const pacientesUnicos = [...new Set(datos.map(d => d.nombre.toLowerCase()))].length;
+            const motivosCount = {};
+            datos.forEach(d => {
+                const m = MOTIVOS.includes(d.motivo) ? d.motivo : null;
+                if (!m) return;
+                motivosCount[m] = (motivosCount[m] ||0) +1;
+            });
+            const topMotivo = Object.entries(motivosCount).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
+            const dias = setDias(datos).size;
+            return { totalCitas, pacientesUnicos, topMotivo, dias };
+        }
+
+        function setDias(datos) {
+            return new Set(datos.map(d => d.dia));
+        }
+
+        // === Charts ===
+        let chartDias, chartMotivos, chartHoras;
+
+        function renderCharts(datos) {
+            const diasMap = {};
+            datos.forEach(d => { diasMap[d.dia] = (diasMap[d.dia] ||0) +1; });
+            const diaLabels = Object.keys(diasMap);
+            const diaValues = diaLabels.map(l => ((diasMap[l] / franjasHorarias.length) *100).toFixed(1));
+
+            const motivosMap = {};
+            datos.forEach(d => { const m = MOTIVOS.includes(d.motivo) ? d.motivo : null; if (m) motivosMap[m] = (motivosMap[m] ||0) +1; });
+            const motivoLabels = Object.keys(motivosMap);
+            const motivoValues = motivoLabels.map(l => motivosMap[l]);
+
+            const horasMap = {};
+            datos.forEach(d => { const start = d.rango.split('-')[0].trim(); horasMap[start] = (horasMap[start] ||0) +1; });
+            const horasLabels = Object.keys(horasMap).sort();
+            const horasValues = horasLabels.map(l => horasMap[l]);
+
+            // Destroy prev
+            [chartDias, chartMotivos, chartHoras].forEach(ch => ch && ch.destroy());
+
+            chartDias = new Chart(
+                document.getElementById('chartDias'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: diaLabels,
+                        datasets: [{ label: '% ocupación', data: diaValues, backgroundColor: '#00796b' }]
+                    },
+                    options: { scales: { y: { beginAtZero: true, max:100 } } }
+                }
+            );
+
+            chartMotivos = new Chart(
+                document.getElementById('chartMotivos'),
+                {
+                    type: 'doughnut',
+                    data: {
+                        labels: motivoLabels,
+                        datasets: [{ data: motivoValues, backgroundColor: motivoLabels.map((_, i) => `hsl(${(i *55) %360},60%,55%)`) }]
+                    },
+                    options: {}
+                }
+            );
+
+            chartHoras = new Chart(
+                document.getElementById('chartHoras'),
+                {
+                    type: 'line',
+                    data: {
+                        labels: horasLabels,
+                        datasets: [{ label: 'Citas', data: horasValues, fill: false, borderColor: '#004d40', tension: .2 }]
+                    },
+                    options: { scales: { y: { beginAtZero: true } } }
+                }
+            );
+
+            // Badges
+            document.getElementById('totalDias').textContent = diaLabels.length + ' días';
+            document.getElementById('totalMotivos').textContent = motivoLabels.length + ' motivos';
+            document.getElementById('totalHoras').textContent = horasLabels.length + ' horas';
+        }
+
+        // === Lista ===
+        function renderLista(datos) {
+            const cont = document.getElementById('listaCitas');
+            if (!datos.length) {
+                cont.innerHTML = '<p class="empty">Sin citas en rango.</p>';
+                return;
+            }
+            const html = datos
+                .filter(d => MOTIVOS.includes(d.motivo))
+                .sort((a, b) => a.fecha.localeCompare(b.fecha) || a.rango.localeCompare(b.rango))
+                .map(d => `<div><strong>${d.fecha}</strong> ${d.rango} · ${d.nombre} <em style="color:#066;">${d.motivo}</em></div>`)
+                .join('');
+            cont.innerHTML = html;
+        }
+
+        // === KPIs ===
+        function renderKpis(datos) {
+            const kpisDiv = document.getElementById('kpis');
+            const { totalCitas, pacientesUnicos, topMotivo, dias } = buildKpis(datos);
+            const ocupGeneral = dias ? ((totalCitas / (dias * franjasHorarias.length)) *100).toFixed(1) : '0';
+            kpisDiv.innerHTML = '';
+            const defs = [
+                { l: 'Citas', v: totalCitas },
+                { l: 'Pacientes únicos', v: pacientesUnicos },
+                { l: 'Top motivo', v: topMotivo },
+                { l: 'Ocupación %', v: ocupGeneral }
+            ];
+            defs.forEach(k => {
+                const div = document.createElement('div');
+                div.className = 'kpi';
+                div.innerHTML = `<div class="label">${k.l}</div><div class="value">${k.v}</div>`;
+                kpisDiv.appendChild(div);
+            });
+        }
+
+        // === Export CSV ===
+        function exportCSV(datos) {
+            const filtrados = datos.filter(d => MOTIVOS.includes(d.motivo));
+            if (!filtrados.length) { alert('Nada que exportar'); return; }
+            const rows = ['Fecha,Dia,Inicio,Fin,Nombre,Motivo,Edad'];
+            filtrados.forEach(d => {
+                const [inicio, fin] = d.rango.split('-').map(x => x.trim());
+                rows.push(`${d.fecha},${d.dia},${inicio},${fin},"${d.nombre}","${d.motivo}","${d.edad}"`);
+            });
+            const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'citas_filtradas.csv';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        }
+
+        // === Ciclo principal ===
+        function refrescar() {
+            const datos = agregar();
+            renderKpis(datos);
+            renderCharts(datos);
+            renderLista(datos);
+        }
+        refrescar();
+
+        // Eventos rango
+        document.getElementById('aplicarRango').addEventListener('click', () => {
+            rangoDesde = inputDesde.value ? toDate(inputDesde.value) : null;
+            rangoHasta = inputHasta.value ? toDate(inputHasta.value) : null;
+            refrescar();
+        });
+        document.getElementById('resetRango').addEventListener('click', () => {
+            rangoDesde = null;
+            rangoHasta = null;
+            refrescar();
+        });
+
+        // Export
+        document.getElementById('exportCSV').addEventListener('click', () => { exportCSV(agregar()); });
+
+        // Actualizar si otra pestaña cambia citas
+        window.addEventListener('storage', e => { if (e.key === 'citas') { refrescar(); } });
+    </script>
+</body>
+</html>

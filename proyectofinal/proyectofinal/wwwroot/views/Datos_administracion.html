@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Secretaría</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Paleta y formato iguales a DatosPacientes.html */
+        body {
+            background-color: #e0f7fa; /* teal */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #004d40;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 34px rgba(0,121,107,0.18);
+            padding: 48px 46px;
+            gap: 46px;
+            border: 1px solid #b2dfdb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .formulario {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+            .formulario h2 {
+                margin-bottom: 6px;
+                color: #00695c;
+                font-size: 32px;
+                letter-spacing: .5px;
+            }
+
+        label {
+            font-weight: 600;
+            color: #00695c;
+            font-size: .9rem;
+            letter-spacing: .3px;
+        }
+
+        input {
+            padding: 10px 12px;
+            border: 1px solid #b2dfdb;
+            border-radius: 10px;
+            outline: none;
+            transition: .3s;
+            background: #f7fffe;
+        }
+
+            input:focus {
+                border-color: #00796b;
+                box-shadow: 0 3px rgba(0,121,107, .15);
+            }
+
+        /* Botón igual estilo */
+        button, .chip-btn {
+            margin-top: 14px;
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            padding: 12px 26px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+            font-size: .9rem;
+            letter-spacing: .6px;
+            box-shadow: 0 10px 26px rgba(0,121,107, .35);
+        }
+
+            button:hover, .chip-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 14px 34px rgba(0,121,107, .45);
+            }
+
+            button:active, .chip-btn:active {
+                transform: translateY(0);
+                box-shadow: 0 8px 22px rgba(0,121,107, .38);
+            }
+
+        .imagen {
+            flex-shrink: 0;
+        }
+
+            .imagen img {
+                width: 280px;
+                max-width: 100%;
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0,77,64, .25);
+            }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                gap: 28px;
+                padding: 38px 30px;
+            }
+
+            .imagen img {
+                width: 200px;
+            }
+        }
+
+        .nota {
+            font-size: 12px;
+            color: #00695c;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+            .nota::after {
+                content: " *";
+                color: #c62828;
+            }
+
+        .err {
+            color: #c62828;
+            font-size: 13px;
+        }
+
+        .ok {
+            color: #0a7a00;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="formulario" id="formDatos" autocomplete="off">
+            <h2>Datos Secretaría</h2>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="dui">DUI:</label>
+            <input type="text" id="dui" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="especialidad">Especialidad:</label>
+            <input type="text" id="especialidad" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" required autocomplete="off">
+
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" required autocomplete="off">
+
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" required autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+
+            <label for="foto">Foto (opcional):</label>
+            <input type="file" id="foto" accept="image/*" autocomplete="off">
+
+            <button type="submit">Guardar y continuar</button>
+            <span id="estado" class="nota"></span>
+            <p class="nota">Completa y guarda para continuar</p>
+        </form>
+
+        <div class="imagen">
+            <img src="/img/registrate.jpg" alt="Imagen">
+        </div>
+    </div>
+
+    <script>
+        const idSecretaria = parseInt(localStorage.getItem('idSecretaria') || '0', 10);
+        if (!idSecretaria) {
+            window.location.href = 'cuenta_Secretaria.html';
+        }
+
+        const form = document.getElementById('formDatos');
+        const estado = document.getElementById('estado');
+        const fotoInput = document.getElementById('foto');
+        const correoInput = document.getElementById('correo');
+
+        // Prellenar correo con el usado en inicio_Secretaria.html
+        (function precargarCorreo(){
+            const emailSesion = localStorage.getItem('emailSecretaria');
+            if (emailSesion) {
+                correoInput.value = emailSesion;
+            }
+        })();
+
+        function guardarLocal(nombre, apellido, dui, especialidad, telefono, fecha, correo, direccion, fotoFile) {
+            localStorage.setItem('datosAdministracion', JSON.stringify({ nombre, apellido, dui, especialidad, telefono, fecha, correo, direccion }));
+            return new Promise(resolve => {
+                if (fotoFile) {
+                    const r = new FileReader();
+                    r.onload = () => { try { localStorage.setItem('fotoSecretaria', r.result); } catch { } resolve(); };
+                    r.onerror = () => resolve();
+                    r.readAsDataURL(fotoFile);
+                } else {
+                    resolve();
+                }
+            });
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            estado.textContent = '';
+            estado.className = 'nota';
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellido = document.getElementById('apellido').value.trim();
+            const dui = document.getElementById('dui').value.trim();
+            const especialidad = document.getElementById('especialidad').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const fecha = document.getElementById('fecha').value; // yyyy-MM-dd
+            const correo = document.getElementById('correo').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            const fotoInput = document.getElementById('foto');
+
+            if (!nombre || !apellido || !dui || !especialidad || !telefono || !fecha || !correo || !direccion) {
+                estado.className = 'err';
+                estado.textContent = 'Completa todos los campos.';
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append('idSecretaria', idSecretaria);
+            fd.append('nombre', nombre);
+            fd.append('apellido', apellido);
+            fd.append('dui', dui);
+            fd.append('especialidad', especialidad);
+            fd.append('telefono', telefono);
+            fd.append('fecha', fecha);
+            fd.append('correo', correo);
+            fd.append('direccion', direccion);
+
+            if (fotoInput.files && fotoInput.files.length > 0) {
+                fd.append('foto', fotoInput.files[0]);
+            }
+
+            try {
+                const res = await fetch('/api/UsuarioSecretaria/guardarDatosConFoto', {
+                    method: 'POST',
+                    body: fd
+                });
+
+                if (res.status === 409) {
+                    const d = await res.json();
+                    estado.className = 'err';
+                    estado.textContent = d.mensaje || 'Ya existen datos.';
+                    // Persistir localmente también en conflicto
+                    localStorage.setItem('datosAdministracion', JSON.stringify({ nombre, apellido, dui, especialidad, telefono, fecha, correo, direccion }));
+                    if (fotoInput.files && fotoInput.files[0]) {
+                        const r = new FileReader();
+                        r.onload = () => localStorage.setItem('fotoSecretaria', r.result);
+                        r.readAsDataURL(fotoInput.files[0]);
+                    }
+                    window.location.href = 'inicio_Secretaria.html';
+                    return;
+                }
+
+                if (!res.ok) {
+                    const d = await res.json().catch(() => ({}));
+                    estado.className = 'err';
+                    estado.textContent = d.detalle || d.mensaje || 'Error al guardar.';
+                    return;
+                }
+
+                // Guardar primero en localStorage (para que el perfil pueda leer incluso si el API falla)
+                await guardarLocal(nombre, apellido, dui, especialidad, telefono, fecha, correo, direccion, (fotoInput.files && fotoInput.files[0]) ? fotoInput.files[0] : null);
+
+                // Guardar en localStorage para que perfil_administrativo.html pueda leer
+                localStorage.setItem('datosAdministracion', JSON.stringify({ nombre, apellido, dui, especialidad, telefono, fecha, correo, direccion }));
+                if (fotoInput.files && fotoInput.files[0]) {
+                    const r = new FileReader();
+                    r.onload = () => localStorage.setItem('fotoSecretaria', r.result);
+                    r.readAsDataURL(fotoInput.files[0]);
+                }
+
+                window.location.href = 'inicio_Secretaria.html';
+            } catch (err) {
+                estado.className = 'err';
+                estado.textContent = 'Error de red.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultorio Médico - Servicios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #89e7ee; /* igual que home_pacientes */
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #004d40;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 38px rgba(0,121,107,0.18);
+            max-width: 1000px;
+            width: 100%;
+            padding: 50px 40px;
+            border: 1px solid #b2dfdb;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .header h1 {
+                color: #00796b; /* teal principal */
+                font-size: 42px;
+                margin-bottom: 14px;
+                font-weight: 700;
+                letter-spacing: .5px;
+            }
+
+            .header p {
+                color: #00695c;
+                font-size: 18px;
+                font-weight: 400;
+            }
+        /* Banner bienvenida */
+        .welcome {
+            background: #b2ebf2;
+            border: 1px solid #b2dfdb;
+            padding: 20px 28px;
+            border-radius: 18px;
+            margin: 0 0 38px;
+            box-shadow: 0 6px 18px rgba(0,77,64,0.12);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px 24px;
+            align-items: center;
+        }
+
+            .welcome h2 {
+                flex: 1 1 240px;
+                margin: 0;
+                font-size: 26px;
+                color: #00695c;
+                letter-spacing: .4px;
+            }
+
+            .welcome p {
+                flex: 2 1 300px;
+                margin: 0;
+                font-size: 15px;
+                line-height: 1.5;
+                color: #004d40;
+            }
+
+        @media (max-width: 640px) {
+            .welcome {
+                padding: 18px 20px;
+            }
+
+                .welcome h2 {
+                    font-size: 22px;
+                }
+
+                .welcome p {
+                    font-size: 14px;
+                }
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 44px;
+        }
+
+        .servicio-card {
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2ebf2 100%);
+            padding: 28px 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: .35s cubic-bezier(.175,.885,.32,1.275);
+            border: 2px solid #b2dfdb;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,77,64,0.12);
+        }
+
+            .servicio-card::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
+                opacity: 0;
+                transition: opacity .4s ease;
+                z-index: 0;
+            }
+
+            .servicio-card:hover::before {
+                opacity: .85;
+            }
+
+            .servicio-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 14px 30px rgba(0,77,64,0.28);
+                border-color: #00796b;
+            }
+
+        .servicio-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .servicio-icon {
+            font-size: 54px;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            transition: transform .4s ease;
+        }
+
+        .servicio-card:hover .servicio-icon {
+            transform: scale(1.18) rotate(4deg);
+            animation: none;
+            filter: brightness(1.15);
+        }
+
+        .servicio-card h3 {
+            color: #00695c;
+            font-size: 19px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: .3px;
+            transition: color .3s;
+        }
+
+        .servicio-card:hover h3 {
+            color: #ffffff;
+        }
+
+        .servicio-card p {
+            color: #004d40;
+            font-size: 13px;
+            line-height: 1.55;
+            transition: color .3s;
+        }
+
+        .servicio-card:hover p {
+            color: #e0f7fa;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .servicio-card:hover .badge {
+            opacity: 1;
+        }
+
+        .btn-login {
+            width: 100%;
+            max-width: 340px;
+            padding: 16px 10px;
+            background: linear-gradient(90deg, #00796b 0%, #004d40 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .28s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 10px 26px rgba(0,121,107,0.35);
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+            .btn-login:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 16px 34px rgba(0,121,107,0.45);
+                background: linear-gradient(90deg, #009688 0%, #00695c 100%);
+            }
+
+            .btn-login:active {
+                transform: translateY(-1px);
+            }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 26px;
+            }
+
+            .header h1 {
+                font-size: 34px;
+            }
+
+            .header p {
+                font-size: 16px;
+            }
+
+            .servicios-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 18px;
+            }
+
+            .servicio-card {
+                padding: 22px 14px;
+            }
+
+            .servicio-icon {
+                font-size: 44px;
+            }
+
+            .servicio-card h3 {
+                font-size: 16px;
+            }
+
+            .servicio-card p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Consultorio Médico</h1>
+            <p>Servicios de salud de calidad para ti y tu familia</p>
+        </div>
+        <div class="welcome">
+            <h2>Bienvenido(a) a nuestra página</h2>
+            <p>Explora los servicios disponibles y gestiona tus citas de manera sencilla. Estamos comprometidos con tu bienestar y ofrecemos atención personalizada en cada especialidad.</p>
+        </div>
+        <div class="servicios-grid">
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">🩺</div>
+                    <h3>Consulta General</h3>
+                    <p>Atención médica integral para toda la familia con profesionales certificados.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">👶</div>
+                    <h3>Pediatría</h3>
+                    <p>Cuidado especializado para el desarrollo y bienestar de los niños.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">❤</div>
+                    <h3>Cardiología</h3>
+                    <p>Prevención y tratamiento de enfermedades cardiovasculares.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">🔬</div>
+                    <h3>Laboratorio</h3>
+                    <p>Análisis clínicos con tecnología de última generación.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">💉</div>
+                    <h3>Vacunación</h3>
+                    <p>Programa completo de inmunización para todas las edades.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">📋</div>
+                    <h3>Chequeo Médico</h3>
+                    <p>Control preventivo y evaluación completa de tu salud.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">🚑</div>
+                    <h3>Emergencias</h3>
+                    <p>Atención urgente disponible cuando la necesites.</p>
+                    <span class="badge">24/7</span>
+                </div>
+            </div>
+            <div class="servicio-card">
+                <div class="servicio-content">
+                    <div class="servicio-icon">📷</div>
+                    <h3>Radiología</h3>
+                    <p>Diagnóstico por imagen preciso y rápido.</p>
+                    <span class="badge">Disponible</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn-login" onclick="window.location.href='UsuarioPacientes.html'">Iniciar Sesión</button>
+    </div>
+    <script>
+        document.querySelectorAll('.servicio-card').forEach(card => {
+            card.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    // Redirigir al inicio de sesión después del efecto
+                    window.location.href = 'UsuarioPacientes.html';
+                }, 180);
+            });
+        });
+    </script>
+</body>
+</html>

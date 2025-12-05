@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultorio Dr. Cordova</title>
+    <style>
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e0f7fa;
+            min-height: 100vh;
+            padding: 28px 16px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: #004d40;
+        }
+
+        .container {
+            background: #ffffff;
+            border: 1px solid #b2dfdb;
+            border-radius: 22px;
+            max-width: 860px;
+            width: 100%;
+            padding: 46px 42px 52px;
+            box-shadow: 0 12px 38px rgba(0, 121, 107, .18);
+            position: relative;
+        }
+
+        /* Botón salir reubicado debajo de imprimir */
+        .exit-inline {
+            margin-top: 14px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .exit-inline a {
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-size: .85rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 121, 107, .35);
+            letter-spacing: .5px;
+        }
+
+        .exit-inline a:hover {
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 32px;
+            font-size: 2rem;
+            color: #00796b;
+            letter-spacing: .6px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00695c;
+            font-weight: 600;
+            font-size: .9rem;
+            letter-spacing: .3px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #b2dfdb;
+            border-radius: 12px;
+            font-size: .95rem;
+            background: #f7fffe;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+        }
+
+            input:focus,
+            textarea:focus {
+                border-color: #00796b;
+                box-shadow: 0 0 0 3px rgba(0, 121, 107, .18);
+            }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #fff;
+            padding: 15px 36px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: .6px;
+            box-shadow: 0 10px 26px rgba(0, 121, 107, .35);
+            transition: .28s ease;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            align-items: center;
+
+        }
+
+            .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 16px 36px rgba(0, 121, 107, .45);
+            }
+
+            .btn:active {
+                transform: translateY(0);
+                box-shadow: 0 8px 22px rgba(0, 121, 107, .38);
+            }
+
+        .factura-preview {
+            margin-top: 34px;
+            padding: 34px 30px 40px;
+            border: 2px dashed #b2dfdb;
+            border-radius: 18px;
+            background: #e0f2f1;
+            position: relative;
+        }
+
+        .factura-header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 18px;
+            border-bottom: 3px solid #b2dfdb;
+        }
+
+        .factura-title {
+            font-size: 30px;
+            color: #00695c;
+            margin-bottom: 6px;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .factura-subtitle {
+            color: #00796b;
+            font-size: .85rem;
+            font-weight: 600;
+            letter-spacing: .3px;
+        }
+
+        .factura-info {
+            margin: 18px 0;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 14px 0;
+            border-bottom: 1px solid #b2dfdb;
+            gap: 12px;
+        }
+
+            .info-row:last-child {
+                border-bottom: none;
+            }
+
+        .info-label {
+            font-weight: 600;
+            color: #00796b;
+            width: 190px;
+            font-size: .85rem;
+        }
+
+        .info-value {
+            color: #004d40;
+            flex: 1;
+            font-size: .9rem;
+        }
+
+        .total-section {
+            margin-top: 30px;
+            padding: 22px 26px;
+            background: linear-gradient(90deg, #00796b, #004d40);
+            color: #ffffff;
+            border-radius: 16px;
+            text-align: right;
+            box-shadow: 0 6px 20px rgba(0, 121, 107, .35);
+        }
+
+        .total-label {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            letter-spacing: .4px;
+            font-weight: 600;
+        }
+
+        .total-amount {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Buscador de pacientes */
+        .search-wrapper {
+            margin-bottom: 28px;
+            position: relative;
+        }
+
+        #searchPaciente {
+            padding: 12px 16px;
+            border: 2px solid #b2dfdb;
+            border-radius: 14px;
+            width: 100%;
+            font-size: .95rem;
+            background: #ffffff;
+            outline: none;
+            transition: border-color .25s, box-shadow .25s;
+        }
+
+        #searchPaciente:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, .18);
+        }
+
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #b2dfdb;
+            border-radius: 14px;
+            margin-top: 6px;
+            max-height: 260px;
+            overflow: auto;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+            z-index: 20;
+            display: none;
+        }
+
+        .suggestions ul {
+            list-style: none;
+            margin: 0;
+            padding: 4px;
+        }
+
+        .suggestions li {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background .18s;
+        }
+
+        .suggestions li:hover {
+            background: #e0f2f1;
+        }
+
+        .suggest-nombre {
+            font-weight: 700;
+            color: #00695c;
+            font-size: .9rem;
+        }
+
+        .suggest-motivo {
+            font-size: .75rem;
+            color: #004d40;
+        }
+
+        .suggest-fecha {
+            font-size: .7rem;
+            color: #00796b;
+        }
+
+        .empty {
+            padding: 12px 14px;
+            font-size: .8rem;
+            color: #00695c;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 38px 26px 48px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .info-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .info-label {
+                width: auto;
+            }
+
+            .total-amount {
+                font-size: 2rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 20px 24px;
+                max-width: 100%;
+            }
+
+            .btn,
+            h1,
+            .form-group,
+            .search-wrapper,
+            .exit-inline {
+                display: none !important;
+            }
+
+            .factura-preview {
+                border: none;
+                background: #ffffff;
+                padding: 0;
+                margin-top: 0;
+            }
+
+            .factura-header {
+                border-bottom: 2px solid #00695c;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Consultorio Dr. Cordova</h1>
+
+        <!-- Buscador de pacientes (lee localStorage.citas) -->
+        <div class="search-wrapper" aria-label="Buscar paciente">
+            <input id="searchPaciente" type="text" placeholder="Buscar paciente por nombre..." autocomplete="off" aria-autocomplete="list" aria-expanded="false" aria-controls="lista-sugerencias">
+            <div class="suggestions" id="suggestions" role="listbox" aria-label="Coincidencias" aria-hidden="true">
+                <ul id="lista-sugerencias"></ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fechaConsulta">Fecha de la Consulta:</label>
+            <input type="date" id="fechaConsulta">
+        </div>
+
+        <div class="form-group">
+            <label for="nombrePaciente">Nombre del Paciente:</label>
+            <input type="text" id="nombrePaciente" placeholder="Ingrese el nombre completo del paciente">
+        </div>
+
+        <div class="form-group">
+            <label for="motivoConsulta">Motivo de la Consulta:</label>
+            <textarea id="motivoConsulta" placeholder="Describa el motivo de la consulta"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="precio">Precio (USD):</label>
+            <input type="number" id="precio" placeholder="0.00" step="0.01" min="0">
+        </div>
+
+        <button class="btn" onclick="imprimirFactura()">🖨 Imprimir Factura</button>
+
+        <div class="exit-inline">
+            <a href="agendacion.html" title="Regresar a agenda">Salir</a>
+        </div>
+
+        <div class="factura-preview" id="facturaPreview">
+            <div class="factura-header">
+                <div class="factura-title">Consultorio Dr. Cordova</div>
+                <div class="factura-subtitle">Comprobante de Consulta</div>
+            </div>
+
+            <div class="factura-info">
+                <div class="info-row">
+                    <div class="info-label">Fecha:</div>
+                    <div class="info-value" id="fecha"></div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Paciente:</div>
+                    <div class="info-value" id="nombreFactura">-</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Motivo de Consulta:</div>
+                    <div class="info-value" id="motivoFactura">-</div>
+                </div>
+            </div>
+
+            <div class="total-section">
+                <div class="total-label">Total a Pagar:</div>
+                <div class="total-amount">$<span id="precioFactura">0.00</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fecha por defecto
+        const hoy = new Date().toISOString().split('T')[0];
+        document.getElementById('fechaConsulta').value = hoy;
+        document.getElementById('fecha').textContent = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('fechaConsulta').addEventListener('change', function () {
+            if (this.value) {
+                const f = new Date(this.value + 'T00:00:00');
+                document.getElementById('fecha').textContent = f.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+            }
+        });
+
+        // Actualización en tiempo real de vista previa
+        document.getElementById('nombrePaciente').addEventListener('input', () => {
+            document.getElementById('nombreFactura').textContent = document.getElementById('nombrePaciente').value || '-';
+        });
+        document.getElementById('motivoConsulta').addEventListener('input', () => {
+            document.getElementById('motivoFactura').textContent = document.getElementById('motivoConsulta').value || '-';
+        });
+        document.getElementById('precio').addEventListener('input', () => {
+            const p = parseFloat(document.getElementById('precio').value) || 0;
+            document.getElementById('precioFactura').textContent = p.toFixed(2);
+        });
+
+        // Parser de citas (compatibilidad con strings u objetos {valor})
+        function parseCitaString(valor) {
+            let texto = '';
+            if (typeof valor === 'string') { texto = valor; }
+            else if (typeof valor === 'object' && valor.valor) { texto = valor.valor; }
+            if (!texto) return null;
+            const partes = texto.split('·').map(p => p.trim());
+            const nombre = partes[0] || '';
+            let motivo = partes.find(p => p.startsWith('Motivo:'))?.replace('Motivo:', '').trim() || '';
+            let hora = partes.find(p => p.includes('-') && p.match(/\d{2}:\d{2}/)) || '';
+            let fecha = ''; // fecha se obtiene de la clave
+            return { nombre, motivo, hora, fecha };
+        }
+        function obtenerPacientesDeCitas() {
+            const raw = localStorage.getItem('citas');
+            if (!raw) return [];
+            let citasObj = {};
+            try { citasObj = JSON.parse(raw); } catch { return []; }
+            const lista = [];
+            Object.entries(citasObj).forEach(([clave, valor]) => {
+                const partesClave = clave.split('_');
+                if (partesClave.length !== 3) return; // fecha_dia_indice
+                const fechaClave = partesClave[0];
+                const parsed = parseCitaString(valor);
+                if (parsed) { parsed.fecha = fechaClave; lista.push(parsed); }
+            });
+            // Evitar duplicados por nombre+fecha+hora (si muchos registros)
+            const unico = new Map();
+            lista.forEach(p => { const k = p.nombre + '|' + p.fecha + '|' + p.hora; if (!unico.has(k)) unico.set(k, p); });
+            return Array.from(unico.values());
+        }
+        const pacientesCache = obtenerPacientesDeCitas();
+        const inputSearch = document.getElementById('searchPaciente');
+        const panel = document.getElementById('suggestions');
+        const ul = document.getElementById('lista-sugerencias');
+
+        function renderSuggestions(filtrados) {
+            ul.innerHTML = '';
+            if (filtrados.length === 0) { ul.innerHTML = '<li class="empty">Sin resultados</li>'; panel.style.display = 'block'; panel.setAttribute('aria-hidden', 'false'); return; }
+            filtrados.slice(0, 15).forEach(p => {
+                const li = document.createElement('li');
+                li.setAttribute('role', 'option');
+                li.innerHTML = `<span class='suggest-nombre'>${p.nombre}</span><span class='suggest-motivo'>Motivo: ${p.motivo || '-'}</span><span class='suggest-fecha'>Fecha: ${p.fecha}</span>`;
+                li.addEventListener('click', () => seleccionarPaciente(p));
+                ul.appendChild(li);
+            });
+            panel.style.display = 'block'; panel.setAttribute('aria-hidden', 'false'); inputSearch.setAttribute('aria-expanded', 'true');
+        }
+        function seleccionarPaciente(p) {
+            document.getElementById('nombrePaciente').value = p.nombre;
+            document.getElementById('motivoConsulta').value = p.motivo;
+            document.getElementById('nombreFactura').textContent = p.nombre || '-';
+            document.getElementById('motivoFactura').textContent = p.motivo || '-';
+            // Fecha de la consulta (usar p.fecha si válida)
+            if (p.fecha) { document.getElementById('fechaConsulta').value = p.fecha; const f = new Date(p.fecha + 'T00:00:00'); document.getElementById('fecha').textContent = f.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }); }
+            panel.style.display = 'none'; panel.setAttribute('aria-hidden', 'true'); inputSearch.setAttribute('aria-expanded', 'false');
+        }
+        inputSearch.addEventListener('input', () => {
+            const texto = inputSearch.value.trim().toLowerCase();
+            if (!texto) { panel.style.display = 'none'; panel.setAttribute('aria-hidden', 'true'); return; }
+            const filtrados = pacientesCache.filter(p => p.nombre.toLowerCase().includes(texto));
+            renderSuggestions(filtrados);
+        });
+        document.addEventListener('click', (e) => { if (!panel.contains(e.target) && e.target !== inputSearch) { panel.style.display = 'none'; panel.setAttribute('aria-hidden', 'true'); } });
+
+        // Sincronizar si otras pestañas crean citas nuevas
+        window.addEventListener('storage', e => { if (e.key === 'citas') { pacientesCache.length = 0; obtenerPacientesDeCitas().forEach(p => pacientesCache.push(p)); if (inputSearch.value.trim()) inputSearch.dispatchEvent(new Event('input')); } });
+
+        function imprimirFactura() {
+            const fecha = document.getElementById('fechaConsulta').value;
+            const nombre = document.getElementById('nombrePaciente').value.trim();
+            const motivo = document.getElementById('motivoConsulta').value.trim();
+            const precio = document.getElementById('precio').value.trim();
+            if (!fecha || !nombre || !motivo || !precio) { alert('Por favor, complete todos los campos antes de imprimir.'); return; }
+            window.print();
+        }
+    </script>
+</body>
+</html>
